@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>第 9 章 Matrix类 | 老少咸宜Rcpp</title>
+  <meta name="description" content="R用户入门Rcpp" />
+  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="第 9 章 Matrix类 | 老少咸宜Rcpp" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="R用户入门Rcpp" />
+  <meta name="github-repo" content="jywang2016/rcpp4everyone_cn" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="第 9 章 Matrix类 | 老少咸宜Rcpp" />
+  
+  <meta name="twitter:description" content="R用户入门Rcpp" />
+  
+
+<meta name="author" content="Masaki E. Tsuda 著 jywang 译" />
+
+
+<meta name="date" content="2019-08-19" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="vector.html">
+<link rel="next" href="Vector-operations.html">
+<script src="libs/jquery/jquery.min.js"></script>
+<link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="css\style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">老少咸宜Rcpp</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>欢迎</a></li>
+<li class="chapter" data-level="" data-path="e69cace4b9a6e7bc96e8af91e78eafe5a283.html"><a href="e69cace4b9a6e7bc96e8af91e78eafe5a283.html"><i class="fa fa-check"></i>本书编译环境</a></li>
+<li class="chapter" data-level="" data-path="e7bfbbe8af91e79a84e5889de8a1b7.html"><a href="e7bfbbe8af91e79a84e5889de8a1b7.html"><i class="fa fa-check"></i>翻译的初衷</a></li>
+<li class="chapter" data-level="" data-path="author.html"><a href="author.html"><i class="fa fa-check"></i>作者简介</a></li>
+<li class="chapter" data-level="1" data-path="situations.html"><a href="situations.html"><i class="fa fa-check"></i><b>1</b> 啥情况该用Rcpp</a></li>
+<li class="chapter" data-level="2" data-path="install.html"><a href="install.html"><i class="fa fa-check"></i><b>2</b> 安装</a><ul>
+<li class="chapter" data-level="2.1" data-path="install.html"><a href="install.html#cppcompiler"><i class="fa fa-check"></i><b>2.1</b> 安装C++编译器</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="install.html"><a href="install.html#cppcwindows"><i class="fa fa-check"></i><b>2.1.1</b> Windows</a></li>
+<li class="chapter" data-level="2.1.2" data-path="install.html"><a href="install.html#cppmac"><i class="fa fa-check"></i><b>2.1.2</b> Mac</a></li>
+<li class="chapter" data-level="2.1.3" data-path="install.html"><a href="install.html#cpplinux"><i class="fa fa-check"></i><b>2.1.3</b> Linux</a></li>
+<li class="chapter" data-level="2.1.4" data-path="install.html"><a href="install.html#section-2.1.4"><i class="fa fa-check"></i><b>2.1.4</b> 使用其他编译器</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="install.html"><a href="install.html#Rcppinstallation"><i class="fa fa-check"></i><b>2.2</b> 安装Rcpp</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="basicUsage.html"><a href="basicUsage.html"><i class="fa fa-check"></i><b>3</b> 基本用法</a><ul>
+<li class="chapter" data-level="3.1" data-path="basicUsage.html"><a href="basicUsage.html#WriteRcppCode"><i class="fa fa-check"></i><b>3.1</b> 写Rcpp代码</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="basicUsage.html"><a href="basicUsage.html#formatForFunction"><i class="fa fa-check"></i><b>3.1.1</b> 在Rcpp中定义一个函数的格式</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="basicUsage.html"><a href="basicUsage.html#compile"><i class="fa fa-check"></i><b>3.2</b> 编译代码</a></li>
+<li class="chapter" data-level="3.3" data-path="basicUsage.html"><a href="basicUsage.html#Execute"><i class="fa fa-check"></i><b>3.3</b> 执行函数</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="embedd.html"><a href="embedd.html"><i class="fa fa-check"></i><b>4</b> 将Rcpp嵌入R代码</a><ul>
+<li class="chapter" data-level="4.1" data-path="embedd.html"><a href="embedd.html#sourcecpp"><i class="fa fa-check"></i><b>4.1</b> sourceCpp()</a></li>
+<li class="chapter" data-level="4.2" data-path="embedd.html"><a href="embedd.html#cppFunction"><i class="fa fa-check"></i><b>4.2</b> cppFunction()</a></li>
+<li class="chapter" data-level="4.3" data-path="embedd.html"><a href="embedd.html#evalcpp"><i class="fa fa-check"></i><b>4.3</b> evalCpp()</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="cpp11.html"><a href="cpp11.html"><i class="fa fa-check"></i><b>5</b> C++11</a><ul>
+<li class="chapter" data-level="5.1" data-path="cpp11.html"><a href="cpp11.html#enable"><i class="fa fa-check"></i><b>5.1</b> 开启C++11</a></li>
+<li class="chapter" data-level="5.2" data-path="cpp11.html"><a href="cpp11.html#recommend"><i class="fa fa-check"></i><b>5.2</b> 推荐的 C++11 特性</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="cpp11.html"><a href="cpp11.html#initializer"><i class="fa fa-check"></i><b>5.2.1</b> 初始化</a></li>
+<li class="chapter" data-level="5.2.2" data-path="cpp11.html"><a href="cpp11.html#auto"><i class="fa fa-check"></i><b>5.2.2</b> auto</a></li>
+<li class="chapter" data-level="5.2.3" data-path="cpp11.html"><a href="cpp11.html#decltype"><i class="fa fa-check"></i><b>5.2.3</b> decltype</a></li>
+<li class="chapter" data-level="5.2.4" data-path="cpp11.html"><a href="cpp11.html#rangefor"><i class="fa fa-check"></i><b>5.2.4</b> 基于范围的for循环</a></li>
+<li class="chapter" data-level="5.2.5" data-path="cpp11.html"><a href="cpp11.html#Lambda"><i class="fa fa-check"></i><b>5.2.5</b> Lambda 表达式</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="print.html"><a href="print.html"><i class="fa fa-check"></i><b>6</b> 信息打印</a><ul>
+<li class="chapter" data-level="6.1" data-path="print.html"><a href="print.html#Rcout"><i class="fa fa-check"></i><b>6.1</b> Rcout, Rcerr</a></li>
+<li class="chapter" data-level="6.2" data-path="print.html"><a href="print.html#Rprintf"><i class="fa fa-check"></i><b>6.2</b> Rprintf(), REprintf()</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="datatypes.html"><a href="datatypes.html"><i class="fa fa-check"></i><b>7</b> 数据类型</a><ul>
+<li class="chapter" data-level="7.1" data-path="datatypes.html"><a href="datatypes.html#vectorMatrix"><i class="fa fa-check"></i><b>7.1</b> 向量和矩阵</a></li>
+<li class="chapter" data-level="7.2" data-path="datatypes.html"><a href="datatypes.html#dataframe"><i class="fa fa-check"></i><b>7.2</b> data.frame, list, S3, S4</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="vector.html"><a href="vector.html"><i class="fa fa-check"></i><b>8</b> Vector类</a><ul>
+<li class="chapter" data-level="8.1" data-path="vector.html"><a href="vector.html#create-vector-object"><i class="fa fa-check"></i><b>8.1</b> 创建向量对象</a></li>
+<li class="chapter" data-level="8.2" data-path="vector.html"><a href="vector.html#Accessing-vector-elements"><i class="fa fa-check"></i><b>8.2</b> 获取向量元素</a></li>
+<li class="chapter" data-level="8.3" data-path="vector.html"><a href="vector.html#Member-functions"><i class="fa fa-check"></i><b>8.3</b> 成员函数</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="vector.html"><a href="vector.html#vector-length-size"><i class="fa fa-check"></i><b>8.3.1</b> length(), size()</a></li>
+<li class="chapter" data-level="8.3.2" data-path="vector.html"><a href="vector.html#vector-names"><i class="fa fa-check"></i><b>8.3.2</b> names()</a></li>
+<li class="chapter" data-level="8.3.3" data-path="vector.html"><a href="vector.html#offsetname"><i class="fa fa-check"></i><b>8.3.3</b> offset( name ), findName( name )</a></li>
+<li class="chapter" data-level="8.3.4" data-path="vector.html"><a href="vector.html#offseti"><i class="fa fa-check"></i><b>8.3.4</b> offset( i )</a></li>
+<li class="chapter" data-level="8.3.5" data-path="vector.html"><a href="vector.html#fillx"><i class="fa fa-check"></i><b>8.3.5</b> fill( x )</a></li>
+<li class="chapter" data-level="8.3.6" data-path="vector.html"><a href="vector.html#sort"><i class="fa fa-check"></i><b>8.3.6</b> sort()</a></li>
+<li class="chapter" data-level="8.3.7" data-path="vector.html"><a href="vector.html#assign-first_it-last_it"><i class="fa fa-check"></i><b>8.3.7</b> assign( first_it, last_it )</a></li>
+<li class="chapter" data-level="8.3.8" data-path="vector.html"><a href="vector.html#push-backx"><i class="fa fa-check"></i><b>8.3.8</b> push_back( x )</a></li>
+<li class="chapter" data-level="8.3.9" data-path="vector.html"><a href="vector.html#push-back-name"><i class="fa fa-check"></i><b>8.3.9</b> push_back( x, name )</a></li>
+<li class="chapter" data-level="8.3.10" data-path="vector.html"><a href="vector.html#push-front-x"><i class="fa fa-check"></i><b>8.3.10</b> push_front( x )</a></li>
+<li class="chapter" data-level="8.3.11" data-path="vector.html"><a href="vector.html#push-front-name"><i class="fa fa-check"></i><b>8.3.11</b> push_front( x, name )</a></li>
+<li class="chapter" data-level="8.3.12" data-path="vector.html"><a href="vector.html#vector-begin"><i class="fa fa-check"></i><b>8.3.12</b> begin()</a></li>
+<li class="chapter" data-level="8.3.13" data-path="vector.html"><a href="vector.html#vector-end"><i class="fa fa-check"></i><b>8.3.13</b> end()</a></li>
+<li class="chapter" data-level="8.3.14" data-path="vector.html"><a href="vector.html#cbegin"><i class="fa fa-check"></i><b>8.3.14</b> cbegin()</a></li>
+<li class="chapter" data-level="8.3.15" data-path="vector.html"><a href="vector.html#cend"><i class="fa fa-check"></i><b>8.3.15</b> cend()</a></li>
+<li class="chapter" data-level="8.3.16" data-path="vector.html"><a href="vector.html#inserti"><i class="fa fa-check"></i><b>8.3.16</b> insert( i, x )</a></li>
+<li class="chapter" data-level="8.3.17" data-path="vector.html"><a href="vector.html#insertit"><i class="fa fa-check"></i><b>8.3.17</b> insert( it, x )</a></li>
+<li class="chapter" data-level="8.3.18" data-path="vector.html"><a href="vector.html#vector-erasei"><i class="fa fa-check"></i><b>8.3.18</b> erase(i)</a></li>
+<li class="chapter" data-level="8.3.19" data-path="vector.html"><a href="vector.html#vector-eraseit"><i class="fa fa-check"></i><b>8.3.19</b> erase(it)</a></li>
+<li class="chapter" data-level="8.3.20" data-path="vector.html"><a href="vector.html#erase-first-lasti"><i class="fa fa-check"></i><b>8.3.20</b> erase( first_i, last_i )</a></li>
+<li class="chapter" data-level="8.3.21" data-path="vector.html"><a href="vector.html#erase-first-lastit"><i class="fa fa-check"></i><b>8.3.21</b> erase( first_it, last_it )</a></li>
+<li class="chapter" data-level="8.3.22" data-path="vector.html"><a href="vector.html#containsEN"><i class="fa fa-check"></i><b>8.3.22</b> containsElementNamed(name)</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="vector.html"><a href="vector.html#Static-member-functions"><i class="fa fa-check"></i><b>8.4</b> 静态成员函数</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="vector.html"><a href="vector.html#get_na"><i class="fa fa-check"></i><b>8.4.1</b> get_na()</a></li>
+<li class="chapter" data-level="8.4.2" data-path="vector.html"><a href="vector.html#is_na"><i class="fa fa-check"></i><b>8.4.2</b> is_na(x)</a></li>
+<li class="chapter" data-level="8.4.3" data-path="vector.html"><a href="vector.html#create"><i class="fa fa-check"></i><b>8.4.3</b> create( x1, x2, …)</a></li>
+<li class="chapter" data-level="8.4.4" data-path="vector.html"><a href="vector.html#import"><i class="fa fa-check"></i><b>8.4.4</b> import( first_it , last_it )</a></li>
+<li class="chapter" data-level="8.4.5" data-path="vector.html"><a href="vector.html#import_transform"><i class="fa fa-check"></i><b>8.4.5</b> import_transform( first_it, last_it, func)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="matrix.html"><a href="matrix.html"><i class="fa fa-check"></i><b>9</b> Matrix类</a><ul>
+<li class="chapter" data-level="9.1" data-path="matrix.html"><a href="matrix.html#Creating-Matrix-object"><i class="fa fa-check"></i><b>9.1</b> 创建矩阵对象</a></li>
+<li class="chapter" data-level="9.2" data-path="matrix.html"><a href="matrix.html#Accessing-to-Matrix-elements"><i class="fa fa-check"></i><b>9.2</b> 访问矩阵元素</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="matrix.html"><a href="matrix.html#row-col-sub"><i class="fa fa-check"></i><b>9.2.1</b> 访问行，列与子矩阵</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="matrix.html"><a href="matrix.html#Member-functions-matrix"><i class="fa fa-check"></i><b>9.3</b> 成员函数</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="matrix.html"><a href="matrix.html#nrow-rows"><i class="fa fa-check"></i><b>9.3.1</b> nrow() rows()</a></li>
+<li class="chapter" data-level="9.3.2" data-path="matrix.html"><a href="matrix.html#ncol-cols"><i class="fa fa-check"></i><b>9.3.2</b> ncol()　cols()</a></li>
+<li class="chapter" data-level="9.3.3" data-path="matrix.html"><a href="matrix.html#rowi"><i class="fa fa-check"></i><b>9.3.3</b> row( i )</a></li>
+<li class="chapter" data-level="9.3.4" data-path="matrix.html"><a href="matrix.html#columni"><i class="fa fa-check"></i><b>9.3.4</b> column( i )</a></li>
+<li class="chapter" data-level="9.3.5" data-path="matrix.html"><a href="matrix.html#fill_diag"><i class="fa fa-check"></i><b>9.3.5</b> fill_diag( x )</a></li>
+<li class="chapter" data-level="9.3.6" data-path="matrix.html"><a href="matrix.html#offsetij"><i class="fa fa-check"></i><b>9.3.6</b> offset( i, j )</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="matrix.html"><a href="matrix.html#MStatic-member-functions"><i class="fa fa-check"></i><b>9.4</b> 静态成员函数</a><ul>
+<li class="chapter" data-level="9.4.1" data-path="matrix.html"><a href="matrix.html#Mdiag"><i class="fa fa-check"></i><b>9.4.1</b> Matrix::diag( size, x )</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="matrix.html"><a href="matrix.html#other-functions"><i class="fa fa-check"></i><b>9.5</b> 与Matrix相关的其他函数</a><ul>
+<li class="chapter" data-level="9.5.1" data-path="matrix.html"><a href="matrix.html#rownamesMatrix"><i class="fa fa-check"></i><b>9.5.1</b> rownames( m )</a></li>
+<li class="chapter" data-level="9.5.2" data-path="matrix.html"><a href="matrix.html#colnamesMatrix"><i class="fa fa-check"></i><b>9.5.2</b> colnames( m )</a></li>
+<li class="chapter" data-level="9.5.3" data-path="matrix.html"><a href="matrix.html#transpose"><i class="fa fa-check"></i><b>9.5.3</b> transpose( m )</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="Vector-operations.html"><a href="Vector-operations.html"><i class="fa fa-check"></i><b>10</b> 向量运算</a><ul>
+<li class="chapter" data-level="10.1" data-path="Vector-operations.html"><a href="Vector-operations.html#Arithmetic-operations"><i class="fa fa-check"></i><b>10.1</b> 数学运算</a></li>
+<li class="chapter" data-level="10.2" data-path="Vector-operations.html"><a href="Vector-operations.html#Comparison-operations"><i class="fa fa-check"></i><b>10.2</b> 比较运算</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="Logical-operations.html"><a href="Logical-operations.html"><i class="fa fa-check"></i><b>11</b> 逻辑运算符</a><ul>
+<li class="chapter" data-level="11.1" data-path="Logical-operations.html"><a href="Logical-operations.html#LogicalVector"><i class="fa fa-check"></i><b>11.1</b> LogicalVector</a><ul>
+<li class="chapter" data-level="11.1.1" data-path="Logical-operations.html"><a href="Logical-operations.html#LogicalVector-elements"><i class="fa fa-check"></i><b>11.1.1</b> LogicalVector元素的数据类型</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="Logical-operations.html"><a href="Logical-operations.html#Logical-operations-subtitle"><i class="fa fa-check"></i><b>11.2</b> 逻辑运算符</a></li>
+<li class="chapter" data-level="11.3" data-path="Logical-operations.html"><a href="Logical-operations.html#Function-that-receives-LogicalVector"><i class="fa fa-check"></i><b>11.3</b> 接收LogicalVector的函数</a><ul>
+<li class="chapter" data-level="11.3.1" data-path="Logical-operations.html"><a href="Logical-operations.html#all-any"><i class="fa fa-check"></i><b>11.3.1</b> all(), any()</a></li>
+<li class="chapter" data-level="11.3.2" data-path="Logical-operations.html"><a href="Logical-operations.html#ifelse"><i class="fa fa-check"></i><b>11.3.2</b> ifelse()</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="Logical-operations.html"><a href="Logical-operations.html#Evaluation-LogicalVector"><i class="fa fa-check"></i><b>11.4</b> LogicalVector元素的估值</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>参考文献</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="blank">Powered by bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">老少咸宜Rcpp</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="matrix" class="section level1">
+<h1><span class="header-section-number">第 9 章</span> Matrix类</h1>
+<div id="Creating-Matrix-object" class="section level2">
+<h2><span class="header-section-number">9.1</span> 创建矩阵对象</h2>
+<p>矩阵对象可由如下几种方式创建。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">// 创建一个矩阵对象，等价于在R语句</span>
+<span class="co">// m &lt;- matrix(0, nrow=2, ncol=2)</span>
+NumericMatrix m1( <span class="dv">2</span> );
+<span class="co">// m &lt;- matrix(0, nrow=2, ncol=3)</span>
+NumericMatrix m2( <span class="dv">2</span> , <span class="dv">3</span> );
+<span class="co">// m &lt;- matrix(v, nrow=2, ncol=3)</span>
+NumericMatrix m3( <span class="dv">2</span> , <span class="dv">3</span> , v.begin() );</code></pre></div>
+<p>此外，R中的矩阵对象，实际上是行数和列数在属性<code>dim</code>中设定好的向量。因此，如果你在Rcpp中，创建一个有<code>dim</code>属性的向量，并且将其作为返回值传递给R，那么该向量在R中会被作为矩阵对待。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span>
+<span class="kw">using</span> <span class="kw">namespace</span> Rcpp;
+<span class="co">// [[Rcpp::plugins(cpp11)]]</span>
+
+<span class="co">// [[Rcpp::export]]</span>
+NumericVector rcpp_matrix(){
+    <span class="co">// 创建一个向量对象</span>
+    NumericVector v = {<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>};
+    <span class="co">// 设置该对象的`dim`属性</span>
+    v.attr(<span class="st">&quot;dim&quot;</span>) = Dimension(<span class="dv">2</span>, <span class="dv">2</span>);
+    <span class="co">// 返回该对象给R</span>
+    <span class="cf">return</span> v;
+}</code></pre></div>
+<p>需要注意的是，c++98是不允许直接使用<code>v = {1,2,3,4}</code>来赋值的，因此，需要加上 <code>// [[Rcpp::plugins(cpp11)]]</code>，确保能使用C++11的新特性。</p>
+<p>执行结果：</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">rcpp_matrix</span>()
+     [,<span class="dv">1</span>] [,<span class="dv">2</span>]
+[<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">3</span>
+[<span class="dv">2</span>,]    <span class="dv">2</span>    <span class="dv">4</span></code></pre></div>
+<p>然而，即便你给某个向量对象的<code>dim</code>属性赋值，在Rcpp中对象的类型还是为向量类。因此，如果你希望在Rcpp中，将其转化为矩阵类，你需要使用 <code>as&lt;T&gt;()</code>函数。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">// 设定维度属性</span>
+v.attr(<span class="st">&quot;dim&quot;</span>) = Dimension(<span class="dv">2</span>, <span class="dv">2</span>);
+<span class="co">// 转为矩阵类</span>
+NumericMatrix m = as&lt;NumericMatrix&gt;(v);</code></pre></div>
+</div>
+<div id="Accessing-to-Matrix-elements" class="section level2">
+<h2><span class="header-section-number">9.2</span> 访问矩阵元素</h2>
+<p>通过使用<code>()</code>符号，你可以指定行，列号来获取，分配矩阵对象的元素值。和在向量中的索引类似，矩阵中的行与列号也是从0开始。如果你希望获取某一行或者一列，使用<code>_</code>符号。也可以使用<code>[]</code>操作符，来访问矩阵元素（将矩阵理解为按列连接的向量）。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">// 创建一个5*5的矩阵</span>
+NumericMatrix m( <span class="dv">5</span>, <span class="dv">5</span> );
+<span class="co">// 检索0行，2列的元素，即第一行，第三列的元素</span>
+<span class="dt">double</span> x = m( <span class="dv">0</span> , <span class="dv">2</span> );
+<span class="co">// 将0行（向量）赋给v</span>
+NumericVector v = m( <span class="dv">0</span> , _ );
+<span class="co">// 将2列赋给v</span>
+NumericVector v = m( _ , <span class="dv">2</span> );
+<span class="co">// 将矩阵m的0~1行，2~3列赋值给矩阵m2</span>
+NumericMatrix m2 = m( Range(<span class="dv">0</span>,<span class="dv">1</span>) , Range(<span class="dv">2</span>,<span class="dv">3</span>) );
+<span class="co">// 按照向量的方式来检索矩阵元素</span>
+m[<span class="dv">5</span>]; <span class="co">// 指向m(0,1)的位置，即第6个元素（矩阵按列连接），为第1行，第2列元素，</span></code></pre></div>
+<div id="row-col-sub" class="section level3">
+<h3><span class="header-section-number">9.2.1</span> 访问行，列与子矩阵</h3>
+<p>Rcpp也提供了类型来进行矩阵特定部分的“引用”(references)。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp">NumericMatrix::Column col = m( _ , <span class="dv">1</span>);  <span class="co">// 对于列1的引用</span>
+NumericMatrix::Row    row = m( <span class="dv">1</span> , _ ); <span class="co">// 对行1的引用</span>
+NumericMatrix::Sub    sub = m( Range(<span class="dv">0</span>,<span class="dv">1</span>) , Range(<span class="dv">2</span>,<span class="dv">3</span>) ); <span class="co">//对子矩阵的引用</span></code></pre></div>
+<p>对这些“引用”对象的赋值，<strong>等效于</strong>直接修改其原始矩阵的对应部分。比如，对于上面例子中的<code>col</code>对象进行赋值，会直接把m的列1的值进行对应的修改。</p>
+<p>在<code>test.cpp</code>文件中键入下面的代码。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span>
+<span class="kw">using</span> <span class="kw">namespace</span> Rcpp;
+
+<span class="co">// [[Rcpp::export]]</span>
+NumericMatrix test(NumericMatrix v, <span class="dt">int</span> idx){
+    NumericMatrix::Column col = v( _, idx);
+    <span class="co">//将idx列的所有元素乘以2，v也会被修改</span>
+    col = col * <span class="dv">2</span>; 
+    
+    <span class="co">//上行代码等效于</span>
+    <span class="co">//v( _, idx) = 2 * v( _, idx);</span>
+    <span class="cf">return</span> v;
+}</code></pre></div>
+<p>在R中的执行结果为：</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)
+
+<span class="op">&gt;</span><span class="st"> </span>a &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">16</span>,<span class="dv">4</span>,<span class="dv">4</span>)
+
+<span class="op">&gt;</span><span class="st"> </span>a
+     [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>] [,<span class="dv">4</span>]
+[<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">5</span>    <span class="dv">9</span>   <span class="dv">13</span>
+[<span class="dv">2</span>,]    <span class="dv">2</span>    <span class="dv">6</span>   <span class="dv">10</span>   <span class="dv">14</span>
+[<span class="dv">3</span>,]    <span class="dv">3</span>    <span class="dv">7</span>   <span class="dv">11</span>   <span class="dv">15</span>
+[<span class="dv">4</span>,]    <span class="dv">4</span>    <span class="dv">8</span>   <span class="dv">12</span>   <span class="dv">16</span>
+
+<span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(a,<span class="dv">1</span>)
+     [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>] [,<span class="dv">4</span>]
+[<span class="dv">1</span>,]    <span class="dv">1</span>   <span class="dv">10</span>    <span class="dv">9</span>   <span class="dv">13</span>
+[<span class="dv">2</span>,]    <span class="dv">2</span>   <span class="dv">12</span>   <span class="dv">10</span>   <span class="dv">14</span>
+[<span class="dv">3</span>,]    <span class="dv">3</span>   <span class="dv">14</span>   <span class="dv">11</span>   <span class="dv">15</span>
+[<span class="dv">4</span>,]    <span class="dv">4</span>   <span class="dv">16</span>   <span class="dv">12</span>   <span class="dv">16</span></code></pre></div>
+<p>可以看到，矩阵的第2列（Rcpp索引为1）已经变为原来的2倍。</p>
+</div>
+</div>
+<div id="Member-functions-matrix" class="section level2">
+<h2><span class="header-section-number">9.3</span> 成员函数</h2>
+<p>Since <code>Matrix</code> is actually <code>Vector</code>, <code>Matrix</code> basically has the same member functions as <code>Vector</code>. Thus, member functions unique to <code>Matrix</code> are only presented below.</p>
+<p>此前提到，<code>Matrix</code>实际上也是<code>Vector</code>，所以，<code>Matrix</code>基本上与<code>Vector</code>有着相同的成员函数。因此，在在此列出<code>Matrix</code>自身独特的成员函数。</p>
+<div id="nrow-rows" class="section level3">
+<h3><span class="header-section-number">9.3.1</span> nrow() rows()</h3>
+<p>返回行数。</p>
+<p>在<code>test.cpp</code>文件中键入下面的代码。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span>
+<span class="kw">using</span> <span class="kw">namespace</span> Rcpp;
+
+<span class="co">// [[Rcpp::export]]</span>
+<span class="dt">int</span> test(NumericMatrix v){
+
+    <span class="cf">return</span> v.nrow();
+}</code></pre></div>
+<p>在R中的执行结果为：</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)
+
+<span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">16</span>,<span class="dv">2</span>,<span class="dv">8</span>))
+[<span class="dv">1</span>] <span class="dv">2</span></code></pre></div>
+</div>
+<div id="ncol-cols" class="section level3">
+<h3><span class="header-section-number">9.3.2</span> ncol()　cols()</h3>
+<p>返回矩阵列数。</p>
+<p>在<code>test.cpp</code>文件中键入下面的代码。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span>
+<span class="kw">using</span> <span class="kw">namespace</span> Rcpp;
+
+<span class="co">// [[Rcpp::export]]</span>
+<span class="dt">int</span> test(NumericMatrix v){
+
+    <span class="cf">return</span> v.ncol();
+}</code></pre></div>
+<p>在R中的执行结果为：</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)
+
+<span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">16</span>,<span class="dv">2</span>,<span class="dv">8</span>))
+[<span class="dv">1</span>] <span class="dv">8</span></code></pre></div>
+</div>
+<div id="rowi" class="section level3">
+<h3><span class="header-section-number">9.3.3</span> row( i )</h3>
+<p>返回矩阵 行<code>i</code>的“引用”，关于“引用”的具体信息，可参考<a href="matrix.html#row-col-sub">9.2.1</a>。</p>
+<p>在<code>test.cpp</code>文件中键入下面的代码。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span>
+<span class="kw">using</span> <span class="kw">namespace</span> Rcpp;
+
+<span class="co">// [[Rcpp::export]]</span>
+NumericMatrix test(NumericMatrix v){
+    v.row(<span class="dv">1</span>) = <span class="dv">2</span> * v.row(<span class="dv">1</span>);
+    <span class="cf">return</span> v;
+}</code></pre></div>
+<p>在R中的执行结果为：</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)
+
+<span class="op">&gt;</span><span class="st"> </span>(a &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">8</span>,<span class="dv">2</span>,<span class="dv">4</span>))
+     [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>] [,<span class="dv">4</span>]
+[<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">3</span>    <span class="dv">5</span>    <span class="dv">7</span>
+[<span class="dv">2</span>,]    <span class="dv">2</span>    <span class="dv">4</span>    <span class="dv">6</span>    <span class="dv">8</span>
+
+<span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(a)
+     [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>] [,<span class="dv">4</span>]
+[<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">3</span>    <span class="dv">5</span>    <span class="dv">7</span>
+[<span class="dv">2</span>,]    <span class="dv">4</span>    <span class="dv">8</span>   <span class="dv">12</span>   <span class="dv">16</span></code></pre></div>
+</div>
+<div id="columni" class="section level3">
+<h3><span class="header-section-number">9.3.4</span> column( i )</h3>
+<p>返回矩阵 行<code>i</code>列的“引用”</p>
+</div>
+<div id="fill_diag" class="section level3">
+<h3><span class="header-section-number">9.3.5</span> fill_diag( x )</h3>
+<p>使用<code>x</code>填充矩阵对角线元素。</p>
+<p>在<code>test.cpp</code>文件中键入下面的代码。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span>
+<span class="kw">using</span> <span class="kw">namespace</span> Rcpp;
+
+<span class="co">// [[Rcpp::export]]</span>
+NumericMatrix test(NumericMatrix v,<span class="dt">double</span> x){
+    v.fill_diag(x);
+    <span class="cf">return</span> v;
+}</code></pre></div>
+<p>在R中的执行结果为：</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)
+
+<span class="op">&gt;</span><span class="st"> </span>(a &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">0</span>,<span class="dv">4</span>,<span class="dv">4</span>))
+     [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>] [,<span class="dv">4</span>]
+[<span class="dv">1</span>,]    <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">0</span>
+[<span class="dv">2</span>,]    <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">0</span>
+[<span class="dv">3</span>,]    <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">0</span>
+[<span class="dv">4</span>,]    <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">0</span>
+
+<span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(a,<span class="dv">1</span>)
+     [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>] [,<span class="dv">4</span>]
+[<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">0</span>
+[<span class="dv">2</span>,]    <span class="dv">0</span>    <span class="dv">1</span>    <span class="dv">0</span>    <span class="dv">0</span>
+[<span class="dv">3</span>,]    <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">1</span>    <span class="dv">0</span>
+[<span class="dv">4</span>,]    <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">1</span></code></pre></div>
+</div>
+<div id="offsetij" class="section level3">
+<h3><span class="header-section-number">9.3.6</span> offset( i, j )</h3>
+<p>返回<code>i</code>行和<code>j</code>列对应的元素，在将矩阵作为列向量连接时其对应的索引。</p>
+<blockquote>
+<p>matrix中的offset函数是私有的，似乎因此导致调用失败。</p>
+</blockquote>
+</div>
+</div>
+<div id="MStatic-member-functions" class="section level2">
+<h2><span class="header-section-number">9.4</span> 静态成员函数</h2>
+<p><code>Matrix</code>基本上有着和<code>Vector</code>相同的成员函数。其独特的成员函数在此处列出。</p>
+<div id="Mdiag" class="section level3">
+<h3><span class="header-section-number">9.4.1</span> Matrix::diag( size, x )</h3>
+<p>返回一个矩阵，行列数均为<code>size</code>，对角元素为<code>x</code>。</p>
+<p>在<code>test.cpp</code>文件中键入下面的代码。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span>
+<span class="kw">using</span> <span class="kw">namespace</span> Rcpp;
+
+<span class="co">// [[Rcpp::export]]</span>
+NumericMatrix test(<span class="dt">int</span> size, <span class="dt">double</span> x){
+  NumericMatrix v = NumericMatrix::diag(size,x);
+  <span class="cf">return</span> v;
+}</code></pre></div>
+<p>在R中的执行结果为：</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)
+
+<span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(3L,<span class="dv">1</span>)
+     [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>]
+[<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">0</span>    <span class="dv">0</span>
+[<span class="dv">2</span>,]    <span class="dv">0</span>    <span class="dv">1</span>    <span class="dv">0</span>
+[<span class="dv">3</span>,]    <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">1</span></code></pre></div>
+</div>
+</div>
+<div id="other-functions" class="section level2">
+<h2><span class="header-section-number">9.5</span> 与Matrix相关的其他函数</h2>
+<p>此部分展示一些其他与矩阵相关的函数。</p>
+<div id="rownamesMatrix" class="section level3">
+<h3><span class="header-section-number">9.5.1</span> rownames( m )</h3>
+<p>获取和设定矩阵行名。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp">CharacterVector ch = rownames(m);
+rownames(m) = ch;</code></pre></div>
+<p>在<code>test.cpp</code>文件中键入下面的代码。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span>
+<span class="kw">using</span> <span class="kw">namespace</span> Rcpp;
+
+<span class="co">// [[Rcpp::export]]</span>
+NumericMatrix test(NumericMatrix v1, NumericMatrix v2){
+  CharacterVector v1_rname = rownames(v1);
+  rownames(v2) = v1_rname;
+  <span class="cf">return</span> v2;
+}</code></pre></div>
+<p>在R中的执行结果为：</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)
+
+<span class="op">&gt;</span><span class="st"> </span>a &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">0</span>,<span class="dv">3</span>,<span class="dv">3</span>)
+
+<span class="op">&gt;</span><span class="st"> </span>b &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">3</span>)
+
+<span class="op">&gt;</span><span class="st"> </span><span class="kw">rownames</span>(a) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;a&#39;</span>,<span class="st">&#39;b&#39;</span>,<span class="st">&#39;c&#39;</span>)
+
+<span class="op">&gt;</span><span class="st"> </span>a;b
+  [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>]
+a    <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">0</span>
+b    <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">0</span>
+c    <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">0</span>
+     [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>]
+[<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">1</span>    <span class="dv">1</span>
+[<span class="dv">2</span>,]    <span class="dv">1</span>    <span class="dv">1</span>    <span class="dv">1</span>
+[<span class="dv">3</span>,]    <span class="dv">1</span>    <span class="dv">1</span>    <span class="dv">1</span>
+
+<span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(a,b)
+  [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>]
+a    <span class="dv">1</span>    <span class="dv">1</span>    <span class="dv">1</span>
+b    <span class="dv">1</span>    <span class="dv">1</span>    <span class="dv">1</span>
+c    <span class="dv">1</span>    <span class="dv">1</span>    <span class="dv">1</span></code></pre></div>
+</div>
+<div id="colnamesMatrix" class="section level3">
+<h3><span class="header-section-number">9.5.2</span> colnames( m )</h3>
+<p>获取和设定矩阵列名,方法同上。</p>
+<pre><code>CharacterVector ch = colnames(m);
+colnames(m) = ch;</code></pre>
+</div>
+<div id="transpose" class="section level3">
+<h3><span class="header-section-number">9.5.3</span> transpose( m )</h3>
+<p>返回矩阵<code>m</code>的转置。</p>
+<p>在<code>test.cpp</code>文件中键入下面的代码。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span>
+<span class="kw">using</span> <span class="kw">namespace</span> Rcpp;
+
+<span class="co">// [[Rcpp::export]]</span>
+NumericMatrix test(NumericMatrix v){
+  <span class="cf">return</span> transpose(v);
+}</code></pre></div>
+<p>在R中的执行结果为：</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)
+
+<span class="op">&gt;</span><span class="st"> </span>(a &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">9</span>,<span class="dv">3</span>,<span class="dv">3</span>))
+     [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>]
+[<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">4</span>    <span class="dv">7</span>
+[<span class="dv">2</span>,]    <span class="dv">2</span>    <span class="dv">5</span>    <span class="dv">8</span>
+[<span class="dv">3</span>,]    <span class="dv">3</span>    <span class="dv">6</span>    <span class="dv">9</span>
+
+<span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(a)
+     [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>]
+[<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">2</span>    <span class="dv">3</span>
+[<span class="dv">2</span>,]    <span class="dv">4</span>    <span class="dv">5</span>    <span class="dv">6</span>
+[<span class="dv">3</span>,]    <span class="dv">7</span>    <span class="dv">8</span>    <span class="dv">9</span></code></pre></div>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="vector.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="Vector-operations.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook/js/app.min.js"></script>
+<script src="libs/gitbook/js/lunr.js"></script>
+<script src="libs/gitbook/js/plugin-search.js"></script>
+<script src="libs/gitbook/js/plugin-sharing.js"></script>
+<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/yihui/bookdown-chinese/edit/master/100-matrix.Rmd",
+"text": "编辑"
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["bookdown.pdf", "bookdown.epub"],
+"toc": {
+"collapse": "none"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

@@ -249,7 +249,7 @@ NumericVector test(NumericVector v) {
   return v1;
 }
 ```
-`begin`和`end`也是成员函数，下面\@ref(begin)也有对应的例子
+`begin`和`end`也是成员函数，下面\@ref(vector-begin)也有对应的例子
 
 ```r
 > sourceCpp("test.cpp")

@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>第 11 章 逻辑运算符 | 老少咸宜Rcpp</title>
+  <meta name="description" content="R用户入门Rcpp" />
+  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="第 11 章 逻辑运算符 | 老少咸宜Rcpp" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="R用户入门Rcpp" />
+  <meta name="github-repo" content="jywang2016/rcpp4everyone_cn" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="第 11 章 逻辑运算符 | 老少咸宜Rcpp" />
+  
+  <meta name="twitter:description" content="R用户入门Rcpp" />
+  
+
+<meta name="author" content="Masaki E. Tsuda 著 jywang 译" />
+
+
+<meta name="date" content="2019-08-19" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="Vector-operations.html">
+<link rel="next" href="references.html">
+<script src="libs/jquery/jquery.min.js"></script>
+<link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="css\style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">老少咸宜Rcpp</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>欢迎</a></li>
+<li class="chapter" data-level="" data-path="e69cace4b9a6e7bc96e8af91e78eafe5a283.html"><a href="e69cace4b9a6e7bc96e8af91e78eafe5a283.html"><i class="fa fa-check"></i>本书编译环境</a></li>
+<li class="chapter" data-level="" data-path="e7bfbbe8af91e79a84e5889de8a1b7.html"><a href="e7bfbbe8af91e79a84e5889de8a1b7.html"><i class="fa fa-check"></i>翻译的初衷</a></li>
+<li class="chapter" data-level="" data-path="author.html"><a href="author.html"><i class="fa fa-check"></i>作者简介</a></li>
+<li class="chapter" data-level="1" data-path="situations.html"><a href="situations.html"><i class="fa fa-check"></i><b>1</b> 啥情况该用Rcpp</a></li>
+<li class="chapter" data-level="2" data-path="install.html"><a href="install.html"><i class="fa fa-check"></i><b>2</b> 安装</a><ul>
+<li class="chapter" data-level="2.1" data-path="install.html"><a href="install.html#cppcompiler"><i class="fa fa-check"></i><b>2.1</b> 安装C++编译器</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="install.html"><a href="install.html#cppcwindows"><i class="fa fa-check"></i><b>2.1.1</b> Windows</a></li>
+<li class="chapter" data-level="2.1.2" data-path="install.html"><a href="install.html#cppmac"><i class="fa fa-check"></i><b>2.1.2</b> Mac</a></li>
+<li class="chapter" data-level="2.1.3" data-path="install.html"><a href="install.html#cpplinux"><i class="fa fa-check"></i><b>2.1.3</b> Linux</a></li>
+<li class="chapter" data-level="2.1.4" data-path="install.html"><a href="install.html#section-2.1.4"><i class="fa fa-check"></i><b>2.1.4</b> 使用其他编译器</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="install.html"><a href="install.html#Rcppinstallation"><i class="fa fa-check"></i><b>2.2</b> 安装Rcpp</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="basicUsage.html"><a href="basicUsage.html"><i class="fa fa-check"></i><b>3</b> 基本用法</a><ul>
+<li class="chapter" data-level="3.1" data-path="basicUsage.html"><a href="basicUsage.html#WriteRcppCode"><i class="fa fa-check"></i><b>3.1</b> 写Rcpp代码</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="basicUsage.html"><a href="basicUsage.html#formatForFunction"><i class="fa fa-check"></i><b>3.1.1</b> 在Rcpp中定义一个函数的格式</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="basicUsage.html"><a href="basicUsage.html#compile"><i class="fa fa-check"></i><b>3.2</b> 编译代码</a></li>
+<li class="chapter" data-level="3.3" data-path="basicUsage.html"><a href="basicUsage.html#Execute"><i class="fa fa-check"></i><b>3.3</b> 执行函数</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="embedd.html"><a href="embedd.html"><i class="fa fa-check"></i><b>4</b> 将Rcpp嵌入R代码</a><ul>
+<li class="chapter" data-level="4.1" data-path="embedd.html"><a href="embedd.html#sourcecpp"><i class="fa fa-check"></i><b>4.1</b> sourceCpp()</a></li>
+<li class="chapter" data-level="4.2" data-path="embedd.html"><a href="embedd.html#cppFunction"><i class="fa fa-check"></i><b>4.2</b> cppFunction()</a></li>
+<li class="chapter" data-level="4.3" data-path="embedd.html"><a href="embedd.html#evalcpp"><i class="fa fa-check"></i><b>4.3</b> evalCpp()</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="cpp11.html"><a href="cpp11.html"><i class="fa fa-check"></i><b>5</b> C++11</a><ul>
+<li class="chapter" data-level="5.1" data-path="cpp11.html"><a href="cpp11.html#enable"><i class="fa fa-check"></i><b>5.1</b> 开启C++11</a></li>
+<li class="chapter" data-level="5.2" data-path="cpp11.html"><a href="cpp11.html#recommend"><i class="fa fa-check"></i><b>5.2</b> 推荐的 C++11 特性</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="cpp11.html"><a href="cpp11.html#initializer"><i class="fa fa-check"></i><b>5.2.1</b> 初始化</a></li>
+<li class="chapter" data-level="5.2.2" data-path="cpp11.html"><a href="cpp11.html#auto"><i class="fa fa-check"></i><b>5.2.2</b> auto</a></li>
+<li class="chapter" data-level="5.2.3" data-path="cpp11.html"><a href="cpp11.html#decltype"><i class="fa fa-check"></i><b>5.2.3</b> decltype</a></li>
+<li class="chapter" data-level="5.2.4" data-path="cpp11.html"><a href="cpp11.html#rangefor"><i class="fa fa-check"></i><b>5.2.4</b> 基于范围的for循环</a></li>
+<li class="chapter" data-level="5.2.5" data-path="cpp11.html"><a href="cpp11.html#Lambda"><i class="fa fa-check"></i><b>5.2.5</b> Lambda 表达式</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="print.html"><a href="print.html"><i class="fa fa-check"></i><b>6</b> 信息打印</a><ul>
+<li class="chapter" data-level="6.1" data-path="print.html"><a href="print.html#Rcout"><i class="fa fa-check"></i><b>6.1</b> Rcout, Rcerr</a></li>
+<li class="chapter" data-level="6.2" data-path="print.html"><a href="print.html#Rprintf"><i class="fa fa-check"></i><b>6.2</b> Rprintf(), REprintf()</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="datatypes.html"><a href="datatypes.html"><i class="fa fa-check"></i><b>7</b> 数据类型</a><ul>
+<li class="chapter" data-level="7.1" data-path="datatypes.html"><a href="datatypes.html#vectorMatrix"><i class="fa fa-check"></i><b>7.1</b> 向量和矩阵</a></li>
+<li class="chapter" data-level="7.2" data-path="datatypes.html"><a href="datatypes.html#dataframe"><i class="fa fa-check"></i><b>7.2</b> data.frame, list, S3, S4</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="vector.html"><a href="vector.html"><i class="fa fa-check"></i><b>8</b> Vector类</a><ul>
+<li class="chapter" data-level="8.1" data-path="vector.html"><a href="vector.html#create-vector-object"><i class="fa fa-check"></i><b>8.1</b> 创建向量对象</a></li>
+<li class="chapter" data-level="8.2" data-path="vector.html"><a href="vector.html#Accessing-vector-elements"><i class="fa fa-check"></i><b>8.2</b> 获取向量元素</a></li>
+<li class="chapter" data-level="8.3" data-path="vector.html"><a href="vector.html#Member-functions"><i class="fa fa-check"></i><b>8.3</b> 成员函数</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="vector.html"><a href="vector.html#vector-length-size"><i class="fa fa-check"></i><b>8.3.1</b> length(), size()</a></li>
+<li class="chapter" data-level="8.3.2" data-path="vector.html"><a href="vector.html#vector-names"><i class="fa fa-check"></i><b>8.3.2</b> names()</a></li>
+<li class="chapter" data-level="8.3.3" data-path="vector.html"><a href="vector.html#offsetname"><i class="fa fa-check"></i><b>8.3.3</b> offset( name ), findName( name )</a></li>
+<li class="chapter" data-level="8.3.4" data-path="vector.html"><a href="vector.html#offseti"><i class="fa fa-check"></i><b>8.3.4</b> offset( i )</a></li>
+<li class="chapter" data-level="8.3.5" data-path="vector.html"><a href="vector.html#fillx"><i class="fa fa-check"></i><b>8.3.5</b> fill( x )</a></li>
+<li class="chapter" data-level="8.3.6" data-path="vector.html"><a href="vector.html#sort"><i class="fa fa-check"></i><b>8.3.6</b> sort()</a></li>
+<li class="chapter" data-level="8.3.7" data-path="vector.html"><a href="vector.html#assign-first_it-last_it"><i class="fa fa-check"></i><b>8.3.7</b> assign( first_it, last_it )</a></li>
+<li class="chapter" data-level="8.3.8" data-path="vector.html"><a href="vector.html#push-backx"><i class="fa fa-check"></i><b>8.3.8</b> push_back( x )</a></li>
+<li class="chapter" data-level="8.3.9" data-path="vector.html"><a href="vector.html#push-back-name"><i class="fa fa-check"></i><b>8.3.9</b> push_back( x, name )</a></li>
+<li class="chapter" data-level="8.3.10" data-path="vector.html"><a href="vector.html#push-front-x"><i class="fa fa-check"></i><b>8.3.10</b> push_front( x )</a></li>
+<li class="chapter" data-level="8.3.11" data-path="vector.html"><a href="vector.html#push-front-name"><i class="fa fa-check"></i><b>8.3.11</b> push_front( x, name )</a></li>
+<li class="chapter" data-level="8.3.12" data-path="vector.html"><a href="vector.html#vector-begin"><i class="fa fa-check"></i><b>8.3.12</b> begin()</a></li>
+<li class="chapter" data-level="8.3.13" data-path="vector.html"><a href="vector.html#vector-end"><i class="fa fa-check"></i><b>8.3.13</b> end()</a></li>
+<li class="chapter" data-level="8.3.14" data-path="vector.html"><a href="vector.html#cbegin"><i class="fa fa-check"></i><b>8.3.14</b> cbegin()</a></li>
+<li class="chapter" data-level="8.3.15" data-path="vector.html"><a href="vector.html#cend"><i class="fa fa-check"></i><b>8.3.15</b> cend()</a></li>
+<li class="chapter" data-level="8.3.16" data-path="vector.html"><a href="vector.html#inserti"><i class="fa fa-check"></i><b>8.3.16</b> insert( i, x )</a></li>
+<li class="chapter" data-level="8.3.17" data-path="vector.html"><a href="vector.html#insertit"><i class="fa fa-check"></i><b>8.3.17</b> insert( it, x )</a></li>
+<li class="chapter" data-level="8.3.18" data-path="vector.html"><a href="vector.html#vector-erasei"><i class="fa fa-check"></i><b>8.3.18</b> erase(i)</a></li>
+<li class="chapter" data-level="8.3.19" data-path="vector.html"><a href="vector.html#vector-eraseit"><i class="fa fa-check"></i><b>8.3.19</b> erase(it)</a></li>
+<li class="chapter" data-level="8.3.20" data-path="vector.html"><a href="vector.html#erase-first-lasti"><i class="fa fa-check"></i><b>8.3.20</b> erase( first_i, last_i )</a></li>
+<li class="chapter" data-level="8.3.21" data-path="vector.html"><a href="vector.html#erase-first-lastit"><i class="fa fa-check"></i><b>8.3.21</b> erase( first_it, last_it )</a></li>
+<li class="chapter" data-level="8.3.22" data-path="vector.html"><a href="vector.html#containsEN"><i class="fa fa-check"></i><b>8.3.22</b> containsElementNamed(name)</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="vector.html"><a href="vector.html#Static-member-functions"><i class="fa fa-check"></i><b>8.4</b> 静态成员函数</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="vector.html"><a href="vector.html#get_na"><i class="fa fa-check"></i><b>8.4.1</b> get_na()</a></li>
+<li class="chapter" data-level="8.4.2" data-path="vector.html"><a href="vector.html#is_na"><i class="fa fa-check"></i><b>8.4.2</b> is_na(x)</a></li>
+<li class="chapter" data-level="8.4.3" data-path="vector.html"><a href="vector.html#create"><i class="fa fa-check"></i><b>8.4.3</b> create( x1, x2, …)</a></li>
+<li class="chapter" data-level="8.4.4" data-path="vector.html"><a href="vector.html#import"><i class="fa fa-check"></i><b>8.4.4</b> import( first_it , last_it )</a></li>
+<li class="chapter" data-level="8.4.5" data-path="vector.html"><a href="vector.html#import_transform"><i class="fa fa-check"></i><b>8.4.5</b> import_transform( first_it, last_it, func)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="matrix.html"><a href="matrix.html"><i class="fa fa-check"></i><b>9</b> Matrix类</a><ul>
+<li class="chapter" data-level="9.1" data-path="matrix.html"><a href="matrix.html#Creating-Matrix-object"><i class="fa fa-check"></i><b>9.1</b> 创建矩阵对象</a></li>
+<li class="chapter" data-level="9.2" data-path="matrix.html"><a href="matrix.html#Accessing-to-Matrix-elements"><i class="fa fa-check"></i><b>9.2</b> 访问矩阵元素</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="matrix.html"><a href="matrix.html#row-col-sub"><i class="fa fa-check"></i><b>9.2.1</b> 访问行，列与子矩阵</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="matrix.html"><a href="matrix.html#Member-functions-matrix"><i class="fa fa-check"></i><b>9.3</b> 成员函数</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="matrix.html"><a href="matrix.html#nrow-rows"><i class="fa fa-check"></i><b>9.3.1</b> nrow() rows()</a></li>
+<li class="chapter" data-level="9.3.2" data-path="matrix.html"><a href="matrix.html#ncol-cols"><i class="fa fa-check"></i><b>9.3.2</b> ncol()　cols()</a></li>
+<li class="chapter" data-level="9.3.3" data-path="matrix.html"><a href="matrix.html#rowi"><i class="fa fa-check"></i><b>9.3.3</b> row( i )</a></li>
+<li class="chapter" data-level="9.3.4" data-path="matrix.html"><a href="matrix.html#columni"><i class="fa fa-check"></i><b>9.3.4</b> column( i )</a></li>
+<li class="chapter" data-level="9.3.5" data-path="matrix.html"><a href="matrix.html#fill_diag"><i class="fa fa-check"></i><b>9.3.5</b> fill_diag( x )</a></li>
+<li class="chapter" data-level="9.3.6" data-path="matrix.html"><a href="matrix.html#offsetij"><i class="fa fa-check"></i><b>9.3.6</b> offset( i, j )</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="matrix.html"><a href="matrix.html#MStatic-member-functions"><i class="fa fa-check"></i><b>9.4</b> 静态成员函数</a><ul>
+<li class="chapter" data-level="9.4.1" data-path="matrix.html"><a href="matrix.html#Mdiag"><i class="fa fa-check"></i><b>9.4.1</b> Matrix::diag( size, x )</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="matrix.html"><a href="matrix.html#other-functions"><i class="fa fa-check"></i><b>9.5</b> 与Matrix相关的其他函数</a><ul>
+<li class="chapter" data-level="9.5.1" data-path="matrix.html"><a href="matrix.html#rownamesMatrix"><i class="fa fa-check"></i><b>9.5.1</b> rownames( m )</a></li>
+<li class="chapter" data-level="9.5.2" data-path="matrix.html"><a href="matrix.html#colnamesMatrix"><i class="fa fa-check"></i><b>9.5.2</b> colnames( m )</a></li>
+<li class="chapter" data-level="9.5.3" data-path="matrix.html"><a href="matrix.html#transpose"><i class="fa fa-check"></i><b>9.5.3</b> transpose( m )</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="Vector-operations.html"><a href="Vector-operations.html"><i class="fa fa-check"></i><b>10</b> 向量运算</a><ul>
+<li class="chapter" data-level="10.1" data-path="Vector-operations.html"><a href="Vector-operations.html#Arithmetic-operations"><i class="fa fa-check"></i><b>10.1</b> 数学运算</a></li>
+<li class="chapter" data-level="10.2" data-path="Vector-operations.html"><a href="Vector-operations.html#Comparison-operations"><i class="fa fa-check"></i><b>10.2</b> 比较运算</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="Logical-operations.html"><a href="Logical-operations.html"><i class="fa fa-check"></i><b>11</b> 逻辑运算符</a><ul>
+<li class="chapter" data-level="11.1" data-path="Logical-operations.html"><a href="Logical-operations.html#LogicalVector"><i class="fa fa-check"></i><b>11.1</b> LogicalVector</a><ul>
+<li class="chapter" data-level="11.1.1" data-path="Logical-operations.html"><a href="Logical-operations.html#LogicalVector-elements"><i class="fa fa-check"></i><b>11.1.1</b> LogicalVector元素的数据类型</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="Logical-operations.html"><a href="Logical-operations.html#Logical-operations-subtitle"><i class="fa fa-check"></i><b>11.2</b> 逻辑运算符</a></li>
+<li class="chapter" data-level="11.3" data-path="Logical-operations.html"><a href="Logical-operations.html#Function-that-receives-LogicalVector"><i class="fa fa-check"></i><b>11.3</b> 接收LogicalVector的函数</a><ul>
+<li class="chapter" data-level="11.3.1" data-path="Logical-operations.html"><a href="Logical-operations.html#all-any"><i class="fa fa-check"></i><b>11.3.1</b> all(), any()</a></li>
+<li class="chapter" data-level="11.3.2" data-path="Logical-operations.html"><a href="Logical-operations.html#ifelse"><i class="fa fa-check"></i><b>11.3.2</b> ifelse()</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="Logical-operations.html"><a href="Logical-operations.html#Evaluation-LogicalVector"><i class="fa fa-check"></i><b>11.4</b> LogicalVector元素的估值</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>参考文献</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="blank">Powered by bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">老少咸宜Rcpp</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="Logical-operations" class="section level1">
+<h1><span class="header-section-number">第 11 章</span> 逻辑运算符</h1>
+<div id="LogicalVector" class="section level2">
+<h2><span class="header-section-number">11.1</span> LogicalVector</h2>
+<div id="LogicalVector-elements" class="section level3">
+<h3><span class="header-section-number">11.1.1</span> LogicalVector元素的数据类型</h3>
+<p>LogicalVector的元素类型<strong>不是</strong><code>bool</code>。这是因为，<code>bool</code>只能表示<code>true</code>和<code>false</code>，但是在R中，逻辑向量有三种可能的取值，即<code>TRUE</code>，<code>FALSE</code>以及<code>NA</code>。因此，LogicalVector元素的数据类型为<code>int</code>，而非<code>bool</code>。</p>
+<p>在Rcpp中，<code>TRUE</code>用1表示，<code>FALSE</code>用0表示，而<code>NA</code>由<code>NA_LOGICAL</code>表示(整型的最小值：-2147483648)。</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">R</th>
+<th align="center">Rcpp</th>
+<th align="center">int</th>
+<th align="center">bool</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">TRUE</td>
+<td align="center">TRUE</td>
+<td align="center">1 (除却-2147483648至0之间的int)</td>
+<td align="center">true</td>
+</tr>
+<tr class="even">
+<td align="center">FALSE</td>
+<td align="center">FALSE</td>
+<td align="center">0</td>
+<td align="center">false</td>
+</tr>
+<tr class="odd">
+<td align="center">NA</td>
+<td align="center">NA_LOGICAL</td>
+<td align="center">-2147483648</td>
+<td align="center">true</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="Logical-operations-subtitle" class="section level2">
+<h2><span class="header-section-number">11.2</span> 逻辑运算符</h2>
+<p>使用运算符<code>&amp;</code>（与）<code>|</code>（或）<code>!</code>（非）来对LogicalVector中的每个元素进行逻辑运算。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp">LogicalVector v1 = {<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>};
+LogicalVector v2 = {<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>};
+LogicalVector res1 = v1 &amp; v2;
+LogicalVector res2 = v1 | v2;
+LogicalVector res3 = !(v1 | v2);
+Rcout &lt;&lt; res1 &lt;&lt; <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>; <span class="co">// 1 0 0 0</span>
+Rcout &lt;&lt; res2 &lt;&lt; <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>; <span class="co">// 1 1 1 0</span>
+Rcout &lt;&lt; res3 &lt;&lt; <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>; <span class="co">// 0 0 0 1</span></code></pre></div>
+</div>
+<div id="Function-that-receives-LogicalVector" class="section level2">
+<h2><span class="header-section-number">11.3</span> 接收LogicalVector的函数</h2>
+<p>接收<code>LogicalVector</code>的函数有<code>all()</code>, <code>any()</code> 及 <code>ifelse()</code>等。</p>
+<div id="all-any" class="section level3">
+<h3><span class="header-section-number">11.3.1</span> all(), any()</h3>
+<p>对于<code>LogicalVector</code> v，当所有元素都为<code>TRUE</code>时，<code>all (v)</code>返回<code>TRUE</code>,当任意一个元素为<code>TRUE</code>时，<code>any (v)</code>返回<code>TRUE</code>，</p>
+<p>然而，用户并不能在<code>if</code>语句的条件表达式中，使用<code>all()</code>或者<code>any()</code>的返回值。这是因为这两者的返回值并不是<code>bool</code>型，而是<code>SingleLogicalResult</code>型。如果要在<code>if</code>条件语句中使用这两个函数，可以考虑使用<code>is_true()</code>, <code>is_false()</code> 和 <code>is_na()</code>。这些函数会把<code>SingleLogicalResult</code> 类型转为<code>bool</code>型。</p>
+<p>下面的代码展示了，如何在<code>if</code>语句的条件表达式中使用<code>all()</code>和<code>any()</code>。在这个例子中，条件表达式的值为<code>true</code>，<code>all()</code>和<code>any()</code>的返回值也会被打印显示。</p>
+<p>在<code>test.cpp</code>文件中输入下面代码。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">// [[Rcpp::export]]</span>
+List rcpp_logical_03(){
+  LogicalVector v1 = LogicalVector::create(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,NA_LOGICAL);
+  LogicalVector v2 = LogicalVector::create(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,NA_LOGICAL);
+  <span class="co">// 对于包含有NA的Logical向量，all (), any () 函数的结果与R一致 </span>
+  LogicalVector lv1 = all( v1 );   <span class="co">// NA</span>
+  LogicalVector lv2 = all( v2 );   <span class="co">// FALSE</span>
+  LogicalVector lv3 = any( v2 ); <span class="co">// TRUE</span>
+  <span class="co">// 将`SingleLogicalResult` 类型转为`bool`型，然后赋值</span>
+  <span class="dt">bool</span> b1 = is_true ( all(v1) );  <span class="co">// false</span>
+  <span class="dt">bool</span> b2 = is_false( all(v1) );  <span class="co">// false</span>
+  <span class="dt">bool</span> b3 = is_na   ( all(v1) );  <span class="co">// true</span>
+  <span class="co">// 在if语句条件判别式中的情况</span>
+  <span class="cf">if</span>(is_na(all( v1 ))) { <span class="co">// OK</span>
+    Rcout &lt;&lt; <span class="st">&quot;all( v1 ) is NA</span><span class="sc">\n</span><span class="st">&quot;</span>;
+  }
+  <span class="co">//打印所有信息</span>
+  Rcout &lt;&lt; <span class="st">&quot;lv1&quot;</span> &lt;&lt; lv1 &lt;&lt; <span class="st">&#39;</span><span class="sc">\n</span><span class="st">&#39;</span>;
+  Rcout &lt;&lt; <span class="st">&quot;lv2&quot;</span> &lt;&lt; lv2 &lt;&lt; <span class="st">&#39;</span><span class="sc">\n</span><span class="st">&#39;</span>;
+  Rcout &lt;&lt; <span class="st">&quot;lv3&quot;</span> &lt;&lt;lv3 &lt;&lt; <span class="st">&#39;</span><span class="sc">\n</span><span class="st">&#39;</span>;
+  Rcout &lt;&lt; <span class="st">&quot;b1: &quot;</span> &lt;&lt; b1 &lt;&lt; <span class="st">&#39;</span><span class="sc">\n</span><span class="st">&#39;</span>;
+  Rcout &lt;&lt; <span class="st">&quot;b2: &quot;</span> &lt;&lt; b2 &lt;&lt; <span class="st">&#39;</span><span class="sc">\n</span><span class="st">&#39;</span>;
+  Rcout &lt;&lt; <span class="st">&quot;b3: &quot;</span> &lt;&lt; b3 &lt;&lt; <span class="st">&#39;</span><span class="sc">\n</span><span class="st">&#39;</span>;
+  <span class="cf">return</span> List::create(lv1, lv2, lv3, b1, b2, b3);
+}</code></pre></div>
+<p>在R中的运行结果为:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)
+
+<span class="op">&gt;</span><span class="st"> </span>test_list &lt;-<span class="st"> </span><span class="kw">rcpp_logical_03</span>()
+<span class="kw">all</span>( v1 ) is <span class="ot">NA</span>
+lv1<span class="op">:</span><span class="st"> </span><span class="op">-</span><span class="dv">2147483648</span>
+lv2<span class="op">:</span><span class="st"> </span><span class="dv">0</span>
+lv3<span class="op">:</span><span class="st"> </span><span class="dv">1</span>
+b1<span class="op">:</span><span class="st"> </span><span class="dv">0</span>
+b2<span class="op">:</span><span class="st"> </span><span class="dv">0</span>
+b3<span class="op">:</span><span class="st"> </span><span class="dv">1</span></code></pre></div>
+<p>需要注意的是，在@ref(#LogicalVector-elements)中提到过，<code>NA</code>的值为-2147483648，与打印的<code>lv1</code>信息一致。</p>
+</div>
+<div id="ifelse" class="section level3">
+<h3><span class="header-section-number">11.3.2</span> ifelse()</h3>
+<p><code>ifelse (v, x1, x2)</code> 接收逻辑向量<code>v</code>，如果<code>v</code>中的某元素为<code>TRUE</code>，那么返回<code>x1</code>中对应位置的元素，如果为<code>FLASE</code>，那么返回x2中对应位置的元素。尽管<code>x1</code>和<code>x2</code>可以是标量或者向量，但如果是向量，两者的长度必须与<code>v</code>的长度一致。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">// [[Rcpp::export]]</span>
+<span class="dt">int</span> rcpp_logical_02(NumericVector v1, NumericVector v2){
+  
+  <span class="co">//向量元素个数</span>
+  <span class="dt">int</span> n = v1.length();
+  <span class="co">// 情况1：x1 和 x2是标量的情况</span>
+  IntegerVector res1     = ifelse( v1&gt;v2, <span class="dv">1</span>, <span class="dv">0</span>);
+  NumericVector res2     = ifelse( v1&gt;v2, <span class="fl">1.0</span>, <span class="fl">0.0</span>);
+  
+  <span class="co">//CharacterVector res3 = ifelse( v1&gt;v2, &quot;T&quot;, &quot;F&quot;); // 不支持此种写法</span>
+  <span class="co">//ifelse() 不支持字符串标量，为了得到和R一样的结果</span>
+  <span class="co">// 我们需要使用字符串向量，该向量所有元素相同 </span>
+  CharacterVector chr_v1 = rep(CharacterVector(<span class="st">&quot;T&quot;</span>), n);
+  CharacterVector chr_v2 = rep(CharacterVector(<span class="st">&quot;F&quot;</span>), n);
+  CharacterVector res3   = ifelse( v1&gt;v2, chr_v1, chr_v2);
+  Rcout &lt;&lt;<span class="st">&quot;case1: both x1 and x2 are scalar&quot;</span>&lt;&lt;<span class="st">&#39;</span><span class="sc">\n</span><span class="st">&#39;</span>;
+  Rcout &lt;&lt; <span class="st">&quot;</span><span class="sc">\t</span><span class="st"> v1 &gt; v2 &quot;</span> &lt;&lt; res1 &lt;&lt;<span class="st">&#39;</span><span class="sc">\n</span><span class="st">&#39;</span>;
+  Rcout &lt;&lt; <span class="st">&quot;</span><span class="sc">\t</span><span class="st"> v1 &gt; v2 &quot;</span> &lt;&lt; res2 &lt;&lt;<span class="st">&#39;</span><span class="sc">\n</span><span class="st">&#39;</span>;
+  Rcout &lt;&lt; <span class="st">&quot;</span><span class="sc">\t</span><span class="st"> v1 &gt; v2 &quot;</span> &lt;&lt; res3 &lt;&lt;<span class="st">&#39;</span><span class="sc">\n</span><span class="st">&#39;</span>;
+  
+  <span class="co">//情况2，x1是向量，x2是标量</span>
+  IntegerVector int_v1, int_v2;
+  int_v1 = rep(<span class="dv">1</span>,n);
+  int_v2 = rep(<span class="dv">0</span>,n);
+  NumericVector num_v1, num_v2;
+  num_v1 = rep(<span class="dv">1</span>.,n);
+  num_v2 = rep(<span class="dv">0</span>.,n);
+  
+  IntegerVector   res4 = ifelse( v1&gt;v2, int_v1, <span class="dv">0</span>);
+  NumericVector   res5 = ifelse( v1&gt;v2, num_v1, <span class="fl">0.0</span>);
+  CharacterVector res6 = ifelse( v1&gt;v2, chr_v1, Rf_mkChar(<span class="st">&quot;F&quot;</span>)); <span class="co">// Note</span>
+  
+  Rcout &lt;&lt;<span class="st">&quot;case2: x1 and x2 are vector and scalar&quot;</span>&lt;&lt;<span class="st">&#39;</span><span class="sc">\n</span><span class="st">&#39;</span>;
+  Rcout &lt;&lt; <span class="st">&quot;</span><span class="sc">\t</span><span class="st"> v1 &gt; v2 &quot;</span> &lt;&lt; res4 &lt;&lt;<span class="st">&#39;</span><span class="sc">\n</span><span class="st">&#39;</span>;
+  Rcout &lt;&lt; <span class="st">&quot;</span><span class="sc">\t</span><span class="st"> v1 &gt; v2 &quot;</span> &lt;&lt; res5 &lt;&lt;<span class="st">&#39;</span><span class="sc">\n</span><span class="st">&#39;</span>;
+  Rcout &lt;&lt; <span class="st">&quot;</span><span class="sc">\t</span><span class="st"> v1 &gt; v2 &quot;</span> &lt;&lt; res6 &lt;&lt;<span class="st">&#39;</span><span class="sc">\n</span><span class="st">&#39;</span>;
+  
+  <span class="co">//情况3，x1和x2均为向量</span>
+  IntegerVector   res7 = ifelse( v1&gt;v2, int_v1, int_v2);
+  NumericVector   res8 = ifelse( v1&gt;v2, num_v1, num_v2);
+  CharacterVector res9 = ifelse( v1&gt;v2, chr_v1, chr_v2);
+  
+  Rcout &lt;&lt;<span class="st">&quot;case3: both x1 and x2 are vector&quot;</span>&lt;&lt;<span class="st">&#39;</span><span class="sc">\n</span><span class="st">&#39;</span>;
+  Rcout &lt;&lt; <span class="st">&quot;</span><span class="sc">\t</span><span class="st"> v1 &gt; v2 &quot;</span> &lt;&lt; res7 &lt;&lt;<span class="st">&#39;</span><span class="sc">\n</span><span class="st">&#39;</span>;
+  Rcout &lt;&lt; <span class="st">&quot;</span><span class="sc">\t</span><span class="st"> v1 &gt; v2 &quot;</span> &lt;&lt; res8 &lt;&lt;<span class="st">&#39;</span><span class="sc">\n</span><span class="st">&#39;</span>;
+  Rcout &lt;&lt; <span class="st">&quot;</span><span class="sc">\t</span><span class="st"> v1 &gt; v2 &quot;</span> &lt;&lt; res9 &lt;&lt;<span class="st">&#39;</span><span class="sc">\n</span><span class="st">&#39;</span>;
+  
+  <span class="cf">return</span> <span class="dv">0</span>;
+}</code></pre></div>
+<p>Note: <code>Rf_mkChar ()</code>函数作用为将C语言中的字符串(<code>char*</code>)转为<code>CHARSXP</code>(<code>CharacterVector</code>中的元素类型)。</p>
+<p>在R中运行结果为:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)
+
+<span class="op">&gt;</span><span class="st"> </span>tmp &lt;-<span class="st"> </span><span class="kw">rcpp_logical_02</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>,<span class="dv">4</span><span class="op">:</span><span class="dv">1</span>)
+case1<span class="op">:</span><span class="st"> </span>both x1 and x2 are scalar
+     v1 <span class="op">&gt;</span><span class="st"> </span>v2 <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">1</span>
+     v1 <span class="op">&gt;</span><span class="st"> </span>v2 <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">1</span>
+     v1 <span class="op">&gt;</span><span class="st"> </span>v2 <span class="st">&quot;F&quot;</span> <span class="st">&quot;F&quot;</span> <span class="st">&quot;T&quot;</span> <span class="st">&quot;T&quot;</span>
+case2<span class="op">:</span><span class="st"> </span>x1 and x2 are vector and scalar
+     v1 <span class="op">&gt;</span><span class="st"> </span>v2 <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">1</span>
+     v1 <span class="op">&gt;</span><span class="st"> </span>v2 <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">1</span>
+     v1 <span class="op">&gt;</span><span class="st"> </span>v2 <span class="st">&quot;F&quot;</span> <span class="st">&quot;F&quot;</span> <span class="st">&quot;T&quot;</span> <span class="st">&quot;T&quot;</span>
+case3<span class="op">:</span><span class="st"> </span>both x1 and x2 are vector
+     v1 <span class="op">&gt;</span><span class="st"> </span>v2 <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">1</span>
+     v1 <span class="op">&gt;</span><span class="st"> </span>v2 <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">1</span>
+     v1 <span class="op">&gt;</span><span class="st"> </span>v2 <span class="st">&quot;F&quot;</span> <span class="st">&quot;F&quot;</span> <span class="st">&quot;T&quot;</span> <span class="st">&quot;T&quot;</span></code></pre></div>
+</div>
+</div>
+<div id="Evaluation-LogicalVector" class="section level2">
+<h2><span class="header-section-number">11.4</span> LogicalVector元素的估值</h2>
+<p><code>LogicalVector</code>的元素值不应当被用作<code>if</code>语句的条件表达式。因为，C++中<code>if</code>语句将条件表达式评估为<code>bool</code>型。而<code>bool</code>型把所有非零的值均评估为<code>true</code>，因此，<code>LogicalVector</code>中的<code>NA</code>(<code>NA_LOGICAL</code>)也会被认为是<code>true</code>。</p>
+<p>下面的代码示例展示了<code>if</code>语句是如何评估<code>LogicalVector</code>的元素值。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">// [[Rcpp::plugins(cpp11)]]</span>
+<span class="co">// [[Rcpp::export]]</span>
+LogicalVector rcpp_logical(){
+  <span class="co">// 构建一个包含NA值得整型向量</span>
+  IntegerVector x = {<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,NA_INTEGER};
+  <span class="co">// 比较运算的结果是逻辑向量</span>
+  LogicalVector v = (x &gt;= <span class="dv">3</span>);
+  <span class="co">//如果将逻辑向量的元素直接用于if语句中，NA_LOGICAL会被认为是TRUE</span>
+  <span class="cf">for</span>(<span class="dt">int</span> i=<span class="dv">0</span>; i&lt;v.size();++i) {
+    <span class="cf">if</span>(v[i]) Rprintf(<span class="st">&quot;v[</span><span class="sc">%i</span><span class="st">]:</span><span class="sc">%i</span><span class="st"> is evaluated as true.</span><span class="sc">\n</span><span class="st">&quot;</span>,i,v[i]);
+    <span class="cf">else</span> Rprintf(<span class="st">&quot;v[</span><span class="sc">%i</span><span class="st">]:</span><span class="sc">%i</span><span class="st"> is evaluated as false.</span><span class="sc">\n</span><span class="st">&quot;</span>,i,v[i]);
+  }
+  <span class="co">// 评估逻辑向量的元素</span>
+  <span class="cf">for</span>(<span class="dt">int</span> i=<span class="dv">0</span>; i&lt;v.size();++i) {
+    <span class="cf">if</span>(v[i]==TRUE) Rprintf(<span class="st">&quot;v[</span><span class="sc">%i</span><span class="st">] is TRUE.</span><span class="sc">\n</span><span class="st">&quot;</span>,i);
+    <span class="cf">else</span> <span class="cf">if</span> (v[i]==FALSE) Rprintf(<span class="st">&quot;v[</span><span class="sc">%i</span><span class="st">] is FALSE.</span><span class="sc">\n</span><span class="st">&quot;</span>,i);
+    <span class="cf">else</span> <span class="cf">if</span> (v[i]==NA_LOGICAL) Rprintf(<span class="st">&quot;v[</span><span class="sc">%i</span><span class="st">] is NA.</span><span class="sc">\n</span><span class="st">&quot;</span>,i);
+    <span class="cf">else</span> Rcout &lt;&lt; <span class="st">&quot;v[&quot;</span> &lt;&lt; i &lt;&lt; <span class="st">&quot;] is not 1</span><span class="sc">\n</span><span class="st">&quot;</span>;
+  }
+  <span class="co">// 打印TRUE, FALSE 和 NA_LOGICAL的值</span>
+  Rcout &lt;&lt; <span class="st">&quot;TRUE &quot;</span> &lt;&lt; TRUE &lt;&lt; <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>;
+  Rcout &lt;&lt; <span class="st">&quot;FALSE &quot;</span> &lt;&lt; FALSE &lt;&lt; <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>;
+  Rcout &lt;&lt; <span class="st">&quot;NA_LOGICAL &quot;</span> &lt;&lt; NA_LOGICAL &lt;&lt; <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>;
+  <span class="cf">return</span> v;
+}</code></pre></div>
+<p>需要注意的是，在原始代码上，需要加入<code>// [[Rcpp::plugins(cpp11)]]</code>语句启动C++11的特性，否则代码会因为初始化语句而报错。</p>
+<p>执行结果为:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)
+
+<span class="op">&gt;</span><span class="st"> </span><span class="kw">rcpp_logical</span>()
+v[<span class="dv">0</span>]<span class="op">:</span><span class="dv">0</span> is evaluated as false.
+v[<span class="dv">1</span>]<span class="op">:</span><span class="dv">0</span> is evaluated as false.
+v[<span class="dv">2</span>]<span class="op">:</span><span class="dv">1</span> is evaluated as true.
+v[<span class="dv">3</span>]<span class="op">:</span><span class="dv">1</span> is evaluated as true.
+v[<span class="dv">4</span>]<span class="op">:-</span><span class="dv">2147483648</span> is evaluated as true.
+v[<span class="dv">0</span>] is FALSE.
+v[<span class="dv">1</span>] is FALSE.
+v[<span class="dv">2</span>] is TRUE.
+v[<span class="dv">3</span>] is TRUE.
+v[<span class="dv">4</span>] is NA.
+<span class="ot">TRUE</span> <span class="dv">1</span>
+<span class="ot">FALSE</span> <span class="dv">0</span>
+NA_LOGICAL <span class="op">-</span><span class="dv">2147483648</span>
+[<span class="dv">1</span>] <span class="ot">FALSE</span> <span class="ot">FALSE</span>  <span class="ot">TRUE</span>  <span class="ot">TRUE</span>    <span class="ot">NA</span></code></pre></div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="Vector-operations.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook/js/app.min.js"></script>
+<script src="libs/gitbook/js/lunr.js"></script>
+<script src="libs/gitbook/js/plugin-search.js"></script>
+<script src="libs/gitbook/js/plugin-sharing.js"></script>
+<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/yihui/bookdown-chinese/edit/master/120-logical.Rmd",
+"text": "编辑"
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["bookdown.pdf", "bookdown.epub"],
+"toc": {
+"collapse": "none"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

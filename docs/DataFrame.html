@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>第 12 章 数据框 | 老少咸宜Rcpp</title>
+  <meta name="description" content="R用户入门Rcpp" />
+  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="第 12 章 数据框 | 老少咸宜Rcpp" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="R用户入门Rcpp" />
+  <meta name="github-repo" content="jywang2016/rcpp4everyone_cn" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="第 12 章 数据框 | 老少咸宜Rcpp" />
+  
+  <meta name="twitter:description" content="R用户入门Rcpp" />
+  
+
+<meta name="author" content="Masaki E. Tsuda 著 jywang 译" />
+
+
+<meta name="date" content="2019-08-19" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="Logical-operations.html">
+<link rel="next" href="references.html">
+<script src="libs/jquery/jquery.min.js"></script>
+<link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="css\style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">老少咸宜Rcpp</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>欢迎</a></li>
+<li class="chapter" data-level="" data-path="e69cace4b9a6e7bc96e8af91e78eafe5a283.html"><a href="e69cace4b9a6e7bc96e8af91e78eafe5a283.html"><i class="fa fa-check"></i>本书编译环境</a></li>
+<li class="chapter" data-level="" data-path="e7bfbbe8af91e79a84e5889de8a1b7.html"><a href="e7bfbbe8af91e79a84e5889de8a1b7.html"><i class="fa fa-check"></i>翻译的初衷</a></li>
+<li class="chapter" data-level="" data-path="author.html"><a href="author.html"><i class="fa fa-check"></i>作者简介</a></li>
+<li class="chapter" data-level="1" data-path="situations.html"><a href="situations.html"><i class="fa fa-check"></i><b>1</b> 啥情况该用Rcpp</a></li>
+<li class="chapter" data-level="2" data-path="install.html"><a href="install.html"><i class="fa fa-check"></i><b>2</b> 安装</a><ul>
+<li class="chapter" data-level="2.1" data-path="install.html"><a href="install.html#cppcompiler"><i class="fa fa-check"></i><b>2.1</b> 安装C++编译器</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="install.html"><a href="install.html#cppcwindows"><i class="fa fa-check"></i><b>2.1.1</b> Windows</a></li>
+<li class="chapter" data-level="2.1.2" data-path="install.html"><a href="install.html#cppmac"><i class="fa fa-check"></i><b>2.1.2</b> Mac</a></li>
+<li class="chapter" data-level="2.1.3" data-path="install.html"><a href="install.html#cpplinux"><i class="fa fa-check"></i><b>2.1.3</b> Linux</a></li>
+<li class="chapter" data-level="2.1.4" data-path="install.html"><a href="install.html#section-2.1.4"><i class="fa fa-check"></i><b>2.1.4</b> 使用其他编译器</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="install.html"><a href="install.html#Rcppinstallation"><i class="fa fa-check"></i><b>2.2</b> 安装Rcpp</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="basicUsage.html"><a href="basicUsage.html"><i class="fa fa-check"></i><b>3</b> 基本用法</a><ul>
+<li class="chapter" data-level="3.1" data-path="basicUsage.html"><a href="basicUsage.html#WriteRcppCode"><i class="fa fa-check"></i><b>3.1</b> 写Rcpp代码</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="basicUsage.html"><a href="basicUsage.html#formatForFunction"><i class="fa fa-check"></i><b>3.1.1</b> 在Rcpp中定义一个函数的格式</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="basicUsage.html"><a href="basicUsage.html#compile"><i class="fa fa-check"></i><b>3.2</b> 编译代码</a></li>
+<li class="chapter" data-level="3.3" data-path="basicUsage.html"><a href="basicUsage.html#Execute"><i class="fa fa-check"></i><b>3.3</b> 执行函数</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="embedd.html"><a href="embedd.html"><i class="fa fa-check"></i><b>4</b> 将Rcpp嵌入R代码</a><ul>
+<li class="chapter" data-level="4.1" data-path="embedd.html"><a href="embedd.html#sourcecpp"><i class="fa fa-check"></i><b>4.1</b> sourceCpp()</a></li>
+<li class="chapter" data-level="4.2" data-path="embedd.html"><a href="embedd.html#cppFunction"><i class="fa fa-check"></i><b>4.2</b> cppFunction()</a></li>
+<li class="chapter" data-level="4.3" data-path="embedd.html"><a href="embedd.html#evalcpp"><i class="fa fa-check"></i><b>4.3</b> evalCpp()</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="cpp11.html"><a href="cpp11.html"><i class="fa fa-check"></i><b>5</b> C++11</a><ul>
+<li class="chapter" data-level="5.1" data-path="cpp11.html"><a href="cpp11.html#enable"><i class="fa fa-check"></i><b>5.1</b> 开启C++11</a></li>
+<li class="chapter" data-level="5.2" data-path="cpp11.html"><a href="cpp11.html#recommend"><i class="fa fa-check"></i><b>5.2</b> 推荐的 C++11 特性</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="cpp11.html"><a href="cpp11.html#initializer"><i class="fa fa-check"></i><b>5.2.1</b> 初始化</a></li>
+<li class="chapter" data-level="5.2.2" data-path="cpp11.html"><a href="cpp11.html#auto"><i class="fa fa-check"></i><b>5.2.2</b> auto</a></li>
+<li class="chapter" data-level="5.2.3" data-path="cpp11.html"><a href="cpp11.html#decltype"><i class="fa fa-check"></i><b>5.2.3</b> decltype</a></li>
+<li class="chapter" data-level="5.2.4" data-path="cpp11.html"><a href="cpp11.html#rangefor"><i class="fa fa-check"></i><b>5.2.4</b> 基于范围的for循环</a></li>
+<li class="chapter" data-level="5.2.5" data-path="cpp11.html"><a href="cpp11.html#Lambda"><i class="fa fa-check"></i><b>5.2.5</b> Lambda 表达式</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="print.html"><a href="print.html"><i class="fa fa-check"></i><b>6</b> 信息打印</a><ul>
+<li class="chapter" data-level="6.1" data-path="print.html"><a href="print.html#Rcout"><i class="fa fa-check"></i><b>6.1</b> Rcout, Rcerr</a></li>
+<li class="chapter" data-level="6.2" data-path="print.html"><a href="print.html#Rprintf"><i class="fa fa-check"></i><b>6.2</b> Rprintf(), REprintf()</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="datatypes.html"><a href="datatypes.html"><i class="fa fa-check"></i><b>7</b> 数据类型</a><ul>
+<li class="chapter" data-level="7.1" data-path="datatypes.html"><a href="datatypes.html#vectorMatrix"><i class="fa fa-check"></i><b>7.1</b> 向量和矩阵</a></li>
+<li class="chapter" data-level="7.2" data-path="datatypes.html"><a href="datatypes.html#dataframe"><i class="fa fa-check"></i><b>7.2</b> data.frame, list, S3, S4</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="vector.html"><a href="vector.html"><i class="fa fa-check"></i><b>8</b> Vector类</a><ul>
+<li class="chapter" data-level="8.1" data-path="vector.html"><a href="vector.html#create-vector-object"><i class="fa fa-check"></i><b>8.1</b> 创建向量对象</a></li>
+<li class="chapter" data-level="8.2" data-path="vector.html"><a href="vector.html#Accessing-vector-elements"><i class="fa fa-check"></i><b>8.2</b> 获取向量元素</a></li>
+<li class="chapter" data-level="8.3" data-path="vector.html"><a href="vector.html#Member-functions"><i class="fa fa-check"></i><b>8.3</b> 成员函数</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="vector.html"><a href="vector.html#vector-length-size"><i class="fa fa-check"></i><b>8.3.1</b> length(), size()</a></li>
+<li class="chapter" data-level="8.3.2" data-path="vector.html"><a href="vector.html#vector-names"><i class="fa fa-check"></i><b>8.3.2</b> names()</a></li>
+<li class="chapter" data-level="8.3.3" data-path="vector.html"><a href="vector.html#offsetname"><i class="fa fa-check"></i><b>8.3.3</b> offset( name ), findName( name )</a></li>
+<li class="chapter" data-level="8.3.4" data-path="vector.html"><a href="vector.html#offseti"><i class="fa fa-check"></i><b>8.3.4</b> offset( i )</a></li>
+<li class="chapter" data-level="8.3.5" data-path="vector.html"><a href="vector.html#fillx"><i class="fa fa-check"></i><b>8.3.5</b> fill( x )</a></li>
+<li class="chapter" data-level="8.3.6" data-path="vector.html"><a href="vector.html#sort"><i class="fa fa-check"></i><b>8.3.6</b> sort()</a></li>
+<li class="chapter" data-level="8.3.7" data-path="vector.html"><a href="vector.html#assign-first_it-last_it"><i class="fa fa-check"></i><b>8.3.7</b> assign( first_it, last_it )</a></li>
+<li class="chapter" data-level="8.3.8" data-path="vector.html"><a href="vector.html#push-backx"><i class="fa fa-check"></i><b>8.3.8</b> push_back( x )</a></li>
+<li class="chapter" data-level="8.3.9" data-path="vector.html"><a href="vector.html#push-back-name"><i class="fa fa-check"></i><b>8.3.9</b> push_back( x, name )</a></li>
+<li class="chapter" data-level="8.3.10" data-path="vector.html"><a href="vector.html#push-front-x"><i class="fa fa-check"></i><b>8.3.10</b> push_front( x )</a></li>
+<li class="chapter" data-level="8.3.11" data-path="vector.html"><a href="vector.html#push-front-name"><i class="fa fa-check"></i><b>8.3.11</b> push_front( x, name )</a></li>
+<li class="chapter" data-level="8.3.12" data-path="vector.html"><a href="vector.html#vector-begin"><i class="fa fa-check"></i><b>8.3.12</b> begin()</a></li>
+<li class="chapter" data-level="8.3.13" data-path="vector.html"><a href="vector.html#vector-end"><i class="fa fa-check"></i><b>8.3.13</b> end()</a></li>
+<li class="chapter" data-level="8.3.14" data-path="vector.html"><a href="vector.html#cbegin"><i class="fa fa-check"></i><b>8.3.14</b> cbegin()</a></li>
+<li class="chapter" data-level="8.3.15" data-path="vector.html"><a href="vector.html#cend"><i class="fa fa-check"></i><b>8.3.15</b> cend()</a></li>
+<li class="chapter" data-level="8.3.16" data-path="vector.html"><a href="vector.html#inserti"><i class="fa fa-check"></i><b>8.3.16</b> insert( i, x )</a></li>
+<li class="chapter" data-level="8.3.17" data-path="vector.html"><a href="vector.html#insertit"><i class="fa fa-check"></i><b>8.3.17</b> insert( it, x )</a></li>
+<li class="chapter" data-level="8.3.18" data-path="vector.html"><a href="vector.html#vector-erasei"><i class="fa fa-check"></i><b>8.3.18</b> erase(i)</a></li>
+<li class="chapter" data-level="8.3.19" data-path="vector.html"><a href="vector.html#vector-eraseit"><i class="fa fa-check"></i><b>8.3.19</b> erase(it)</a></li>
+<li class="chapter" data-level="8.3.20" data-path="vector.html"><a href="vector.html#erase-first-lasti"><i class="fa fa-check"></i><b>8.3.20</b> erase( first_i, last_i )</a></li>
+<li class="chapter" data-level="8.3.21" data-path="vector.html"><a href="vector.html#erase-first-lastit"><i class="fa fa-check"></i><b>8.3.21</b> erase( first_it, last_it )</a></li>
+<li class="chapter" data-level="8.3.22" data-path="vector.html"><a href="vector.html#containsEN"><i class="fa fa-check"></i><b>8.3.22</b> containsElementNamed(name)</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="vector.html"><a href="vector.html#Static-member-functions"><i class="fa fa-check"></i><b>8.4</b> 静态成员函数</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="vector.html"><a href="vector.html#get_na"><i class="fa fa-check"></i><b>8.4.1</b> get_na()</a></li>
+<li class="chapter" data-level="8.4.2" data-path="vector.html"><a href="vector.html#is_na"><i class="fa fa-check"></i><b>8.4.2</b> is_na(x)</a></li>
+<li class="chapter" data-level="8.4.3" data-path="vector.html"><a href="vector.html#create"><i class="fa fa-check"></i><b>8.4.3</b> create( x1, x2, …)</a></li>
+<li class="chapter" data-level="8.4.4" data-path="vector.html"><a href="vector.html#import"><i class="fa fa-check"></i><b>8.4.4</b> import( first_it , last_it )</a></li>
+<li class="chapter" data-level="8.4.5" data-path="vector.html"><a href="vector.html#import_transform"><i class="fa fa-check"></i><b>8.4.5</b> import_transform( first_it, last_it, func)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="matrix.html"><a href="matrix.html"><i class="fa fa-check"></i><b>9</b> Matrix类</a><ul>
+<li class="chapter" data-level="9.1" data-path="matrix.html"><a href="matrix.html#Creating-Matrix-object"><i class="fa fa-check"></i><b>9.1</b> 创建矩阵对象</a></li>
+<li class="chapter" data-level="9.2" data-path="matrix.html"><a href="matrix.html#Accessing-to-Matrix-elements"><i class="fa fa-check"></i><b>9.2</b> 访问矩阵元素</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="matrix.html"><a href="matrix.html#row-col-sub"><i class="fa fa-check"></i><b>9.2.1</b> 访问行，列与子矩阵</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="matrix.html"><a href="matrix.html#Member-functions-matrix"><i class="fa fa-check"></i><b>9.3</b> 成员函数</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="matrix.html"><a href="matrix.html#nrow-rows"><i class="fa fa-check"></i><b>9.3.1</b> nrow() rows()</a></li>
+<li class="chapter" data-level="9.3.2" data-path="matrix.html"><a href="matrix.html#ncol-cols"><i class="fa fa-check"></i><b>9.3.2</b> ncol()　cols()</a></li>
+<li class="chapter" data-level="9.3.3" data-path="matrix.html"><a href="matrix.html#rowi"><i class="fa fa-check"></i><b>9.3.3</b> row( i )</a></li>
+<li class="chapter" data-level="9.3.4" data-path="matrix.html"><a href="matrix.html#columni"><i class="fa fa-check"></i><b>9.3.4</b> column( i )</a></li>
+<li class="chapter" data-level="9.3.5" data-path="matrix.html"><a href="matrix.html#fill_diag"><i class="fa fa-check"></i><b>9.3.5</b> fill_diag( x )</a></li>
+<li class="chapter" data-level="9.3.6" data-path="matrix.html"><a href="matrix.html#offsetij"><i class="fa fa-check"></i><b>9.3.6</b> offset( i, j )</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="matrix.html"><a href="matrix.html#MStatic-member-functions"><i class="fa fa-check"></i><b>9.4</b> 静态成员函数</a><ul>
+<li class="chapter" data-level="9.4.1" data-path="matrix.html"><a href="matrix.html#Mdiag"><i class="fa fa-check"></i><b>9.4.1</b> Matrix::diag( size, x )</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="matrix.html"><a href="matrix.html#other-functions"><i class="fa fa-check"></i><b>9.5</b> 与Matrix相关的其他函数</a><ul>
+<li class="chapter" data-level="9.5.1" data-path="matrix.html"><a href="matrix.html#rownamesMatrix"><i class="fa fa-check"></i><b>9.5.1</b> rownames( m )</a></li>
+<li class="chapter" data-level="9.5.2" data-path="matrix.html"><a href="matrix.html#colnamesMatrix"><i class="fa fa-check"></i><b>9.5.2</b> colnames( m )</a></li>
+<li class="chapter" data-level="9.5.3" data-path="matrix.html"><a href="matrix.html#transpose"><i class="fa fa-check"></i><b>9.5.3</b> transpose( m )</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="Vector-operations.html"><a href="Vector-operations.html"><i class="fa fa-check"></i><b>10</b> 向量运算</a><ul>
+<li class="chapter" data-level="10.1" data-path="Vector-operations.html"><a href="Vector-operations.html#Arithmetic-operations"><i class="fa fa-check"></i><b>10.1</b> 数学运算</a></li>
+<li class="chapter" data-level="10.2" data-path="Vector-operations.html"><a href="Vector-operations.html#Comparison-operations"><i class="fa fa-check"></i><b>10.2</b> 比较运算</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="Logical-operations.html"><a href="Logical-operations.html"><i class="fa fa-check"></i><b>11</b> 逻辑运算符</a><ul>
+<li class="chapter" data-level="11.1" data-path="Logical-operations.html"><a href="Logical-operations.html#LogicalVector"><i class="fa fa-check"></i><b>11.1</b> LogicalVector</a><ul>
+<li class="chapter" data-level="11.1.1" data-path="Logical-operations.html"><a href="Logical-operations.html#LogicalVector-elements"><i class="fa fa-check"></i><b>11.1.1</b> LogicalVector元素的数据类型</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="Logical-operations.html"><a href="Logical-operations.html#Logical-operations-subtitle"><i class="fa fa-check"></i><b>11.2</b> 逻辑运算符</a></li>
+<li class="chapter" data-level="11.3" data-path="Logical-operations.html"><a href="Logical-operations.html#Function-that-receives-LogicalVector"><i class="fa fa-check"></i><b>11.3</b> 接收LogicalVector的函数</a><ul>
+<li class="chapter" data-level="11.3.1" data-path="Logical-operations.html"><a href="Logical-operations.html#all-any"><i class="fa fa-check"></i><b>11.3.1</b> all(), any()</a></li>
+<li class="chapter" data-level="11.3.2" data-path="Logical-operations.html"><a href="Logical-operations.html#ifelse"><i class="fa fa-check"></i><b>11.3.2</b> ifelse()</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="Logical-operations.html"><a href="Logical-operations.html#Evaluation-LogicalVector"><i class="fa fa-check"></i><b>11.4</b> LogicalVector元素的估值</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="DataFrame.html"><a href="DataFrame.html"><i class="fa fa-check"></i><b>12</b> 数据框</a><ul>
+<li class="chapter" data-level="12.1" data-path="DataFrame.html"><a href="DataFrame.html#Creating-DF"><i class="fa fa-check"></i><b>12.1</b> 创建数据框对象</a></li>
+<li class="chapter" data-level="12.2" data-path="DataFrame.html"><a href="DataFrame.html#accessing-dataframe-elements"><i class="fa fa-check"></i><b>12.2</b> Accessing DataFrame elements</a></li>
+<li class="chapter" data-level="12.3" data-path="DataFrame.html"><a href="DataFrame.html#member-functions"><i class="fa fa-check"></i><b>12.3</b> Member functions</a><ul>
+<li class="chapter" data-level="12.3.1" data-path="DataFrame.html"><a href="DataFrame.html#length-size"><i class="fa fa-check"></i><b>12.3.1</b> length() size()</a></li>
+<li class="chapter" data-level="12.3.2" data-path="DataFrame.html"><a href="DataFrame.html#nrows"><i class="fa fa-check"></i><b>12.3.2</b> nrows()</a></li>
+<li class="chapter" data-level="12.3.3" data-path="DataFrame.html"><a href="DataFrame.html#names"><i class="fa fa-check"></i><b>12.3.3</b> names()</a></li>
+<li class="chapter" data-level="12.3.4" data-path="DataFrame.html"><a href="DataFrame.html#offsetname-findnamename"><i class="fa fa-check"></i><b>12.3.4</b> offset(name) findName(name)</a></li>
+<li class="chapter" data-level="12.3.5" data-path="DataFrame.html"><a href="DataFrame.html#fillv"><i class="fa fa-check"></i><b>12.3.5</b> fill(v)</a></li>
+<li class="chapter" data-level="12.3.6" data-path="DataFrame.html"><a href="DataFrame.html#assign-first_it-last_it-1"><i class="fa fa-check"></i><b>12.3.6</b> assign( first_it, last_it)</a></li>
+<li class="chapter" data-level="12.3.7" data-path="DataFrame.html"><a href="DataFrame.html#push_backv"><i class="fa fa-check"></i><b>12.3.7</b> push_back(v)</a></li>
+<li class="chapter" data-level="12.3.8" data-path="DataFrame.html"><a href="DataFrame.html#push_back-v-name"><i class="fa fa-check"></i><b>12.3.8</b> push_back( v, name )</a></li>
+<li class="chapter" data-level="12.3.9" data-path="DataFrame.html"><a href="DataFrame.html#push_frontx"><i class="fa fa-check"></i><b>12.3.9</b> push_front(x)</a></li>
+<li class="chapter" data-level="12.3.10" data-path="DataFrame.html"><a href="DataFrame.html#push_front-x-name"><i class="fa fa-check"></i><b>12.3.10</b> push_front( x, name )</a></li>
+<li class="chapter" data-level="12.3.11" data-path="DataFrame.html"><a href="DataFrame.html#begin"><i class="fa fa-check"></i><b>12.3.11</b> begin()</a></li>
+<li class="chapter" data-level="12.3.12" data-path="DataFrame.html"><a href="DataFrame.html#end"><i class="fa fa-check"></i><b>12.3.12</b> end()</a></li>
+<li class="chapter" data-level="12.3.13" data-path="DataFrame.html"><a href="DataFrame.html#insert-it-v"><i class="fa fa-check"></i><b>12.3.13</b> insert( it, v )</a></li>
+<li class="chapter" data-level="12.3.14" data-path="DataFrame.html"><a href="DataFrame.html#erasei"><i class="fa fa-check"></i><b>12.3.14</b> erase(i)</a></li>
+<li class="chapter" data-level="12.3.15" data-path="DataFrame.html"><a href="DataFrame.html#eraseit"><i class="fa fa-check"></i><b>12.3.15</b> erase(it)</a></li>
+<li class="chapter" data-level="12.3.16" data-path="DataFrame.html"><a href="DataFrame.html#erasefirst_i-last_i"><i class="fa fa-check"></i><b>12.3.16</b> erase(first_i, last_i)</a></li>
+<li class="chapter" data-level="12.3.17" data-path="DataFrame.html"><a href="DataFrame.html#erasefirst_it-last_it"><i class="fa fa-check"></i><b>12.3.17</b> erase(first_it, last_it)</a></li>
+<li class="chapter" data-level="12.3.18" data-path="DataFrame.html"><a href="DataFrame.html#containselementnamedname"><i class="fa fa-check"></i><b>12.3.18</b> containsElementNamed(name)</a></li>
+<li class="chapter" data-level="12.3.19" data-path="DataFrame.html"><a href="DataFrame.html#inheritsstr"><i class="fa fa-check"></i><b>12.3.19</b> inherits(str)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>参考文献</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="blank">Powered by bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">老少咸宜Rcpp</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="DataFrame" class="section level1">
+<h1><span class="header-section-number">第 12 章</span> 数据框</h1>
+<p>本章主要讲述如何创建一个<code>DataFrame</code>对象，以及如何访问其元素，及其成员函数。在<code>Rcpp</code>中，<code>DataFrame</code>是按照一种向量的方式实施的。换言之，<code>Vector</code>是一种元素为标量的向量，而<code>DataFrame</code>是元素为具有相同长度的<code>Vector</code>的向量。因此，<code>Vector</code>和<code>DataFrame</code>在创建对象，访问元素和成员函数上，有很多相同的方法。</p>
+<div id="Creating-DF" class="section level2">
+<h2><span class="header-section-number">12.1</span> 创建数据框对象</h2>
+<p><code>DataFrame::create()</code>被用于创建<code>DataFrame</code>对象。使用<code>Named()</code> 或 <code>_[]</code>可以为数据框对象指定列名。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">// 由 Vector v1, v2创建数据框</span>
+DataFrame df = DataFrame::create(v1, v2);
+<span class="co">// 指定列名</span>
+DataFrame df = DataFrame::create( Named(<span class="st">&quot;V1&quot;</span>) = v1 , _[<span class="st">&quot;V2&quot;</span>] = v2 );</code></pre></div>
+<p>当用户使用<code>DataFrame::create()</code>来创建<code>DataFrame</code>时，原始的<code>Vector</code>元素不会被复制到数据框的列中，该列实际上是对原始<code>Vector</code>的“引用”(“reference”)。因此，改变原始<code>Vector</code>的值，也会改变数据框对应列的值。为了避免上述情况，在创建<code>DataFrame</code>的列时，我们可以使用<code>clone()</code>函数来复制<code>Vector</code>元素的值。</p>
+<p>通过下面的代码示例，可以看到使用<code>clone()</code>和不使用之间的区别。数据框<code>df</code>的两列<code>v1</code>和<code>v2</code>，分别是对<code>Vector</code> v的引用，以及复制。可以看到，如果改变<code>Vector</code> v，那么 v1会被改变，但是v2不受影响。</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span>
+<span class="kw">using</span> <span class="kw">namespace</span> Rcpp;
+
+<span class="co">// [[Rcpp::plugins(cpp11)]]</span>
+
+<span class="co">// [[Rcpp::export]]</span>
+DataFrame rcpp_df(){
+  <span class="co">// 创建向量v</span>
+  NumericVector v = {<span class="dv">1</span>,<span class="dv">2</span>};
+  <span class="co">// 创建数据框df</span>
+  DataFrame df = DataFrame::create( Named(<span class="st">&quot;V1&quot;</span>) = v,         <span class="co">// simple assign</span>
+                                    Named(<span class="st">&quot;V2&quot;</span>) = clone(v)); <span class="co">// using clone()</span>
+  <span class="co">// 改变向量v</span>
+  v = v * <span class="dv">2</span>;
+  <span class="cf">return</span> df;
+}</code></pre></div>
+<p>执行结果如下:</p>
+<pre><code>&gt; rcpp_df()
+  V1 V2
+1  2  1
+2  4  2</code></pre>
+</div>
+<div id="accessing-dataframe-elements" class="section level2">
+<h2><span class="header-section-number">12.2</span> Accessing DataFrame elements</h2>
+<p>When accessing a specific column of <code>DataFrame</code>, the column is temporarily assigned to <code>Vector</code> object and accessed via the object. As with <code>Vector</code>, the <code>DataFrame</code> column can be specified by a numeric vector (column number), a string vector (column name), and a logical vector.</p>
+<pre><code>NumericVector v1 = df[0];
+NumericVector v2 = df[&quot;V2&quot;];</code></pre>
+<p>As with <code>DataFrame</code> creation, assigning a<code>DataFrame</code> column to <code>Vector</code> in the above way will not copy the column value to <code>Vector</code> object, but it will be a “reference” to the column. Therefore, when you change the values of <code>Vector</code> object, the content of the column will also be changed.</p>
+<p>If you want to create a <code>Vector</code> by copying the value of the column, use <code>clone()</code> function so that the value of the original <code>DataFrame</code> column is not changed.</p>
+<pre><code>NumericVector v1 = df[0]; // v1 becomes &quot;reference&quot; to the 0th column of df
+v1 = v1 * 2;              // Changing the value of v1 also changes the value of df[0]
+NumericVector v2 = clone(df[0]); // Duplicate the value of the element of df[0] to v2
+v2 = v2*2;                       // Changing v2 does not change the value of df [0]</code></pre>
+</div>
+<div id="member-functions" class="section level2">
+<h2><span class="header-section-number">12.3</span> Member functions</h2>
+<p>In Rcpp, <code>DataFrame</code> is implemented as certain kinds of vectors. In other words, <code>Vector</code> is a vector whose elements are scalar values, and <code>DataFrame</code> is a vector whose elements are <code>Vector</code>s. Therefore, <code>DataFrame</code> has many member functions common to <code>Vector</code>.</p>
+<div id="length-size" class="section level3">
+<h3><span class="header-section-number">12.3.1</span> length() size()</h3>
+<p>Returns the number of columns.</p>
+</div>
+<div id="nrows" class="section level3">
+<h3><span class="header-section-number">12.3.2</span> nrows()</h3>
+<p>Returns the number of rows.</p>
+</div>
+<div id="names" class="section level3">
+<h3><span class="header-section-number">12.3.3</span> names()</h3>
+<p>Returns the column name as a CharacterVector.</p>
+</div>
+<div id="offsetname-findnamename" class="section level3">
+<h3><span class="header-section-number">12.3.4</span> offset(name) findName(name)</h3>
+<p>Returns the numerical index of the column with the name specified by the string “name”.</p>
+</div>
+<div id="fillv" class="section level3">
+<h3><span class="header-section-number">12.3.5</span> fill(v)</h3>
+<p>fills all the columns of this <code>DataFrame</code> with<code>Vector</code> v.</p>
+</div>
+<div id="assign-first_it-last_it-1" class="section level3">
+<h3><span class="header-section-number">12.3.6</span> assign( first_it, last_it)</h3>
+<p>Assign columns in the range specified by the iterators first_it and last_it to this <code>DataFrame</code>.</p>
+</div>
+<div id="push_backv" class="section level3">
+<h3><span class="header-section-number">12.3.7</span> push_back(v)</h3>
+<p>Add <code>Vector</code> v to the end of this<code>DataFrame</code>.</p>
+</div>
+<div id="push_back-v-name" class="section level3">
+<h3><span class="header-section-number">12.3.8</span> push_back( v, name )</h3>
+<p>Append a <code>Vector</code> v to the end of this<code>DataFrame</code>. Specify the name of the added column with the string “name”.</p>
+</div>
+<div id="push_frontx" class="section level3">
+<h3><span class="header-section-number">12.3.9</span> push_front(x)</h3>
+<p>Append a <code>Vector</code> v at the beginning of this<code>DataFrame</code>.</p>
+</div>
+<div id="push_front-x-name" class="section level3">
+<h3><span class="header-section-number">12.3.10</span> push_front( x, name )</h3>
+<p>Append a <code>Vector</code> v at the beginning of this<code>DataFrame</code>. Specify the name of the added column with the string “name”.</p>
+</div>
+<div id="begin" class="section level3">
+<h3><span class="header-section-number">12.3.11</span> begin()</h3>
+<p>Returns an iterator pointing to the first column of this <code>DataFrame</code>.</p>
+</div>
+<div id="end" class="section level3">
+<h3><span class="header-section-number">12.3.12</span> end()</h3>
+<p>Return an iterator pointing to the end of this <code>DataFrame</code>.</p>
+</div>
+<div id="insert-it-v" class="section level3">
+<h3><span class="header-section-number">12.3.13</span> insert( it, v )</h3>
+<p>Add <code>Vector</code> v to this <code>DataFrame</code> at the position pointed by the iterator <code>it</code> and return an iterator to that element.</p>
+</div>
+<div id="erasei" class="section level3">
+<h3><span class="header-section-number">12.3.14</span> erase(i)</h3>
+<p>Delete the <code>i</code>th column of this <code>DataFrame</code> and return an iterator to the column just after erased column.</p>
+</div>
+<div id="eraseit" class="section level3">
+<h3><span class="header-section-number">12.3.15</span> erase(it)</h3>
+<p>Deletes the column specified by the iterator <code>it</code> and returns an iterator to the column just after erased column.</p>
+</div>
+<div id="erasefirst_i-last_i" class="section level3">
+<h3><span class="header-section-number">12.3.16</span> erase(first_i, last_i)</h3>
+<p>Deletes the <code>first_i</code>th to <code>last_i - 1</code>th columns and returns an iterator to the column just after erased column.</p>
+</div>
+<div id="erasefirst_it-last_it" class="section level3">
+<h3><span class="header-section-number">12.3.17</span> erase(first_it, last_it)</h3>
+<p>Deletes the range of columns from those specified by the iterator <code>first_it</code> to those specified by <code>last_it - 1</code> and returns an iterator to the column just after the erased columns.</p>
+</div>
+<div id="containselementnamedname" class="section level3">
+<h3><span class="header-section-number">12.3.18</span> containsElementNamed(name)</h3>
+<p>Returns true if this <code>DataFrame</code> has a column with the name specified by the string <code>name</code>.</p>
+</div>
+<div id="inheritsstr" class="section level3">
+<h3><span class="header-section-number">12.3.19</span> inherits(str)</h3>
+<p>Returns true if the attribute “class” of this object contains the string <code>str</code>.</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="Logical-operations.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook/js/app.min.js"></script>
+<script src="libs/gitbook/js/lunr.js"></script>
+<script src="libs/gitbook/js/plugin-search.js"></script>
+<script src="libs/gitbook/js/plugin-sharing.js"></script>
+<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/yihui/bookdown-chinese/edit/master/140-dataframe.Rmd",
+"text": "编辑"
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["bookdown.pdf", "bookdown.epub"],
+"toc": {
+"collapse": "none"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
