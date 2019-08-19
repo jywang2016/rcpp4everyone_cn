@@ -1,0 +1,2559 @@
+\documentclass[]{ctexbook}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{xltxtra,xunicode}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[b5paper,tmargin=2.5cm,bmargin=2.5cm,lmargin=3.5cm,rmargin=2.5cm]{geometry}
+\usepackage[unicode=true]{hyperref}
+\PassOptionsToPackage{usenames,dvipsnames}{color} % color is loaded by hyperref
+\hypersetup{
+            pdftitle={老少咸宜Rcpp},
+            pdfauthor={Masaki E. Tsuda 著 jywang 译},
+            colorlinks=true,
+            linkcolor=Maroon,
+            citecolor=Blue,
+            urlcolor=Blue,
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{natbib}
+\bibliographystyle{apalike}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\usepackage{longtable,booktabs}
+% Fix footnotes in tables (requires footnote package)
+\IfFileExists{footnote.sty}{\usepackage{footnote}\makesavenoteenv{long table}}{}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+\usepackage{booktabs}
+\usepackage{longtable}
+
+\usepackage{framed,color}
+\definecolor{shadecolor}{RGB}{248,248,248}
+
+\renewcommand{\textfraction}{0.05}
+\renewcommand{\topfraction}{0.8}
+\renewcommand{\bottomfraction}{0.8}
+\renewcommand{\floatpagefraction}{0.75}
+
+\let\oldhref\href
+\renewcommand{\href}[2]{#2\footnote{\url{#1}}}
+
+\makeatletter
+\newenvironment{kframe}{%
+\medskip{}
+\setlength{\fboxsep}{.8em}
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\makeatletter
+\@ifundefined{Shaded}{
+}{\renewenvironment{Shaded}{\begin{kframe}}{\end{kframe}}}
+\@ifpackageloaded{fancyvrb}{%
+  % https://github.com/CTeX-org/ctex-kit/issues/331
+  \RecustomVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\},formatcom=\xeCJKVerbAddon}%
+}{}
+\makeatother
+
+\usepackage{makeidx}
+\makeindex
+
+\urlstyle{tt}
+
+\usepackage{amsthm}
+\makeatletter
+\def\thm@space@setup{%
+  \thm@preskip=8pt plus 2pt minus 4pt
+  \thm@postskip=\thm@preskip
+}
+\makeatother
+
+\frontmatter
+
+\title{老少咸宜Rcpp}
+\author{Masaki E. Tsuda 著 jywang 译}
+\date{2019-08-19}
+
+\let\BeginKnitrBlock\begin \let\EndKnitrBlock\end
+\begin{document}
+\maketitle
+
+
+\thispagestyle{empty}
+
+\setlength{\abovedisplayskip}{-5pt}
+\setlength{\abovedisplayshortskip}{-5pt}
+
+{
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+\listoftables
+\listoffigures
+\chapter*{欢迎}
+
+
+Rcpp能够让你在R中使用C++。即便你对C++没有很深刻的了解，也可以轻松用R的风格来写C++。此外，Rcpp在易用的同时并不会牺牲执行速度，任何人都可以以此获得高性能的结果。
+
+本文档旨在给那些不熟悉C++的用户提供（使用Rcpp）必要的信息。因此，在某些情况，作者会从Rcpp的角度来解释其用法，让读者容易理解，而不是从C++的视角来力求描述准确。
+
+如果你能为本文档来提供反馈，我会十分感激。
+
+\href{https://github.com/teuder/rcpp4everyone_en}{项目原地址}
+
+\chapter*{本书编译环境}
+
+
+按照惯例，感谢yihui大佬，以及他的 \textbf{knitr}\index{knitr}
+\citep{xie2015} 和 \textbf{bookdown}\index{bookdown}
+\citep{R-bookdown}。以下为本书的 R 进程信息：
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sessionInfo}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## R version 3.6.0 (2019-04-26)
+## Platform: x86_64-w64-mingw32/x64 (64-bit)
+## Running under: Windows 10 x64 (build 10586)
+## 
+## Matrix products: default
+## 
+## locale:
+## [1] LC_COLLATE=Chinese (Simplified)_China.936 
+## [2] LC_CTYPE=Chinese (Simplified)_China.936   
+## [3] LC_MONETARY=Chinese (Simplified)_China.936
+## [4] LC_NUMERIC=C                              
+## [5] LC_TIME=Chinese (Simplified)_China.936    
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets 
+## [6] methods   base     
+## 
+## loaded via a namespace (and not attached):
+##  [1] compiler_3.6.0  magrittr_1.5    bookdown_0.12  
+##  [4] tools_3.6.0     htmltools_0.3.6 yaml_2.2.0     
+##  [7] Rcpp_1.0.1      stringi_1.4.3   rmarkdown_1.14 
+## [10] knitr_1.24      stringr_1.4.0   xfun_0.8       
+## [13] digest_0.6.20   evaluate_0.14
+\end{verbatim}
+
+\chapter*{翻译的初衷}
+
+
+由于研究需要，我在尝试使用C++来实现一些数值算法，求解优化问题。在倒腾Rmarkdown主题美化的时候，关注了\href{https://github.com/yixuan/prettydoc}{prettydoc}。巧的是，在作者yihuan(后面发现也是给\texttt{Rcpp:R与C++的无缝整合}写序的大佬)的\href{https://github.com/yixuan}{github}上，看到了很多相关的工作，比如优化和数值积分，\texttt{Readme}上我看到的都是\texttt{fast}和\texttt{c++}俩词。因此，开始学习\href{RcppCore/Rcpp}{Rcpp}。
+
+\texttt{Rcpp:R与C++的无缝整合}是我见到的第一份完备的Rcpp资料。拿到中文书籍的那一刻，爱不释手，然而读了一遍，大半内容我都是云里雾里。因此只能搁置。于是，算法只能用R写，速度慢也只能认了。后来在一些嵌入式系统上写了一段时间c，回头再看书，内容渐渐明了起来。我这才意识到，此前是我没有达到看书的门槛。
+
+Hadley Wickham在\href{https://adv-r.hadley.nz/}{Advanced
+R}中的前言谈到，很多R用户并不是程序员，且R用户追求的是解决问题，而不在意该过程。相信同我一样，很多R用户，其他语言背景（尤其是C/C++）很薄弱。这也意味着，以C++的角度来学Rcpp，会阻挡一部分的R用户迈入Rcpp。
+
+\href{rcpp4everyone_en}{Rcpp for
+everyone}一书对这个问题给出了自己的答案。\textbf{This document focuses
+on providing necessary information to users who are not familiar with
+C++. Therefore, in some cases, I explain usage of Rcpp conceptually
+rather than describing accurately from the viewpoint of C++, so that I
+hope readers can easily understand it.}
+与其设想的描述方式一致，本书的内容偏重于从Rcpp的角度来讲问题，较少涉及到C++的知识。这在保证用户理解的情况下，又能让用户以一种R语言的风格，来写Rcpp代码。在我看来，这可能是对C/C++了解不多的R用户，最简明的Rcpp入门教材。
+
+最后，\texttt{Rcpp\ for\ everyone\ ==\textgreater{}\textgreater{}\ Advanced\ R\ Rcpp部分\ ==\textgreater{}\textgreater{}\ Rcpp:R与C++的无缝整合}应该是我目前能发现的最平滑的Rcpp学习路线。希望本书的中文翻译能对更近一步地降低Rcpp的学习门槛，对大家的学习科研有所帮助。
+
+\BeginKnitrBlock{flushright}
+jywang\\
+二零一九年八月
+\EndKnitrBlock{flushright}
+
+\chapter*{作者简介}\label{author}
+
+
+Masaki E.Tsuda，github主页为https://github.com/teuder
+，著有\href{https://teuder.github.io/rcpp4everyone_en/}{Rcpp for
+everyone}。
+
+\mainmatter
+
+\chapter{啥情况该用Rcpp}\label{situations}
+
+R
+在做某些操作的时候是弱的。如果你需要做下面列出来的一些运算/操作，是时候考虑使用Rcpp了。
+
+\begin{itemize}
+\tightlist
+\item
+  循环，下一次循环依赖此前的循环结果(\texttt{猜测应该是无法直接用向量化来加速循环，所以需要Rcpp})
+\item
+  遍历一个向量或者矩阵中的每一个元素
+\item
+  有循环的递归函数
+\item
+  向量大小动态变化
+\item
+  需要更高端的数据结构和算法的操作
+\end{itemize}
+
+\chapter{安装}\label{install}
+
+在使用Rcpp开发之前，你需要安装一个c++的编译器。
+
+\section{安装C++编译器}\label{cppcompiler}
+
+\subsection{Windows}\label{cppcwindows}
+
+安装\texttt{Rtools}。
+
+参考Rstan的教程可能会有帮助（为Windows安装Rtools）。
+
+\subsection{Mac}\label{cppmac}
+
+安装Xcode命令行工具。在终端执行 \texttt{xcode-select\ -\/-install}命令。
+
+\subsection{Linux}\label{cpplinux}
+
+安装gcc和其他相关的包。 在Ubuntu
+Linux中，终端执行\texttt{sudo\ apt-get\ install\ r-base-dev}命令。
+
+\subsection{使用其他编译器}
+
+如果你安装有与上述不同的其他编译器(g++,clang++)，在用户的根目录下创建如下的文件。然后在这个文件中设置环境变量。
+
+\textbf{Linux,Mac}
+
+\begin{itemize}
+\tightlist
+\item
+  .R/Makevars
+\end{itemize}
+
+\textbf{Windows}
+
+\begin{itemize}
+\tightlist
+\item
+  .R/Makevars.win
+\end{itemize}
+
+\textbf{环境变量设定范例}
+
+\begin{verbatim}
+CC=/opt/local/bin/gcc-mp-4.7
+CXX=/opt/local/bin/g++-mp-4.7
+CPLUS_INCLUDE_PATH=/opt/local/include:$CPLUS_INCLUDE_PATH
+LD_LIBRARY_PATH=/opt/local/lib:$LD_LIBRARY_PATH
+CXXFLAGS= -g0 -O2 -Wall
+MAKE=make -j4
+\end{verbatim}
+
+\section{安装Rcpp}\label{Rcppinstallation}
+
+用户能通过执行下面代码安装Rcpp。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{install.packages}\NormalTok{(}\StringTok{"Rcpp"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\chapter{基本用法}\label{basicUsage}
+
+按照如下三步，即可使用你的Rcpp函数。
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  写（你的函数的）Rcpp代码
+\item
+  编译上述代码
+\item
+  执行函数
+\end{enumerate}
+
+\section{写Rcpp代码}\label{WriteRcppCode}
+
+下面的代码定义了一个名为\texttt{rcpp\_sum()}的函数，来计算一个向量的元素之和。保存代码块内容至
+\texttt{sum.cpp}文件。
+
+\textbf{sum.cpp}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{//sum.cpp}
+\PreprocessorTok{#include }\ImportTok{<Rcpp.h>}
+\KeywordTok{using} \KeywordTok{namespace}\NormalTok{ Rcpp;}
+\CommentTok{// [[Rcpp::export]]}
+\DataTypeTok{double}\NormalTok{ rcpp_sum(NumericVector v)\{}
+    \DataTypeTok{double}\NormalTok{ sum = }\DecValTok{0}\NormalTok{;}
+    \ControlFlowTok{for}\NormalTok{(}\DataTypeTok{int}\NormalTok{ i=}\DecValTok{0}\NormalTok{; i<v.length(); ++i)\{}
+\NormalTok{        sum += v[i];}
+\NormalTok{    \}}
+    \ControlFlowTok{return}\NormalTok{(sum);}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{在Rcpp中定义一个函数的格式}\label{formatForFunction}
+
+下面的代码展示了如何定义一个Rcpp函数的基本格式。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\PreprocessorTok{#include}\ImportTok{<Rcpp.h>}
+\KeywordTok{using} \KeywordTok{namespace}\NormalTok{ Rcpp;}
+\CommentTok{// [[Rcpp::export]]}
+\NormalTok{RETURN_TYPE FUNCTION_NAME(ARGUMENT_TYPE ARGUMENT)\{}
+    \CommentTok{//do something}
+    \ControlFlowTok{return}\NormalTok{ RETURN_VALUE;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\item
+  \texttt{\#include\textless{}Rcpp.h\textgreater{}} :
+  保证你能使用Rcpp包中定义的的类和函数
+\item
+  \texttt{//\ {[}{[}Rcpp::export{]}{]}}：在这行代码下定义的函数，才能（在后面的步骤中）被R获取.
+\item
+  \texttt{using\ namespace\ Rcpp;} :
+  这行代码是可选的。如果你不写，那么你需要在特定的类和函数前面加上前缀\texttt{Rcpp::}.
+  (比如, \texttt{Rcpp::NumericVector})
+\item
+  \texttt{RETURN\_TYPE\ FUNCTION\_NAME(ARGMENT\_TYPE\ ARGMENT)\{\}}：需要指定函数的返回值和参数的类型，以及函数名.
+\item
+  \texttt{return\ RETURN\_VALUE;}：\texttt{return}声明强制返回一个值，但是如果你不返回值（例如，\texttt{RETURN\_TYPE}是\texttt{void}型，即空），那么可以忽略\texttt{return}。
+\end{itemize}
+
+\section{编译代码}\label{compile}
+
+函数\texttt{Rcpp::sourceCpp()}会编译上述源代码并在R中加载。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(Rcpp)}
+\KeywordTok{sourceCpp}\NormalTok{(}\StringTok{'sum.cpp'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\section{执行函数}\label{Execute}
+
+你可以像使用其他R函数一样，来使用加载好的Rcpp函数。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OperatorTok{>}\StringTok{ }\KeywordTok{rcpp_sum}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{)}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{55}
+\OperatorTok{>}\StringTok{ }\KeywordTok{sum}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{)}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{55}
+\end{Highlighting}
+\end{Shaded}
+
+\chapter{将Rcpp嵌入R代码}\label{embedd}
+
+三种方式可以让你在R代码中写Rcpp代码，即使用\texttt{sourceCpp()}，
+\texttt{cppFunction()}， \texttt{evalCpp()}函数.
+
+\section{sourceCpp()}\label{sourcecpp}
+
+不同于\ref{compile}中需要加载外部的Rcpp文件，你可以直接在R中，写Rcpp代码，并且将其保存为一个字符串对象，然后利用\texttt{sourceCpp()}加载这个对象。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{src <-}
+\StringTok{"#include <Rcpp.h>}
+\StringTok{using namespace Rcpp;}
+\StringTok{// [[Rcpp::export]]}
+\StringTok{double rcpp_sum(NumericVector v)\{}
+\StringTok{  double sum = 0;}
+\StringTok{  for(int i=0; i<v.length(); ++i)\{}
+\StringTok{    sum += v[i];}
+\StringTok{  \}}
+\StringTok{  return(sum);}
+\StringTok{\}"}
+\KeywordTok{sourceCpp}\NormalTok{(}\DataTypeTok{code =}\NormalTok{ src)}
+\KeywordTok{rcpp_sum}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\section{cppFunction()}\label{cppFunction}
+
+\texttt{cppFunction()}提供了一种更加便利的方式来构建\textbf{单一的}Rcpp函数(采用sourceCpp的方式可以写多个Rcpp函数被R调用)。使用\texttt{cppFunction()}时，可以忽略\texttt{\#include\ \textless{}Rcpp.h\textgreater{}}
+和 \texttt{using\ namespase\ Rcpp;}。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{src <-}
+\StringTok{  "double rcpp_sum(NumericVector v)\{}
+\StringTok{    double sum = 0;}
+\StringTok{    for(int i=0; i<v.length(); ++i)\{}
+\StringTok{      sum += v[i];}
+\StringTok{    \}}
+\StringTok{    return(sum);}
+\StringTok{  \}}
+\StringTok{  "}
+\NormalTok{Rcpp}\OperatorTok{::}\KeywordTok{cppFunction}\NormalTok{(src)}
+\KeywordTok{rcpp_sum}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\section{evalCpp()}\label{evalcpp}
+
+可以使用\texttt{evalCpp()}直接执行单个的C++声明。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Showing maximum value of double.}
+\KeywordTok{evalCpp}\NormalTok{(}\StringTok{'std::numeric_limits<double>::max()'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\chapter{C++11}\label{cpp11}
+
+C++11是在2011年新建立的C++标准，该标准引入了新的函数(functionalities)和符号(notations)。相较于之前的标准，很多新的特性使得C++对于初学者而言更为简单。本文档会对C++11的新特性做很多探索。
+
+\textbf{重要：代码示例是在默认C++11可得的情况下写的。}
+
+\section{开启C++11}\label{enable}
+
+为了开启C++11，在你的Rcpp代码中任意一处加入下面的代码。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{// [[Rcpp::plugins("cpp11")]]}
+\end{Highlighting}
+\end{Shaded}
+
+\section{推荐的 C++11 特性}\label{recommend}
+
+\subsection{初始化}\label{initializer}
+
+使用 \texttt{\{\}}来初始化变量.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{// 初始化向量}
+\CommentTok{// 下面三行代码等同于R中的 c (1, 2, 3).}
+\NormalTok{NumericVector v1 = NumericVector::create(}\FloatTok{1.0}\NormalTok{, }\FloatTok{2.0}\NormalTok{, }\FloatTok{3.0}\NormalTok{);}
+\NormalTok{NumericVector v2 = \{}\FloatTok{1.0}\NormalTok{, }\FloatTok{2.0}\NormalTok{, }\FloatTok{3.0}\NormalTok{\};}
+\NormalTok{NumericVector v3   \{}\FloatTok{1.0}\NormalTok{, }\FloatTok{2.0}\NormalTok{, }\FloatTok{3.0}\NormalTok{\}; }\CommentTok{// 你可以忽略 "=".}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{auto}\label{auto}
+
+使用\texttt{auto}关键字，根据赋值，来推断变量的类型
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{// 变量 "i" 会是 int 型}
+\KeywordTok{auto}\NormalTok{  i  = }\DecValTok{4}\NormalTok{;}
+\NormalTok{NumericVector v;}
+\CommentTok{// 变量 "it" 会是 NumericVector::iterator }
+\KeywordTok{auto}\NormalTok{ it = v.begin();}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{decltype}\label{decltype}
+
+通过使用 \texttt{decltype}，你能声明变量的类型与已存在的变量相同.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DataTypeTok{int}\NormalTok{ i;}
+\KeywordTok{decltype}\NormalTok{(i) x; }\CommentTok{// 变量 "x" 会是 int 型}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{基于范围的for循环}\label{rangefor}
+
+能用一种比较R风格的方式来写for循环。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{IntegerVector v\{}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{\};}
+\DataTypeTok{int}\NormalTok{ sum=}\DecValTok{0}\NormalTok{;}
+\ControlFlowTok{for}\NormalTok{(}\KeywordTok{auto}\NormalTok{& x : v) \{}
+\NormalTok{  sum += x;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Lambda 表达式}\label{Lambda}
+
+你能使用lambda表达式来创建一个函数对象。函数对象常用于作为未命名函数传递给其他函数。
+
+Lambda表达式的形式为 \texttt{{[}{]}()\{\}}.
+
+在 \texttt{{[}{]}}中，写你希望在函数对象中使用的局部变量的列表.
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{{[}{]}} 不允许函数对象获取所有的局部变量.
+\item
+  \texttt{{[}={]}} 传值，将所有局部变量的值传递给函数对象.
+\item
+  \texttt{{[}\&{]}} 引用，函数直接引用所有的局部变量的值.
+\item
+  \texttt{{[}=x,\ \&y{]}} ``x'' 传值给函数对象，而``y''
+  可以被函数对象直接引用.
+\end{itemize}
+
+在 \texttt{()}中，写传递给函数的参数列表.
+
+在\texttt{\{\}}中，写想做的操作.
+
+\textbf{lambda 表达式的返回类型}
+
+函数对象的返回类型会被自动地设定为\texttt{\{\}}操作中返回值的类型。如果你希望显式定义返回类型，可以按照\texttt{{[}{]}()-\textgreater{}int\{\}}的方式。
+
+\textbf{例子}
+下面的例子展示了如何使用lambda表达式。可以按照R的风格来写某些类型的C++代码。
+
+\emph{R 例子}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{v <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{)}
+\NormalTok{A <-}\StringTok{ }\FloatTok{2.0}
+\NormalTok{res <-}
+\StringTok{  }\KeywordTok{sapply}\NormalTok{(v, }\ControlFlowTok{function}\NormalTok{(x)\{A}\OperatorTok{*}\NormalTok{x\})}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{quote}
+译者：上面的sapply函数，将function(x)\{A*x\}作用于v中的每个元素。这是很典型的向量化编程，可以看apply函数族来对此有更深的了解。
+\end{quote}
+
+\emph{Rcpp 例子}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{// [[Rcpp::plugins("cpp11")]] }
+\CommentTok{// [[Rcpp::export]]}
+\NormalTok{NumericVector rcpp_lambda_1()\{}
+\NormalTok{  NumericVector v = \{}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{\};}
+  \DataTypeTok{double}\NormalTok{ A = }\FloatTok{2.0}\NormalTok{;}
+\NormalTok{  NumericVector res =}
+\NormalTok{    sapply(v, [&](}\DataTypeTok{double}\NormalTok{ x)\{}\ControlFlowTok{return}\NormalTok{ A*x;\});}
+  \ControlFlowTok{return}\NormalTok{ res;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{quote}
+译者：上面代码中也使用sapply函数，将R中的function(x)(A*x)
+用lambda表达式的方式替代。而sapply，则是吃到了Rcpp给我们提供的语法糖(sugar)。如果要对语法糖有更深的了解，可以阅读Rcpp:R与C++的无缝整合中的相关章节。
+\end{quote}
+
+\chapter{信息打印}\label{print}
+
+你可以通过\texttt{Rprintf()}和\texttt{Rcout}在R的控制台上来打印对象的信息和值。
+
+\texttt{REprintf()} 和 \texttt{Rcerr} 可用于打印报错信息。
+
+\section{Rcout, Rcerr}\label{Rcout}
+
+使用\texttt{Rcout} 和 \texttt{Rcerr}的方式与
+使用\texttt{std::cout}和\texttt{std::cerr}方式相同。将你想要输出的信息，按照特定的顺序，使用\texttt{\textless{}\textless{}}输出符号链接。\textbf{当在}\texttt{\textless{}\textless{}}\textbf{前是向量对象时}，程序会打印向量的所有元素。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{// [[Rcpp::export]]}
+\DataTypeTok{void}\NormalTok{ rcpp_rcout(NumericVector v)\{}
+  \CommentTok{// 打印向量的所有元素值}
+\NormalTok{  Rcout << }\StringTok{"The value of v : "}\NormalTok{ << v << }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{;}
+  \CommentTok{// 打印报错信息}
+\NormalTok{  Rcerr << }\StringTok{"Error message}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Rprintf(), REprintf()}\label{Rprintf}
+
+使用\texttt{Rprintf()} 和 \texttt{REprintf()} 的方式和
+\texttt{std::printf()}相同, 函数会按照指定的格式打印信息。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Rprintf( format, variables)}
+\end{Highlighting}
+\end{Shaded}
+
+在\texttt{format}字符串中，你可以使用下面的格式指示符来打印变了的值。如果要打印多个变量，你需要按照对应的格式字符串的顺序，来排列你的变量。
+
+下面只列举了一部分的格式指示符，可以参考其他的文档以深入探究（如，\href{http://www.cplusplus.com/reference/cstdio/printf/}{cplusplus.com}）。
+
+\begin{longtable}[]{@{}cl@{}}
+\toprule
+specifier & explanation\tabularnewline
+\midrule
+\endhead
+\texttt{\%i} & 打印 signed integer (\texttt{int})\tabularnewline
+\texttt{\%u} & 打印 unsigned integer
+(\texttt{unsigned\ int})\tabularnewline
+\texttt{\%f} & 打印 floating point number
+(\texttt{double})\tabularnewline
+\texttt{\%e} & 打印 floating point number (\texttt{double}) in
+exponential style\tabularnewline
+\texttt{\%s} & 打印 C string (\texttt{char*})\tabularnewline
+\bottomrule
+\end{longtable}
+
+此外，\texttt{Rprintf()} 和 \texttt{REprintf()}
+\textbf{只能打印在标准的C语言中已有的数据类型}，因此，用户并不能直接传递Rcpp包中定义的数据类型，如\texttt{NumericVector}给\texttt{Rprintf()}打印。如果你想进行此类操作，那么你可能需要逐个元素进行传递打印，代码如下。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{// [[Rcpp::export]]}
+\DataTypeTok{void}\NormalTok{ rcpp_rprintf(NumericVector v)\{}
+    \CommentTok{// printing values of all the elements of Rcpp vector  }
+    \ControlFlowTok{for}\NormalTok{(}\DataTypeTok{int}\NormalTok{ i=}\DecValTok{0}\NormalTok{; i<v.length(); ++i)\{}
+\NormalTok{        Rprintf(}\StringTok{"the value of v[}\SpecialCharTok{%i}\StringTok{] : }\SpecialCharTok{%f}\StringTok{ }\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, i, v[i]);}
+\NormalTok{    \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\chapter{数据类型}\label{datatypes}
+
+Rcpp提供了R中所有的基本数据类型。通过使用这些数据类型，你能够直接使用在R中的对象。
+
+\section{向量和矩阵}\label{vectorMatrix}
+
+下面7种数据类型在R中被经常使用。
+
+\texttt{logical} \texttt{integer} \texttt{numeric} \texttt{complex}
+\texttt{character} \texttt{Date} \texttt{POSIXct}
+
+上面的7种类型与Rcpp中的向量(\texttt{vector})类型和矩阵(\texttt{matrix})类型是对应的（比如，有
+logicalVector,integerVector等类型，上面7种基本的数据类型都可以在后面加上Vector或者Matrix）。
+
+本文档中， \texttt{Vector} 和 \texttt{Matrix}
+用于特指Rcpp中所有的向量和矩阵类型。
+
+下表中展示了R/Rcpp/C++中对应的数据类型。
+
+\begin{longtable}[]{@{}cccccc@{}}
+\toprule
+\begin{minipage}[b]{0.07\columnwidth}\centering\strut
+Value\strut
+\end{minipage} & \begin{minipage}[b]{0.07\columnwidth}\centering\strut
+R vector\strut
+\end{minipage} & \begin{minipage}[b]{0.07\columnwidth}\centering\strut
+Rcpp vector\strut
+\end{minipage} & \begin{minipage}[b]{0.07\columnwidth}\centering\strut
+Rcpp matrix\strut
+\end{minipage} & \begin{minipage}[b]{0.07\columnwidth}\centering\strut
+Rcpp scalar\strut
+\end{minipage} & \begin{minipage}[b]{0.07\columnwidth}\centering\strut
+C++ scalar\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.07\columnwidth}\centering\strut
+Logical\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering\strut
+\texttt{logical}\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering\strut
+\texttt{LogicalVector}\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering\strut
+\texttt{LogicalMatrix}\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering\strut
+-\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering\strut
+\texttt{bool}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.07\columnwidth}\centering\strut
+Integer\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering\strut
+\texttt{integer}\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering\strut
+\texttt{IntegerVector}\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering\strut
+\texttt{IntegerMatrix}\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering\strut
+-\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering\strut
+\texttt{int}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.07\columnwidth}\centering\strut
+Real\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering\strut
+\texttt{numeric}\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering\strut
+\texttt{NumericVector}\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering\strut
+\texttt{NumericMatrix}\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering\strut
+-\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering\strut
+\texttt{double}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.07\columnwidth}\centering\strut
+Complex\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering\strut
+\texttt{complex}\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering\strut
+\texttt{ComplexVector}\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering\strut
+\texttt{ComplexMatrix}\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering\strut
+\texttt{Rcomplex}\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering\strut
+\texttt{complex}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.07\columnwidth}\centering\strut
+String\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering\strut
+\texttt{character}\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering\strut
+\texttt{CharacterVector} (\texttt{StringVector})\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering\strut
+\texttt{CharacterMatrix} (\texttt{StringMatrix})\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering\strut
+\texttt{String}\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering\strut
+\texttt{string}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.07\columnwidth}\centering\strut
+Date\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering\strut
+\texttt{Date}\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering\strut
+\texttt{DateVector}\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering\strut
+-\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering\strut
+\texttt{Date}\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering\strut
+-\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.07\columnwidth}\centering\strut
+Datetime\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering\strut
+\texttt{POSIXct}\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering\strut
+\texttt{DatetimeVector}\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering\strut
+-\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering\strut
+\texttt{Datetime}\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering\strut
+\texttt{time\_t}\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+\section{data.frame, list, S3, S4}\label{dataframe}
+
+除了向量和矩阵，在R中海油一些数据结构，比如
+data.frame，list，S3和S4类。所有这些数据结构同样也可以在Rcpp中处理。
+
+\begin{longtable}[]{@{}cc@{}}
+\toprule
+R & Rcpp\tabularnewline
+\midrule
+\endhead
+\texttt{data.frame} & \texttt{DataFrame}\tabularnewline
+\texttt{list} & \texttt{List}\tabularnewline
+S3 class & \texttt{List}\tabularnewline
+S4 class & \texttt{S4}\tabularnewline
+\bottomrule
+\end{longtable}
+
+在Rcpp中，\texttt{Vector}, \texttt{DataFrame},
+\texttt{List}都以向量的方式实现。即，\texttt{Vector}
+是一个元素全部为标量的向量，\texttt{DataFrame}是元素全部为向量的向量，\texttt{List}是元素为各种各样数据类型的向量。因此，在Rcpp中\texttt{Vector},
+\texttt{DataFrame}, \texttt{List} 有很多共同的成员函数。
+
+\chapter{Vector类}\label{vector}
+
+\section{创建向量对象}\label{create-vector-object}
+
+你可以使用下面的几种方法来创建向量对象。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{// 等价于 v <- rep(0, 3)}
+\NormalTok{NumericVector v (}\DecValTok{3}\NormalTok{);}
+
+\CommentTok{// 等价于 v <- rep(1, 3)}
+\NormalTok{NumericVector v (}\DecValTok{3}\NormalTok{,}\DecValTok{1}\NormalTok{);}
+
+\CommentTok{// 等价于 v <- c(1,2,3) }
+\CommentTok{// C++11 初始化列表}
+\NormalTok{NumericVector v = \{}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{\}; }
+
+\CommentTok{// 等价于 v <- c(1,2,3)}
+\NormalTok{NumericVector v = NumericVector::create(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{);}
+
+\CommentTok{// 命名向量 等价于 v <- c(x=1, y=2, z=3)}
+\NormalTok{NumericVector v =}
+\NormalTok{  NumericVector::create(Named(}\StringTok{"x"}\NormalTok{,}\DecValTok{1}\NormalTok{), Named(}\StringTok{"y"}\NormalTok{)=}\DecValTok{2}\NormalTok{ , _[}\StringTok{"z"}\NormalTok{]=}\DecValTok{3}\NormalTok{);}
+\end{Highlighting}
+\end{Shaded}
+
+\section{获取向量元素}\label{Accessing-vector-elements}
+
+你可以使用\texttt{{[}{]}} 或
+\texttt{()}运算符来获取一个向量的个别元素。两种操作符都接受
+数值向量/整型向量(NumericVector/IntegerVector)
+的数值索引，字符向量的元素名索引和逻辑向量。\texttt{{[}{]}}运算符会忽略边界溢出，而\texttt{()}
+运算符会抛出\texttt{index\_out\_of\_bounds}错误。
+
+\textbf{需要注意的是 C++中的向量索引开始于0}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{// [[Rcpp::export]]}
+\DataTypeTok{void}\NormalTok{ rcpp_vector_access()\{}
+
+  \CommentTok{// 创建向量}
+\NormalTok{  NumericVector v  \{}\DecValTok{10}\NormalTok{,}\DecValTok{20}\NormalTok{,}\DecValTok{30}\NormalTok{,}\DecValTok{40}\NormalTok{,}\DecValTok{50}\NormalTok{\};}
+  \CommentTok{// 设置元素名称}
+\NormalTok{  v.names() = CharacterVector(\{}\StringTok{"A"}\NormalTok{,}\StringTok{"B"}\NormalTok{,}\StringTok{"C"}\NormalTok{,}\StringTok{"D"}\NormalTok{,}\StringTok{"E"}\NormalTok{\});}
+  
+  \CommentTok{// 准备向量索引}
+\NormalTok{  NumericVector   numeric = \{}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{\};}
+\NormalTok{  IntegerVector   integer = \{}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{\};}
+\NormalTok{  CharacterVector character = \{}\StringTok{"B"}\NormalTok{,}\StringTok{"D"}\NormalTok{\};}
+\NormalTok{  LogicalVector   logical = \{}\KeywordTok{false}\NormalTok{, }\KeywordTok{true}\NormalTok{, }\KeywordTok{false}\NormalTok{, }\KeywordTok{true}\NormalTok{, }\KeywordTok{false}\NormalTok{\};}
+  
+  \CommentTok{// 根据向量索引获取向量元素值}
+  \DataTypeTok{double}\NormalTok{ x1 = v[}\DecValTok{0}\NormalTok{];}
+  \DataTypeTok{double}\NormalTok{ x2 = v[}\StringTok{"A"}\NormalTok{];}
+\NormalTok{  NumericVector res1 = v[numeric];}
+\NormalTok{  NumericVector res2 = v[integer];}
+\NormalTok{  NumericVector res3 = v[character];}
+\NormalTok{  NumericVector res4 = v[logical];}
+  
+  \CommentTok{// 向量元素赋值}
+\NormalTok{  v[}\DecValTok{0}\NormalTok{]   = }\DecValTok{100}\NormalTok{;}
+\NormalTok{  v[}\StringTok{"A"}\NormalTok{] = }\DecValTok{100}\NormalTok{;}
+\NormalTok{  NumericVector v2 \{}\DecValTok{100}\NormalTok{,}\DecValTok{200}\NormalTok{\};}
+\NormalTok{  v[numeric]   = v2;}
+\NormalTok{  v[integer]   = v2;}
+\NormalTok{  v[character] = v2;}
+\NormalTok{  v[logical]   = v2;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\section{成员函数}\label{Member-functions}
+
+成员函数（也被称作方法）是某个对象中的函数。你可以以\texttt{v.f()}的形式来调用对象\texttt{v}中的成员函数\texttt{f()}。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{NumericVector v = \{}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{\};}
+
+\CommentTok{// 调用成员函数length()，求对象v的长度}
+\DataTypeTok{int}\NormalTok{ n = v.length(); }\CommentTok{// 5}
+\end{Highlighting}
+\end{Shaded}
+
+Rcpp中，向量对象的成员函数列举如下。
+
+\subsection{length(), size()}\label{vector-length-size}
+
+返回该向量对象中元素的个数。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{//test.cpp 文件}
+\PreprocessorTok{#include }\ImportTok{<Rcpp.h>}
+\KeywordTok{using} \KeywordTok{namespace}\NormalTok{ Rcpp;}
+
+\CommentTok{// [[Rcpp::export]]}
+\DataTypeTok{int}\NormalTok{ test(NumericVector v) \{}
+  
+\NormalTok{  Rcout << v.length() << }\StringTok{'}\SpecialCharTok{\textbackslash{}n}\StringTok{'}\NormalTok{;}
+\NormalTok{  Rcout << v.size() << }\StringTok{'}\SpecialCharTok{\textbackslash{}n}\StringTok{'}\NormalTok{;}
+  \ControlFlowTok{return} \DecValTok{0}\NormalTok{;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+在R中，运行结果为：
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OperatorTok{>}\StringTok{ }\KeywordTok{sourceCpp}\NormalTok{(}\StringTok{"test.cpp"}\NormalTok{)}
+
+\OperatorTok{>}\StringTok{ }\KeywordTok{test}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{))}
+\DecValTok{10}
+\DecValTok{10}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{0}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{names()}\label{vector-names}
+
+以字符向量的形式，返回该向量的元素名称。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{//test.cpp 文件}
+\PreprocessorTok{#include }\ImportTok{<Rcpp.h>}
+\KeywordTok{using} \KeywordTok{namespace}\NormalTok{ Rcpp;}
+
+\CommentTok{// [[Rcpp::export]]}
+\NormalTok{CharacterVector test(NumericVector v) \{}
+  
+  \ControlFlowTok{return}\NormalTok{ v.names();}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+在R中，运行结果为：
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OperatorTok{>}\StringTok{ }\KeywordTok{sourceCpp}\NormalTok{(}\StringTok{"test.cpp"}\NormalTok{)}
+
+\OperatorTok{>}\StringTok{ }\KeywordTok{test}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DataTypeTok{a =} \DecValTok{1}\NormalTok{,}\DataTypeTok{b =} \DecValTok{2}\NormalTok{, }\DataTypeTok{c =} \DecValTok{3}\NormalTok{))}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"a"} \StringTok{"b"} \StringTok{"c"}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{offset( name ), findName( name )}\label{offsetname}
+
+按照指定字符串\texttt{name}的方式，返回对应元素的数值索引。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{//test.cpp 文件}
+\PreprocessorTok{#include }\ImportTok{<Rcpp.h>}
+\KeywordTok{using} \KeywordTok{namespace}\NormalTok{ Rcpp;}
+
+\CommentTok{// [[Rcpp::export]]}
+\DataTypeTok{int}\NormalTok{ test(NumericVector v, }\BuiltInTok{std::}\NormalTok{string name) \{}
+  
+  \ControlFlowTok{return}\NormalTok{ v.offset(name);}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+在R中，运行结果为：
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OperatorTok{>}\StringTok{ }\KeywordTok{sourceCpp}\NormalTok{(}\StringTok{"test.cpp"}\NormalTok{)}
+
+\OperatorTok{>}\StringTok{ }\KeywordTok{test}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DataTypeTok{a =} \DecValTok{1}\NormalTok{,}\DataTypeTok{b =} \DecValTok{2}\NormalTok{, }\DataTypeTok{c =} \DecValTok{3}\NormalTok{),}\StringTok{"a"}\NormalTok{)}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{0}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{offset( i )}\label{offseti}
+
+函数在检查数值索引i没有超过边界后，返回该索引。
+
+举例说明，在\texttt{test.cpp}文件中键入以下代码，
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\PreprocessorTok{#include }\ImportTok{<Rcpp.h>}
+\KeywordTok{using} \KeywordTok{namespace}\NormalTok{ Rcpp;}
+
+\CommentTok{// [[Rcpp::export]]}
+\DataTypeTok{int}\NormalTok{ test(NumericVector v, }\DataTypeTok{int}\NormalTok{ i) \{}
+  \ControlFlowTok{return}\NormalTok{ v.offset(i);}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+在R中，运行结果为：
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OperatorTok{>}\StringTok{ }\KeywordTok{sourceCpp}\NormalTok{(}\StringTok{'test.cpp'}\NormalTok{)}
+
+\OperatorTok{>}\StringTok{ }\KeywordTok{test}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{11}\NormalTok{,}\DecValTok{22}\NormalTok{,}\DecValTok{33}\NormalTok{,}\DecValTok{44}\NormalTok{,}\DecValTok{55}\NormalTok{),}\DecValTok{2}\NormalTok{)}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{2}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{fill( x )}\label{fillx}
+
+将该向量的所有元素用标量\texttt{x}填充。
+
+举例说明，在\texttt{test.cpp}文件中键入以下代码，
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\PreprocessorTok{#include }\ImportTok{<Rcpp.h>}
+\KeywordTok{using} \KeywordTok{namespace}\NormalTok{ Rcpp;}
+
+\CommentTok{// [[Rcpp::export]]}
+\NormalTok{NumericVector test(NumericVector v, }\DataTypeTok{double}\NormalTok{ i) \{}
+\NormalTok{  v.fill(i);}
+  \ControlFlowTok{return}\NormalTok{ v;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OperatorTok{>}\StringTok{ }\KeywordTok{sourceCpp}\NormalTok{(}\StringTok{"test.cpp"}\NormalTok{)}
+
+\OperatorTok{>}\StringTok{ }\KeywordTok{test}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{),}\DecValTok{6}\NormalTok{)}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{6} \DecValTok{6} \DecValTok{6} \DecValTok{6} \DecValTok{6}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{sort()}\label{sort}
+
+将该向量对象中的元素升序排列。
+
+举例说明，在\texttt{test.cpp}文件中键入以下代码，
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\PreprocessorTok{#include }\ImportTok{<Rcpp.h>}
+\KeywordTok{using} \KeywordTok{namespace}\NormalTok{ Rcpp;}
+
+\CommentTok{// [[Rcpp::export]]}
+\NormalTok{NumericVector test(NumericVector v) \{}
+\NormalTok{  v.sort();}
+  \ControlFlowTok{return}\NormalTok{ v;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OperatorTok{>}\StringTok{ }\KeywordTok{sourceCpp}\NormalTok{(}\StringTok{"test.cpp"}\NormalTok{)}
+
+\OperatorTok{>}\StringTok{ }\KeywordTok{test}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{7}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{8}\NormalTok{))}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{4} \DecValTok{5} \DecValTok{6} \DecValTok{7} \DecValTok{8}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{assign( first\_it, last\_it
+)}\label{assign-first_it-last_it}
+
+assign values specified by the iterator \texttt{first\_it} and
+\texttt{last\_it} to this vector object.
+将迭代器\texttt{first\_it}至\texttt{lates\_it}所指向的元素赋给向量对象。
+
+举例说明，在\texttt{test.cpp}文件中键入以下代码，
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\PreprocessorTok{#include }\ImportTok{<Rcpp.h>}
+\KeywordTok{using} \KeywordTok{namespace}\NormalTok{ Rcpp;}
+
+\CommentTok{// [[Rcpp::export]]}
+\NormalTok{NumericVector test(NumericVector v) \{}
+\NormalTok{  NumericVector v1;}
+\NormalTok{  v1.assign(v.begin(),v.end());}
+  \ControlFlowTok{return}\NormalTok{ v1;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\texttt{begin}和\texttt{end}也是成员函数，下面\ref{vector-begin}也有对应的例子
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OperatorTok{>}\StringTok{ }\KeywordTok{sourceCpp}\NormalTok{(}\StringTok{"test.cpp"}\NormalTok{)}
+
+\OperatorTok{>}\StringTok{ }\KeywordTok{test}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{)}
+\NormalTok{ [}\DecValTok{1}\NormalTok{]  }\DecValTok{1}  \DecValTok{2}  \DecValTok{3}  \DecValTok{4}  \DecValTok{5}  \DecValTok{6}  \DecValTok{7}  \DecValTok{8}  \DecValTok{9} \DecValTok{10}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{push\_back( x )}\label{push-backx}
+
+在向量对象的最后加入新的标量值 \texttt{x}。
+
+在\texttt{test.cpp}文件中键入以下代码，
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\PreprocessorTok{#include }\ImportTok{<Rcpp.h>}
+\KeywordTok{using} \KeywordTok{namespace}\NormalTok{ Rcpp;}
+
+\CommentTok{// [[Rcpp::export]]}
+\NormalTok{NumericVector test(NumericVector v, }\DataTypeTok{double}\NormalTok{ var_PB) \{}
+  
+\NormalTok{  v.push_back(var_PB);}
+  \ControlFlowTok{return}\NormalTok{ v;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OperatorTok{>}\StringTok{ }\KeywordTok{sourceCpp}\NormalTok{(}\StringTok{"test.cpp"}\NormalTok{)}
+
+\OperatorTok{>}\StringTok{ }\KeywordTok{test}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{),}\DecValTok{6}\NormalTok{)}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{1} \DecValTok{2} \DecValTok{3} \DecValTok{4} \DecValTok{5} \DecValTok{6}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{push\_back( x, name )}\label{push-back-name}
+
+在向量后加入标量元素\texttt{x}时，指定其元素名称。
+
+在\texttt{test.cpp}文件中键入以下代码，
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\PreprocessorTok{#include }\ImportTok{<Rcpp.h>}
+\KeywordTok{using} \KeywordTok{namespace}\NormalTok{ Rcpp;}
+
+\CommentTok{// [[Rcpp::export]]}
+\NormalTok{NumericVector test(NumericVector v, }
+                   \DataTypeTok{double}\NormalTok{ var_PB, }
+                   \BuiltInTok{std::}\NormalTok{string var_Name) \{}
+  
+  \CommentTok{//v.names() = CharacterVector::create("a","b","c","d","e");}
+\NormalTok{  v.push_back(var_PB,var_Name);}
+  \ControlFlowTok{return}\NormalTok{ v;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OperatorTok{>}\StringTok{ }\KeywordTok{sourceCpp}\NormalTok{(}\StringTok{'test.cpp'}\NormalTok{)}
+
+\OperatorTok{>}\StringTok{ }\KeywordTok{test}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DataTypeTok{a =} \DecValTok{1}\NormalTok{,}\DataTypeTok{b =} \DecValTok{2}\NormalTok{,}\DataTypeTok{c =} \DecValTok{3}\NormalTok{,}\DataTypeTok{d =} \DecValTok{4}\NormalTok{,}\DataTypeTok{e =} \DecValTok{5}\NormalTok{),}\DecValTok{6}\NormalTok{,}\StringTok{"f"}\NormalTok{)}
+\NormalTok{a b c d e f}
+\DecValTok{1} \DecValTok{2} \DecValTok{3} \DecValTok{4} \DecValTok{5} \DecValTok{6}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{push\_front( x )}\label{push-front-x}
+
+在向量前面加入一个标量\texttt{x}。
+
+在\texttt{test.cpp}文件中键入以下代码，
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\PreprocessorTok{#include }\ImportTok{<Rcpp.h>}
+\KeywordTok{using} \KeywordTok{namespace}\NormalTok{ Rcpp;}
+
+\CommentTok{// [[Rcpp::export]]}
+\NormalTok{NumericVector test(NumericVector v, }
+                   \DataTypeTok{double}\NormalTok{ var_f) \{}
+\NormalTok{  v.push_front(var_f);}
+  \ControlFlowTok{return}\NormalTok{ v;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OperatorTok{>}\StringTok{ }\KeywordTok{sourceCpp}\NormalTok{(}\StringTok{'test.cpp'}\NormalTok{)}
+
+\OperatorTok{>}\StringTok{ }\KeywordTok{test}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{),}\DecValTok{6}\NormalTok{)}
+\DecValTok{6} \DecValTok{1} \DecValTok{2} \DecValTok{3} \DecValTok{4} \DecValTok{5} 
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{push\_front( x, name )}\label{push-front-name}
+
+在向量前加入标量元素\texttt{x}时，指定其元素名称。
+
+在\texttt{test.cpp}文件中键入以下代码，
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\PreprocessorTok{#include }\ImportTok{<Rcpp.h>}
+\KeywordTok{using} \KeywordTok{namespace}\NormalTok{ Rcpp;}
+
+\CommentTok{// [[Rcpp::export]]}
+\NormalTok{NumericVector test(NumericVector v, }
+                   \DataTypeTok{double}\NormalTok{ var_f, }
+                   \BuiltInTok{std::}\NormalTok{string var_Name) \{}
+  
+  \CommentTok{//v.names() = CharacterVector::create("a","b","c","d","e");}
+\NormalTok{  v.push_front(var_f,var_Name);}
+  \ControlFlowTok{return}\NormalTok{ v;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OperatorTok{>}\StringTok{ }\KeywordTok{sourceCpp}\NormalTok{(}\StringTok{'test.cpp'}\NormalTok{)}
+
+\OperatorTok{>}\StringTok{ }\KeywordTok{test}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DataTypeTok{a =} \DecValTok{1}\NormalTok{,}\DataTypeTok{b =} \DecValTok{2}\NormalTok{,}\DataTypeTok{c =} \DecValTok{3}\NormalTok{,}\DataTypeTok{d =} \DecValTok{4}\NormalTok{,}\DataTypeTok{e =} \DecValTok{5}\NormalTok{),}\DecValTok{6}\NormalTok{,}\StringTok{"f"}\NormalTok{)}
+\NormalTok{f a b c d e }
+\DecValTok{6} \DecValTok{1} \DecValTok{2} \DecValTok{3} \DecValTok{4} \DecValTok{5} 
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{begin()}\label{vector-begin}
+
+返回一个指向向量第一个元素的迭代器。
+
+\subsection{end()}\label{vector-end}
+
+返回一个指向向量最后一个元素的迭代器。 (\textbf{one past the last
+element of this vector}).
+
+以求和函数说明\texttt{begin()}和\texttt{end()}的作用。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\PreprocessorTok{#include }\ImportTok{<Rcpp.h>}
+\KeywordTok{using} \KeywordTok{namespace}\NormalTok{ Rcpp;}
+
+\CommentTok{// [[Rcpp::export]]}
+\DataTypeTok{double}\NormalTok{ test(NumericVector v) \{}
+  
+  \DataTypeTok{double}\NormalTok{ mysum = }\DecValTok{0}\NormalTok{;}
+\NormalTok{  NumericVector::iterator it;}
+  \ControlFlowTok{for}\NormalTok{(it = v.begin();it!=v.end();it++)\{}
+\NormalTok{    mysum += *it;}
+\NormalTok{  \}}
+  \ControlFlowTok{return}\NormalTok{ mysum;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OperatorTok{>}\StringTok{ }\KeywordTok{sourceCpp}\NormalTok{(}\StringTok{'test.cpp'}\NormalTok{)}
+
+\OperatorTok{>}\StringTok{ }\KeywordTok{test}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{)}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{55}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{quote}
+在循环体内，我们用*it获取向量v中的元素，在指明循环范围的时候，也并不是我们熟悉的
+int i = 0; i \textless{} n; i++
+\end{quote}
+
+该例子来源于Advanced
+R中案例，请点击\href{http://adv-r.had.co.nz/Rcpp.html\#rcpp-classes}{传送门}。
+
+\subsection{cbegin()}\label{cbegin}
+
+返回一个指向向量第一个元素的具有const属性的迭代器。
+
+\begin{quote}
+无法用于元素的修改
+\end{quote}
+
+\subsection{cend()}\label{cend}
+
+返回一个指向向量最后一个元素的具有const属性的迭代器。 (\textbf{one past
+the last element of this vector}).
+
+以求和函数说明\texttt{cbegin()}和\texttt{cend()}的作用。\textbf{下面的例子只在声明迭代器it的时候，将iterator改为const\_iterator}，因为\texttt{cbegin()}和\texttt{cend()}得到是const\_iterator.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\PreprocessorTok{#include }\ImportTok{<Rcpp.h>}
+\KeywordTok{using} \KeywordTok{namespace}\NormalTok{ Rcpp;}
+
+\CommentTok{// [[Rcpp::export]]}
+\DataTypeTok{double}\NormalTok{ test(NumericVector v) \{}
+  
+  \DataTypeTok{double}\NormalTok{ mysum = }\DecValTok{0}\NormalTok{;}
+\NormalTok{  NumericVector::const_iterator it;}
+  \ControlFlowTok{for}\NormalTok{(it = v.begin();it!=v.end();it++)\{}
+\NormalTok{    mysum += *it;}
+\NormalTok{  \}}
+  \ControlFlowTok{return}\NormalTok{ mysum;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{quote}
+当然，对于c++不熟悉的用户，完全可以忽视\texttt{const\_iterator}。不声明it，而是采用auto，如下。
+\end{quote}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\PreprocessorTok{#include }\ImportTok{<Rcpp.h>}
+\KeywordTok{using} \KeywordTok{namespace}\NormalTok{ Rcpp;}
+
+\CommentTok{// [[Rcpp::plugins(cpp11)]]}
+\CommentTok{// [[Rcpp::export]]}
+\DataTypeTok{double}\NormalTok{ test(NumericVector v) \{}
+  
+  \DataTypeTok{double}\NormalTok{ mysum = }\DecValTok{0}\NormalTok{;}
+  \ControlFlowTok{for}\NormalTok{(}\KeywordTok{auto}\NormalTok{ it = v.cbegin();it!=v.cend();it++)\{}
+\NormalTok{    mysum += *it;}
+    
+\NormalTok{  \}}
+  \ControlFlowTok{return}\NormalTok{ mysum;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+上面的这段代码，在循环体中，使用auto，来自动判别it的类型。对于不熟悉C++的用户而言（也包括我），是十分便捷的。但需要注意的是，一定要加上\texttt{//\ {[}{[}Rcpp::plugins(cpp11){]}{]}}，表明你希望使用c++11的新特性，否则程序会报错。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OperatorTok{>}\StringTok{ }\KeywordTok{sourceCpp}\NormalTok{(}\StringTok{'test.cpp'}\NormalTok{)}
+
+\OperatorTok{>}\StringTok{ }\KeywordTok{test}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{)}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{55}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{insert( i, x )}\label{inserti}
+
+在数值索引\texttt{i}指定的位置插入标量\texttt{x}。返回一个指向插入元素的迭代器。
+
+test.cpp文件如下：
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\PreprocessorTok{#include }\ImportTok{<Rcpp.h>}
+\KeywordTok{using} \KeywordTok{namespace}\NormalTok{ Rcpp;}
+
+\CommentTok{// [[Rcpp::export]]}
+\NormalTok{NumericVector test(NumericVector v) \{}
+\NormalTok{  v.insert(}\DecValTok{1}\NormalTok{,}\DecValTok{6}\NormalTok{);}
+  \ControlFlowTok{return}\NormalTok{ v;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+R运行结果如下:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OperatorTok{>}\StringTok{ }\KeywordTok{sourceCpp}\NormalTok{(}\StringTok{"test.cpp"}\NormalTok{)}
+
+\OperatorTok{>}\StringTok{ }\KeywordTok{test}\NormalTok{(}\DecValTok{2}\OperatorTok{:}\DecValTok{5}\NormalTok{)}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{2} \DecValTok{6} \DecValTok{3} \DecValTok{4} \DecValTok{5}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{insert( it, x )}\label{insertit}
+
+在迭代器\texttt{it}指定的位置插入标量\texttt{x}。返回迭代器指向的元素。
+
+test.cpp文件如下：
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\PreprocessorTok{#include }\ImportTok{<Rcpp.h>}
+\KeywordTok{using} \KeywordTok{namespace}\NormalTok{ Rcpp;}
+
+\CommentTok{// [[Rcpp::export]]}
+\NormalTok{NumericVector test(NumericVector v) \{}
+\NormalTok{  v.insert(v.begin()}\DecValTok{+1}\NormalTok{,}\DecValTok{6}\NormalTok{);}
+  \ControlFlowTok{return}\NormalTok{ v;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+R运行结果如下:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OperatorTok{>}\StringTok{ }\KeywordTok{sourceCpp}\NormalTok{(}\StringTok{"test.cpp"}\NormalTok{)}
+
+\OperatorTok{>}\StringTok{ }\KeywordTok{test}\NormalTok{(}\DecValTok{2}\OperatorTok{:}\DecValTok{5}\NormalTok{)}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{2} \DecValTok{6} \DecValTok{3} \DecValTok{4} \DecValTok{5}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{erase(i)}\label{vector-erasei}
+
+擦除数值索引\texttt{i}指定的标量元素\texttt{x}。返回指向擦除元素之后一个元素的迭代器。
+
+test.cpp文件如下：
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\PreprocessorTok{#include }\ImportTok{<Rcpp.h>}
+\KeywordTok{using} \KeywordTok{namespace}\NormalTok{ Rcpp;}
+
+\CommentTok{// [[Rcpp::export]]}
+\DataTypeTok{double}\NormalTok{ test(NumericVector v) \{}
+\NormalTok{  NumericVector::iterator it = v.erase(}\DecValTok{0}\NormalTok{);}
+  \ControlFlowTok{return}\NormalTok{ *it;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+R运行结果如下:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OperatorTok{>}\StringTok{ }\KeywordTok{sourceCpp}\NormalTok{(}\StringTok{"test.cpp"}\NormalTok{)}
+
+\OperatorTok{>}\StringTok{ }\KeywordTok{test}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{)}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{2}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{erase(it)}\label{vector-eraseit}
+
+擦除迭代器\texttt{it}指向的元素。返回指向擦除元素之后一个元素的迭代器。
+
+test.cpp文件如下：
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\PreprocessorTok{#include }\ImportTok{<Rcpp.h>}
+\KeywordTok{using} \KeywordTok{namespace}\NormalTok{ Rcpp;}
+
+\CommentTok{// [[Rcpp::export]]}
+\DataTypeTok{double}\NormalTok{ test(NumericVector v) \{}
+\NormalTok{  NumericVector::iterator it = v.erase(v.begin());}
+  \ControlFlowTok{return}\NormalTok{ *it;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+R运行结果如下:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OperatorTok{>}\StringTok{ }\KeywordTok{sourceCpp}\NormalTok{(}\StringTok{"test.cpp"}\NormalTok{)}
+
+\OperatorTok{>}\StringTok{ }\KeywordTok{test}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{)}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{2}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{erase( first\_i, last\_i )}\label{erase-first-lasti}
+
+擦除数值索引\texttt{first\_i}至\texttt{last\_i\ -\ 1}之间的所有元素。返回指向擦除元素之后一个元素的迭代器。
+
+test.cpp文件如下：
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\PreprocessorTok{#include }\ImportTok{<Rcpp.h>}
+\KeywordTok{using} \KeywordTok{namespace}\NormalTok{ Rcpp;}
+
+\CommentTok{// [[Rcpp::export]]}
+\DataTypeTok{double}\NormalTok{ test(NumericVector v) \{}
+\NormalTok{  NumericVector::iterator it = v.erase(}\DecValTok{0}\NormalTok{,}\DecValTok{3}\NormalTok{);}
+  \ControlFlowTok{return}\NormalTok{ *it;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+R运行结果如下:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OperatorTok{>}\StringTok{ }\KeywordTok{sourceCpp}\NormalTok{(}\StringTok{"test.cpp"}\NormalTok{)}
+
+\OperatorTok{>}\StringTok{ }\KeywordTok{test}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{)}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{4}
+\end{Highlighting}
+\end{Shaded}
+
+由于擦除的是索引0和3-1，即，第1个元素至第3个元素被擦除，返回的是对应原本第四个元素的迭代器，*it为4，也印证了结果。
+
+\subsection{erase( first\_it, last\_it )}\label{erase-first-lastit}
+
+擦除迭代器\texttt{first\_it}至\texttt{last\_it\ -\ 1}之间的所有元素。返回指向擦除元素之后一个元素的迭代器。
+
+test.cpp文件如下：
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\PreprocessorTok{#include }\ImportTok{<Rcpp.h>}
+\KeywordTok{using} \KeywordTok{namespace}\NormalTok{ Rcpp;}
+
+\CommentTok{// [[Rcpp::export]]}
+\DataTypeTok{double}\NormalTok{ test(NumericVector v) \{}
+\NormalTok{  NumericVector::iterator it = v.erase(v.begin(),v.end());}
+  \ControlFlowTok{return}\NormalTok{ *it;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+R运行结果如下:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OperatorTok{>}\StringTok{ }\KeywordTok{sourceCpp}\NormalTok{(}\StringTok{"test.cpp"}\NormalTok{)}
+
+\OperatorTok{>}\StringTok{ }\KeywordTok{test}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{)}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{5}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{containsElementNamed(name)}\label{containsEN}
+
+如果向量包含有某一个元素，其名称与字符串name相同，那么返回\texttt{true}。
+
+test.cpp文件如下：
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\PreprocessorTok{#include }\ImportTok{<Rcpp.h>}
+\KeywordTok{using} \KeywordTok{namespace}\NormalTok{ Rcpp;}
+
+\CommentTok{// [[Rcpp::export]]}
+\DataTypeTok{bool}\NormalTok{ test(NumericVector v) \{}
+    \ControlFlowTok{if}\NormalTok{(v.containsElementNamed(}\StringTok{"b"}\NormalTok{))\{}
+\NormalTok{        Rcout <<}\StringTok{"name is included"}\NormalTok{ << }\StringTok{'}\SpecialCharTok{\textbackslash{}n}\StringTok{'}\NormalTok{;}
+\NormalTok{    \}}\ControlFlowTok{else}\NormalTok{\{}
+\NormalTok{        Rcout <<}\StringTok{"name is not included"}\NormalTok{ << }\StringTok{'}\SpecialCharTok{\textbackslash{}n}\StringTok{'}\NormalTok{;}
+\NormalTok{    \}}
+  \ControlFlowTok{return}\NormalTok{ v.containsElementNamed(}\StringTok{"b"}\NormalTok{);}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+R运行结果如下:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OperatorTok{>}\StringTok{ }\KeywordTok{sourceCpp}\NormalTok{(}\StringTok{"test.cpp"}\NormalTok{)}
+
+\OperatorTok{>}\StringTok{ }\KeywordTok{test}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DataTypeTok{a =} \DecValTok{1}\NormalTok{, }\DataTypeTok{b =} \DecValTok{2}\NormalTok{, }\DataTypeTok{c =} \DecValTok{3}\NormalTok{))}
+\NormalTok{name is included}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\OtherTok{TRUE}
+\end{Highlighting}
+\end{Shaded}
+
+\section{静态成员函数}\label{Static-member-functions}
+
+静态成员函数是对象所在类的函数。k可以按照
+\texttt{NumericVector::create()} 的方式来调用该静态成员函数。
+
+\subsection{get\_na()}\label{get_na}
+
+返回\texttt{Vector}类中的\texttt{NA}值。
+
+test.cpp文件如下：
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\PreprocessorTok{#include }\ImportTok{<Rcpp.h>}
+\KeywordTok{using} \KeywordTok{namespace}\NormalTok{ Rcpp;}
+
+\CommentTok{// [[Rcpp::export]]}
+\NormalTok{NumericVector test(NumericVector v) \{}
+\NormalTok{  v.fill(NumericVector::get_na());}
+  \ControlFlowTok{return}\NormalTok{ v;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+R运行结果如下:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OperatorTok{>}\StringTok{ }\KeywordTok{sourceCpp}\NormalTok{(}\StringTok{"test.cpp"}\NormalTok{)}
+
+\OperatorTok{>}\StringTok{ }\KeywordTok{test}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{)}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\OtherTok{NA} \OtherTok{NA} \OtherTok{NA} \OtherTok{NA} \OtherTok{NA}
+\end{Highlighting}
+\end{Shaded}
+
+该例子有参考stackoverflow上的答案，详情点击\href{https://stackoverflow.com/questions/23748572/initializing-a-matrix-to-na-in-rcpp}{传送门}。
+
+\subsection{is\_na(x)}\label{is_na}
+
+如果\texttt{x}为\texttt{NA}，则返回\texttt{true}。
+
+test.cpp文件如下：
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\PreprocessorTok{#include }\ImportTok{<Rcpp.h>}
+\KeywordTok{using} \KeywordTok{namespace}\NormalTok{ Rcpp;}
+
+\CommentTok{// [[Rcpp::export]]}
+\DataTypeTok{bool}\NormalTok{ test(NumericVector v,}\DataTypeTok{int}\NormalTok{ id) \{}
+  \ControlFlowTok{return}\NormalTok{ NumericVector::is_na(v(id));}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+R运行结果如下:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OperatorTok{>}\StringTok{ }\KeywordTok{sourceCpp}\NormalTok{(}\StringTok{"test.cpp"}\NormalTok{)}
+
+\OperatorTok{>}\StringTok{   }\KeywordTok{test}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{3}\NormalTok{,}\OtherTok{NA}\NormalTok{,}\DecValTok{5}\NormalTok{),}\DecValTok{3}\NormalTok{)}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\OtherTok{TRUE}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{create( x1, x2, \ldots{})}\label{create}
+
+创建一个\texttt{Vector}对象，其包含的元素由标量\texttt{x1}，\texttt{x2}指定。参数最大个数为20。
+
+可以命名元素或不命名，例子如下:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\PreprocessorTok{#include }\ImportTok{<Rcpp.h>}
+\KeywordTok{using} \KeywordTok{namespace}\NormalTok{ Rcpp;}
+
+\CommentTok{// [[Rcpp::export]]}
+\NormalTok{NumericVector test() \{}
+  
+\NormalTok{  NumericVector v = NumericVector::create(_[}\StringTok{"a"}\NormalTok{] = }\DecValTok{1}\NormalTok{,_[}\StringTok{"b"}\NormalTok{] = }\DecValTok{2}\NormalTok{,_[}\StringTok{"c"}\NormalTok{] = }\DecValTok{3}\NormalTok{,_[}\StringTok{"d"}\NormalTok{] = }\DecValTok{4}\NormalTok{);}
+    \CommentTok{//NumericVector v = NumericVector::create(1,2,3,4);}
+  \ControlFlowTok{return}\NormalTok{ v;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OperatorTok{>}\StringTok{ }\KeywordTok{sourceCpp}\NormalTok{(}\StringTok{"test.cpp"}\NormalTok{)}
+
+\OperatorTok{>}\StringTok{ }\KeywordTok{test}\NormalTok{()}
+\NormalTok{a b c d }
+\DecValTok{1} \DecValTok{2} \DecValTok{3} \DecValTok{4} 
+\OperatorTok{>}\StringTok{ }
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{import( first\_it , last\_it )}\label{import}
+
+创建一个\texttt{Vector}对象，其元素由迭代器\texttt{first\_it} 至
+\texttt{last\_it\ -\ 1}指定。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\PreprocessorTok{#include }\ImportTok{<Rcpp.h>}
+\KeywordTok{using} \KeywordTok{namespace}\NormalTok{ Rcpp;}
+
+\CommentTok{// [[Rcpp::export]]}
+\NormalTok{NumericVector test(NumericVector v) \{}
+\NormalTok{    NumericVector v1 = NumericVector::import(v.begin(),v.end());}
+  \ControlFlowTok{return}\NormalTok{ v1;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OperatorTok{>}\StringTok{ }\KeywordTok{sourceCpp}\NormalTok{(}\StringTok{"test.cpp"}\NormalTok{)}
+
+\OperatorTok{>}\StringTok{ }\KeywordTok{test}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{)}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{1} \DecValTok{2} \DecValTok{3} \DecValTok{4} \DecValTok{5}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{import\_transform( first\_it, last\_it,
+func)}\label{import_transform}
+
+在\texttt{import(\ first\_it\ ,\ last\_it\ )}的基础上，对于每一个迭代器范围内的元素，进行\texttt{func}函数的操作。类似于\texttt{apply()}函数族。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\PreprocessorTok{#include }\ImportTok{<Rcpp.h>}
+\KeywordTok{using} \KeywordTok{namespace}\NormalTok{ Rcpp;}
+
+\CommentTok{//构建mypow2函数，求取元素平方}
+
+\CommentTok{// [[Rcpp::export]]}
+\DataTypeTok{double}\NormalTok{ mypow2(}\DataTypeTok{double}\NormalTok{ x) \{}
+  \ControlFlowTok{return}\NormalTok{ x*x;}
+\NormalTok{\}}
+
+\CommentTok{// [[Rcpp::export]]}
+\NormalTok{NumericVector test(NumericVector v) \{}
+\NormalTok{    NumericVector v1 = NumericVector::import_transform(v.begin(),v.end(),mypow2);}
+  \ControlFlowTok{return}\NormalTok{ v1;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OperatorTok{>}\StringTok{ }\KeywordTok{sourceCpp}\NormalTok{(}\StringTok{"test.cpp"}\NormalTok{)}
+
+\OperatorTok{>}\StringTok{ }\KeywordTok{test}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{)}
+\NormalTok{[}\DecValTok{1}\NormalTok{]  }\DecValTok{1}  \DecValTok{4}  \DecValTok{9} \DecValTok{16} \DecValTok{25}
+\end{Highlighting}
+\end{Shaded}
+
+\chapter{Matrix类}\label{matrix}
+
+\section{创建矩阵对象}\label{Creating-Matrix-object}
+
+矩阵对象可由如下几种方式创建。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{// 创建一个矩阵对象，等价于在R语句}
+\CommentTok{// m <- matrix(0, nrow=2, ncol=2)}
+\NormalTok{NumericMatrix m1( }\DecValTok{2}\NormalTok{ );}
+\CommentTok{// m <- matrix(0, nrow=2, ncol=3)}
+\NormalTok{NumericMatrix m2( }\DecValTok{2}\NormalTok{ , }\DecValTok{3}\NormalTok{ );}
+\CommentTok{// m <- matrix(v, nrow=2, ncol=3)}
+\NormalTok{NumericMatrix m3( }\DecValTok{2}\NormalTok{ , }\DecValTok{3}\NormalTok{ , v.begin() );}
+\end{Highlighting}
+\end{Shaded}
+
+此外，R中的矩阵对象，实际上是行数和列数在属性\texttt{dim}中设定好的向量。因此，如果你在Rcpp中，创建一个有\texttt{dim}属性的向量，并且将其作为返回值传递给R，那么该向量在R中会被作为矩阵对待。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\PreprocessorTok{#include }\ImportTok{<Rcpp.h>}
+\KeywordTok{using} \KeywordTok{namespace}\NormalTok{ Rcpp;}
+\CommentTok{// [[Rcpp::plugins(cpp11)]]}
+
+\CommentTok{// [[Rcpp::export]]}
+\NormalTok{NumericVector rcpp_matrix()\{}
+    \CommentTok{// 创建一个向量对象}
+\NormalTok{    NumericVector v = \{}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{\};}
+    \CommentTok{// 设置该对象的`dim`属性}
+\NormalTok{    v.attr(}\StringTok{"dim"}\NormalTok{) = Dimension(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{);}
+    \CommentTok{// 返回该对象给R}
+    \ControlFlowTok{return}\NormalTok{ v;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+需要注意的是，c++98是不允许直接使用\texttt{v\ =\ \{1,2,3,4\}}来赋值的，因此，需要加上
+\texttt{//\ {[}{[}Rcpp::plugins(cpp11){]}{]}}，确保能使用C++11的新特性。
+
+执行结果：
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OperatorTok{>}\StringTok{ }\KeywordTok{rcpp_matrix}\NormalTok{()}
+\NormalTok{     [,}\DecValTok{1}\NormalTok{] [,}\DecValTok{2}\NormalTok{]}
+\NormalTok{[}\DecValTok{1}\NormalTok{,]    }\DecValTok{1}    \DecValTok{3}
+\NormalTok{[}\DecValTok{2}\NormalTok{,]    }\DecValTok{2}    \DecValTok{4}
+\end{Highlighting}
+\end{Shaded}
+
+然而，即便你给某个向量对象的\texttt{dim}属性赋值，在Rcpp中对象的类型还是为向量类。因此，如果你希望在Rcpp中，将其转化为矩阵类，你需要使用
+\texttt{as\textless{}T\textgreater{}()}函数。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{// 设定维度属性}
+\NormalTok{v.attr(}\StringTok{"dim"}\NormalTok{) = Dimension(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{);}
+\CommentTok{// 转为矩阵类}
+\NormalTok{NumericMatrix m = as<NumericMatrix>(v);}
+\end{Highlighting}
+\end{Shaded}
+
+\section{访问矩阵元素}\label{Accessing-to-Matrix-elements}
+
+通过使用\texttt{()}符号，你可以指定行，列号来获取，分配矩阵对象的元素值。和在向量中的索引类似，矩阵中的行与列号也是从0开始。如果你希望获取某一行或者一列，使用\texttt{\_}符号。也可以使用\texttt{{[}{]}}操作符，来访问矩阵元素（将矩阵理解为按列连接的向量）。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{// 创建一个5*5的矩阵}
+\NormalTok{NumericMatrix m( }\DecValTok{5}\NormalTok{, }\DecValTok{5}\NormalTok{ );}
+\CommentTok{// 检索0行，2列的元素，即第一行，第三列的元素}
+\DataTypeTok{double}\NormalTok{ x = m( }\DecValTok{0}\NormalTok{ , }\DecValTok{2}\NormalTok{ );}
+\CommentTok{// 将0行（向量）赋给v}
+\NormalTok{NumericVector v = m( }\DecValTok{0}\NormalTok{ , _ );}
+\CommentTok{// 将2列赋给v}
+\NormalTok{NumericVector v = m( _ , }\DecValTok{2}\NormalTok{ );}
+\CommentTok{// 将矩阵m的0~1行，2~3列赋值给矩阵m2}
+\NormalTok{NumericMatrix m2 = m( Range(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{) , Range(}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{) );}
+\CommentTok{// 按照向量的方式来检索矩阵元素}
+\NormalTok{m[}\DecValTok{5}\NormalTok{]; }\CommentTok{// 指向m(0,1)的位置，即第6个元素（矩阵按列连接），为第1行，第2列元素，}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{访问行，列与子矩阵}\label{row-col-sub}
+
+Rcpp也提供了类型来进行矩阵特定部分的``引用''(references)。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{NumericMatrix::Column col = m( _ , }\DecValTok{1}\NormalTok{);  }\CommentTok{// 对于列1的引用}
+\NormalTok{NumericMatrix::Row    row = m( }\DecValTok{1}\NormalTok{ , _ ); }\CommentTok{// 对行1的引用}
+\NormalTok{NumericMatrix::Sub    sub = m( Range(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{) , Range(}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{) ); }\CommentTok{//对子矩阵的引用}
+\end{Highlighting}
+\end{Shaded}
+
+对这些``引用''对象的赋值，\textbf{等效于}直接修改其原始矩阵的对应部分。比如，对于上面例子中的\texttt{col}对象进行赋值，会直接把m的列1的值进行对应的修改。
+
+在\texttt{test.cpp}文件中键入下面的代码。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\PreprocessorTok{#include }\ImportTok{<Rcpp.h>}
+\KeywordTok{using} \KeywordTok{namespace}\NormalTok{ Rcpp;}
+
+\CommentTok{// [[Rcpp::export]]}
+\NormalTok{NumericMatrix test(NumericMatrix v, }\DataTypeTok{int}\NormalTok{ idx)\{}
+\NormalTok{    NumericMatrix::Column col = v( _, idx);}
+    \CommentTok{//将idx列的所有元素乘以2，v也会被修改}
+\NormalTok{    col = col * }\DecValTok{2}\NormalTok{; }
+    
+    \CommentTok{//上行代码等效于}
+    \CommentTok{//v( _, idx) = 2 * v( _, idx);}
+    \ControlFlowTok{return}\NormalTok{ v;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+在R中的执行结果为：
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OperatorTok{>}\StringTok{ }\KeywordTok{sourceCpp}\NormalTok{(}\StringTok{'test.cpp'}\NormalTok{)}
+
+\OperatorTok{>}\StringTok{ }\NormalTok{a <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{16}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{)}
+
+\OperatorTok{>}\StringTok{ }\NormalTok{a}
+\NormalTok{     [,}\DecValTok{1}\NormalTok{] [,}\DecValTok{2}\NormalTok{] [,}\DecValTok{3}\NormalTok{] [,}\DecValTok{4}\NormalTok{]}
+\NormalTok{[}\DecValTok{1}\NormalTok{,]    }\DecValTok{1}    \DecValTok{5}    \DecValTok{9}   \DecValTok{13}
+\NormalTok{[}\DecValTok{2}\NormalTok{,]    }\DecValTok{2}    \DecValTok{6}   \DecValTok{10}   \DecValTok{14}
+\NormalTok{[}\DecValTok{3}\NormalTok{,]    }\DecValTok{3}    \DecValTok{7}   \DecValTok{11}   \DecValTok{15}
+\NormalTok{[}\DecValTok{4}\NormalTok{,]    }\DecValTok{4}    \DecValTok{8}   \DecValTok{12}   \DecValTok{16}
+
+\OperatorTok{>}\StringTok{ }\KeywordTok{test}\NormalTok{(a,}\DecValTok{1}\NormalTok{)}
+\NormalTok{     [,}\DecValTok{1}\NormalTok{] [,}\DecValTok{2}\NormalTok{] [,}\DecValTok{3}\NormalTok{] [,}\DecValTok{4}\NormalTok{]}
+\NormalTok{[}\DecValTok{1}\NormalTok{,]    }\DecValTok{1}   \DecValTok{10}    \DecValTok{9}   \DecValTok{13}
+\NormalTok{[}\DecValTok{2}\NormalTok{,]    }\DecValTok{2}   \DecValTok{12}   \DecValTok{10}   \DecValTok{14}
+\NormalTok{[}\DecValTok{3}\NormalTok{,]    }\DecValTok{3}   \DecValTok{14}   \DecValTok{11}   \DecValTok{15}
+\NormalTok{[}\DecValTok{4}\NormalTok{,]    }\DecValTok{4}   \DecValTok{16}   \DecValTok{12}   \DecValTok{16}
+\end{Highlighting}
+\end{Shaded}
+
+可以看到，矩阵的第2列（Rcpp索引为1）已经变为原来的2倍。
+
+\section{成员函数}\label{Member-functions-matrix}
+
+Since \texttt{Matrix} is actually \texttt{Vector}, \texttt{Matrix}
+basically has the same member functions as \texttt{Vector}. Thus, member
+functions unique to \texttt{Matrix} are only presented below.
+
+此前提到，\texttt{Matrix}实际上也是\texttt{Vector}，所以，\texttt{Matrix}基本上与\texttt{Vector}有着相同的成员函数。因此，在在此列出\texttt{Matrix}自身独特的成员函数。
+
+\subsection{nrow() rows()}\label{nrow-rows}
+
+返回行数。
+
+在\texttt{test.cpp}文件中键入下面的代码。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\PreprocessorTok{#include }\ImportTok{<Rcpp.h>}
+\KeywordTok{using} \KeywordTok{namespace}\NormalTok{ Rcpp;}
+
+\CommentTok{// [[Rcpp::export]]}
+\DataTypeTok{int}\NormalTok{ test(NumericMatrix v)\{}
+
+    \ControlFlowTok{return}\NormalTok{ v.nrow();}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+在R中的执行结果为：
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OperatorTok{>}\StringTok{ }\KeywordTok{sourceCpp}\NormalTok{(}\StringTok{'test.cpp'}\NormalTok{)}
+
+\OperatorTok{>}\StringTok{ }\KeywordTok{test}\NormalTok{(}\KeywordTok{matrix}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{16}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{8}\NormalTok{))}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{2}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{ncol()　cols()}\label{ncol-cols}
+
+返回矩阵列数。
+
+在\texttt{test.cpp}文件中键入下面的代码。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\PreprocessorTok{#include }\ImportTok{<Rcpp.h>}
+\KeywordTok{using} \KeywordTok{namespace}\NormalTok{ Rcpp;}
+
+\CommentTok{// [[Rcpp::export]]}
+\DataTypeTok{int}\NormalTok{ test(NumericMatrix v)\{}
+
+    \ControlFlowTok{return}\NormalTok{ v.ncol();}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+在R中的执行结果为：
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OperatorTok{>}\StringTok{ }\KeywordTok{sourceCpp}\NormalTok{(}\StringTok{'test.cpp'}\NormalTok{)}
+
+\OperatorTok{>}\StringTok{ }\KeywordTok{test}\NormalTok{(}\KeywordTok{matrix}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{16}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{8}\NormalTok{))}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{8}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{row( i )}\label{rowi}
+
+返回矩阵
+行\texttt{i}的``引用''，关于``引用''的具体信息，可参考\ref{row-col-sub}。
+
+在\texttt{test.cpp}文件中键入下面的代码。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\PreprocessorTok{#include }\ImportTok{<Rcpp.h>}
+\KeywordTok{using} \KeywordTok{namespace}\NormalTok{ Rcpp;}
+
+\CommentTok{// [[Rcpp::export]]}
+\NormalTok{NumericMatrix test(NumericMatrix v)\{}
+\NormalTok{    v.row(}\DecValTok{1}\NormalTok{) = }\DecValTok{2}\NormalTok{ * v.row(}\DecValTok{1}\NormalTok{);}
+    \ControlFlowTok{return}\NormalTok{ v;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+在R中的执行结果为：
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OperatorTok{>}\StringTok{ }\KeywordTok{sourceCpp}\NormalTok{(}\StringTok{'test.cpp'}\NormalTok{)}
+
+\OperatorTok{>}\StringTok{ }\NormalTok{(a <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{8}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{4}\NormalTok{))}
+\NormalTok{     [,}\DecValTok{1}\NormalTok{] [,}\DecValTok{2}\NormalTok{] [,}\DecValTok{3}\NormalTok{] [,}\DecValTok{4}\NormalTok{]}
+\NormalTok{[}\DecValTok{1}\NormalTok{,]    }\DecValTok{1}    \DecValTok{3}    \DecValTok{5}    \DecValTok{7}
+\NormalTok{[}\DecValTok{2}\NormalTok{,]    }\DecValTok{2}    \DecValTok{4}    \DecValTok{6}    \DecValTok{8}
+
+\OperatorTok{>}\StringTok{ }\KeywordTok{test}\NormalTok{(a)}
+\NormalTok{     [,}\DecValTok{1}\NormalTok{] [,}\DecValTok{2}\NormalTok{] [,}\DecValTok{3}\NormalTok{] [,}\DecValTok{4}\NormalTok{]}
+\NormalTok{[}\DecValTok{1}\NormalTok{,]    }\DecValTok{1}    \DecValTok{3}    \DecValTok{5}    \DecValTok{7}
+\NormalTok{[}\DecValTok{2}\NormalTok{,]    }\DecValTok{4}    \DecValTok{8}   \DecValTok{12}   \DecValTok{16}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{column( i )}\label{columni}
+
+返回矩阵 行\texttt{i}列的``引用''
+
+\subsection{fill\_diag( x )}\label{fill_diag}
+
+使用\texttt{x}填充矩阵对角线元素。
+
+在\texttt{test.cpp}文件中键入下面的代码。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\PreprocessorTok{#include }\ImportTok{<Rcpp.h>}
+\KeywordTok{using} \KeywordTok{namespace}\NormalTok{ Rcpp;}
+
+\CommentTok{// [[Rcpp::export]]}
+\NormalTok{NumericMatrix test(NumericMatrix v,}\DataTypeTok{double}\NormalTok{ x)\{}
+\NormalTok{    v.fill_diag(x);}
+    \ControlFlowTok{return}\NormalTok{ v;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+在R中的执行结果为：
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OperatorTok{>}\StringTok{ }\KeywordTok{sourceCpp}\NormalTok{(}\StringTok{'test.cpp'}\NormalTok{)}
+
+\OperatorTok{>}\StringTok{ }\NormalTok{(a <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{))}
+\NormalTok{     [,}\DecValTok{1}\NormalTok{] [,}\DecValTok{2}\NormalTok{] [,}\DecValTok{3}\NormalTok{] [,}\DecValTok{4}\NormalTok{]}
+\NormalTok{[}\DecValTok{1}\NormalTok{,]    }\DecValTok{0}    \DecValTok{0}    \DecValTok{0}    \DecValTok{0}
+\NormalTok{[}\DecValTok{2}\NormalTok{,]    }\DecValTok{0}    \DecValTok{0}    \DecValTok{0}    \DecValTok{0}
+\NormalTok{[}\DecValTok{3}\NormalTok{,]    }\DecValTok{0}    \DecValTok{0}    \DecValTok{0}    \DecValTok{0}
+\NormalTok{[}\DecValTok{4}\NormalTok{,]    }\DecValTok{0}    \DecValTok{0}    \DecValTok{0}    \DecValTok{0}
+
+\OperatorTok{>}\StringTok{ }\KeywordTok{test}\NormalTok{(a,}\DecValTok{1}\NormalTok{)}
+\NormalTok{     [,}\DecValTok{1}\NormalTok{] [,}\DecValTok{2}\NormalTok{] [,}\DecValTok{3}\NormalTok{] [,}\DecValTok{4}\NormalTok{]}
+\NormalTok{[}\DecValTok{1}\NormalTok{,]    }\DecValTok{1}    \DecValTok{0}    \DecValTok{0}    \DecValTok{0}
+\NormalTok{[}\DecValTok{2}\NormalTok{,]    }\DecValTok{0}    \DecValTok{1}    \DecValTok{0}    \DecValTok{0}
+\NormalTok{[}\DecValTok{3}\NormalTok{,]    }\DecValTok{0}    \DecValTok{0}    \DecValTok{1}    \DecValTok{0}
+\NormalTok{[}\DecValTok{4}\NormalTok{,]    }\DecValTok{0}    \DecValTok{0}    \DecValTok{0}    \DecValTok{1}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{offset( i, j )}\label{offsetij}
+
+返回\texttt{i}行和\texttt{j}列对应的元素，在将矩阵作为列向量连接时其对应的索引。
+
+\begin{quote}
+matrix中的offset函数是私有的，似乎因此导致调用失败。
+\end{quote}
+
+\section{静态成员函数}\label{MStatic-member-functions}
+
+\texttt{Matrix}基本上有着和\texttt{Vector}相同的成员函数。其独特的成员函数在此处列出。
+
+\subsection{Matrix::diag( size, x )}\label{Mdiag}
+
+返回一个矩阵，行列数均为\texttt{size}，对角元素为\texttt{x}。
+
+在\texttt{test.cpp}文件中键入下面的代码。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\PreprocessorTok{#include }\ImportTok{<Rcpp.h>}
+\KeywordTok{using} \KeywordTok{namespace}\NormalTok{ Rcpp;}
+
+\CommentTok{// [[Rcpp::export]]}
+\NormalTok{NumericMatrix test(}\DataTypeTok{int}\NormalTok{ size, }\DataTypeTok{double}\NormalTok{ x)\{}
+\NormalTok{  NumericMatrix v = NumericMatrix::diag(size,x);}
+  \ControlFlowTok{return}\NormalTok{ v;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+在R中的执行结果为：
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OperatorTok{>}\StringTok{ }\KeywordTok{sourceCpp}\NormalTok{(}\StringTok{'test.cpp'}\NormalTok{)}
+
+\OperatorTok{>}\StringTok{ }\KeywordTok{test}\NormalTok{(3L,}\DecValTok{1}\NormalTok{)}
+\NormalTok{     [,}\DecValTok{1}\NormalTok{] [,}\DecValTok{2}\NormalTok{] [,}\DecValTok{3}\NormalTok{]}
+\NormalTok{[}\DecValTok{1}\NormalTok{,]    }\DecValTok{1}    \DecValTok{0}    \DecValTok{0}
+\NormalTok{[}\DecValTok{2}\NormalTok{,]    }\DecValTok{0}    \DecValTok{1}    \DecValTok{0}
+\NormalTok{[}\DecValTok{3}\NormalTok{,]    }\DecValTok{0}    \DecValTok{0}    \DecValTok{1}
+\end{Highlighting}
+\end{Shaded}
+
+\section{与Matrix相关的其他函数}\label{other-functions}
+
+此部分展示一些其他与矩阵相关的函数。
+
+\subsection{rownames( m )}\label{rownamesMatrix}
+
+获取和设定矩阵行名。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{CharacterVector ch = rownames(m);}
+\NormalTok{rownames(m) = ch;}
+\end{Highlighting}
+\end{Shaded}
+
+在\texttt{test.cpp}文件中键入下面的代码。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\PreprocessorTok{#include }\ImportTok{<Rcpp.h>}
+\KeywordTok{using} \KeywordTok{namespace}\NormalTok{ Rcpp;}
+
+\CommentTok{// [[Rcpp::export]]}
+\NormalTok{NumericMatrix test(NumericMatrix v1, NumericMatrix v2)\{}
+\NormalTok{  CharacterVector v1_rname = rownames(v1);}
+\NormalTok{  rownames(v2) = v1_rname;}
+  \ControlFlowTok{return}\NormalTok{ v2;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+在R中的执行结果为：
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OperatorTok{>}\StringTok{ }\KeywordTok{sourceCpp}\NormalTok{(}\StringTok{'test.cpp'}\NormalTok{)}
+
+\OperatorTok{>}\StringTok{ }\NormalTok{a <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{)}
+
+\OperatorTok{>}\StringTok{ }\NormalTok{b <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{)}
+
+\OperatorTok{>}\StringTok{ }\KeywordTok{rownames}\NormalTok{(a) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{'a'}\NormalTok{,}\StringTok{'b'}\NormalTok{,}\StringTok{'c'}\NormalTok{)}
+
+\OperatorTok{>}\StringTok{ }\NormalTok{a;b}
+\NormalTok{  [,}\DecValTok{1}\NormalTok{] [,}\DecValTok{2}\NormalTok{] [,}\DecValTok{3}\NormalTok{]}
+\NormalTok{a    }\DecValTok{0}    \DecValTok{0}    \DecValTok{0}
+\NormalTok{b    }\DecValTok{0}    \DecValTok{0}    \DecValTok{0}
+\NormalTok{c    }\DecValTok{0}    \DecValTok{0}    \DecValTok{0}
+\NormalTok{     [,}\DecValTok{1}\NormalTok{] [,}\DecValTok{2}\NormalTok{] [,}\DecValTok{3}\NormalTok{]}
+\NormalTok{[}\DecValTok{1}\NormalTok{,]    }\DecValTok{1}    \DecValTok{1}    \DecValTok{1}
+\NormalTok{[}\DecValTok{2}\NormalTok{,]    }\DecValTok{1}    \DecValTok{1}    \DecValTok{1}
+\NormalTok{[}\DecValTok{3}\NormalTok{,]    }\DecValTok{1}    \DecValTok{1}    \DecValTok{1}
+
+\OperatorTok{>}\StringTok{ }\KeywordTok{test}\NormalTok{(a,b)}
+\NormalTok{  [,}\DecValTok{1}\NormalTok{] [,}\DecValTok{2}\NormalTok{] [,}\DecValTok{3}\NormalTok{]}
+\NormalTok{a    }\DecValTok{1}    \DecValTok{1}    \DecValTok{1}
+\NormalTok{b    }\DecValTok{1}    \DecValTok{1}    \DecValTok{1}
+\NormalTok{c    }\DecValTok{1}    \DecValTok{1}    \DecValTok{1}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{colnames( m )}\label{colnamesMatrix}
+
+获取和设定矩阵列名,方法同上。
+
+\begin{verbatim}
+CharacterVector ch = colnames(m);
+colnames(m) = ch;
+\end{verbatim}
+
+\subsection{transpose( m )}\label{transpose}
+
+返回矩阵\texttt{m}的转置。
+
+在\texttt{test.cpp}文件中键入下面的代码。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\PreprocessorTok{#include }\ImportTok{<Rcpp.h>}
+\KeywordTok{using} \KeywordTok{namespace}\NormalTok{ Rcpp;}
+
+\CommentTok{// [[Rcpp::export]]}
+\NormalTok{NumericMatrix test(NumericMatrix v)\{}
+  \ControlFlowTok{return}\NormalTok{ transpose(v);}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+在R中的执行结果为：
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OperatorTok{>}\StringTok{ }\KeywordTok{sourceCpp}\NormalTok{(}\StringTok{'test.cpp'}\NormalTok{)}
+
+\OperatorTok{>}\StringTok{ }\NormalTok{(a <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{9}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{))}
+\NormalTok{     [,}\DecValTok{1}\NormalTok{] [,}\DecValTok{2}\NormalTok{] [,}\DecValTok{3}\NormalTok{]}
+\NormalTok{[}\DecValTok{1}\NormalTok{,]    }\DecValTok{1}    \DecValTok{4}    \DecValTok{7}
+\NormalTok{[}\DecValTok{2}\NormalTok{,]    }\DecValTok{2}    \DecValTok{5}    \DecValTok{8}
+\NormalTok{[}\DecValTok{3}\NormalTok{,]    }\DecValTok{3}    \DecValTok{6}    \DecValTok{9}
+
+\OperatorTok{>}\StringTok{ }\KeywordTok{test}\NormalTok{(a)}
+\NormalTok{     [,}\DecValTok{1}\NormalTok{] [,}\DecValTok{2}\NormalTok{] [,}\DecValTok{3}\NormalTok{]}
+\NormalTok{[}\DecValTok{1}\NormalTok{,]    }\DecValTok{1}    \DecValTok{2}    \DecValTok{3}
+\NormalTok{[}\DecValTok{2}\NormalTok{,]    }\DecValTok{4}    \DecValTok{5}    \DecValTok{6}
+\NormalTok{[}\DecValTok{3}\NormalTok{,]    }\DecValTok{7}    \DecValTok{8}    \DecValTok{9}
+\end{Highlighting}
+\end{Shaded}
+
+\chapter{向量运算}\label{Vector-operations}
+
+\section{数学运算}\label{Arithmetic-operations}
+
+使用\texttt{+\ -\ *\ /}运算符，用户可以对相同长度的向量进行元素级别的运算。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{NumericVector x ;}
+\NormalTok{NumericVector y ;}
+\CommentTok{// 向量与向量运算}
+\NormalTok{NumericVector res = x + y ;}
+\NormalTok{NumericVector res = x - y ;}
+\NormalTok{NumericVector res = x * y ;}
+\NormalTok{NumericVector res = x / y ;}
+\CommentTok{// 向量与标量运算}
+\NormalTok{NumericVector res = x   + }\FloatTok{2.0}\NormalTok{ ;}
+\NormalTok{NumericVector res = }\FloatTok{2.0}\NormalTok{ - x;}
+\NormalTok{NumericVector res = y   * }\FloatTok{2.0}\NormalTok{ ;}
+\NormalTok{NumericVector res = }\FloatTok{2.0}\NormalTok{ / y;}
+\CommentTok{// expression and expression operation}
+\NormalTok{NumericVector res = x * y + y / }\FloatTok{2.0}\NormalTok{ ;}
+\NormalTok{NumericVector res = x * ( y - }\FloatTok{2.0}\NormalTok{ ) ;}
+\NormalTok{NumericVector res = x / ( y * y ) ;}
+\end{Highlighting}
+\end{Shaded}
+
+\texttt{-}号逆转了符号。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{NumericVector res = -x ;}
+\end{Highlighting}
+\end{Shaded}
+
+\section{比较运算}\label{Comparison-operations}
+
+使用\texttt{==} \texttt{!\ =} \texttt{\textless{}}
+\texttt{\textgreater{}} \texttt{\textgreater{}\ =}
+\texttt{\textless{}=}运算符进行向量比较，会产生逻辑向量。用户可以通过逻辑向量来访问向量元素。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{NumericVector x ;}
+\NormalTok{NumericVector y ;}
+\CommentTok{// Comparison of vector and vector}
+\NormalTok{LogicalVector res = x < y ;}
+\NormalTok{LogicalVector res = x > y ;}
+\NormalTok{LogicalVector res = x <= y ;}
+\NormalTok{LogicalVector res = x >= y ;}
+\NormalTok{LogicalVector res = x == y ;}
+\NormalTok{LogicalVector res = x != y ;}
+\CommentTok{// Comparison of vector and scalar}
+\NormalTok{LogicalVector res = x < }\DecValTok{2}\NormalTok{ ;}
+\NormalTok{LogicalVector res = }\DecValTok{2}\NormalTok{ > x;}
+\NormalTok{LogicalVector res = y <= }\DecValTok{2}\NormalTok{ ;}
+\NormalTok{LogicalVector res = }\DecValTok{2}\NormalTok{ != y;}
+\CommentTok{// Comparison of expression and expression}
+\NormalTok{LogicalVector res = ( x + y ) < ( x*x ) ;}
+\NormalTok{LogicalVector res = ( x + y ) >= ( x*x ) ;}
+\NormalTok{LogicalVector res = ( x + y ) == ( x*x ) ;}
+\end{Highlighting}
+\end{Shaded}
+
+\texttt{!} 表示对逻辑值的否运算。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{LogicalVector res = ! ( x < y );}
+\end{Highlighting}
+\end{Shaded}
+
+通过逻辑向量来访问向量元素。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{NumericVector res = x[x < }\DecValTok{2}\NormalTok{];}
+\end{Highlighting}
+\end{Shaded}
+
+\chapter{逻辑运算符}\label{Logical-operations}
+
+\section{LogicalVector}\label{LogicalVector}
+
+\subsection{LogicalVector元素的数据类型}\label{LogicalVector-elements}
+
+LogicalVector的元素类型\textbf{不是}\texttt{bool}。这是因为，\texttt{bool}只能表示\texttt{true}和\texttt{false}，但是在R中，逻辑向量有三种可能的取值，即\texttt{TRUE}，\texttt{FALSE}以及\texttt{NA}。因此，LogicalVector元素的数据类型为\texttt{int}，而非\texttt{bool}。
+
+在Rcpp中，\texttt{TRUE}用1表示，\texttt{FALSE}用0表示，而\texttt{NA}由\texttt{NA\_LOGICAL}表示(整型的最小值：-2147483648)。
+
+\begin{longtable}[]{@{}cccc@{}}
+\toprule
+R & Rcpp & int & bool\tabularnewline
+\midrule
+\endhead
+TRUE & TRUE & 1 (除却-2147483648至0之间的int) & true\tabularnewline
+FALSE & FALSE & 0 & false\tabularnewline
+NA & NA\_LOGICAL & -2147483648 & true\tabularnewline
+\bottomrule
+\end{longtable}
+
+\section{逻辑运算符}\label{Logical-operations-subtitle}
+
+使用运算符\texttt{\&}（与）\texttt{\textbar{}}（或）\texttt{!}（非）来对LogicalVector中的每个元素进行逻辑运算。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{LogicalVector v1 = \{}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{\};}
+\NormalTok{LogicalVector v2 = \{}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{\};}
+\NormalTok{LogicalVector res1 = v1 & v2;}
+\NormalTok{LogicalVector res2 = v1 | v2;}
+\NormalTok{LogicalVector res3 = !(v1 | v2);}
+\NormalTok{Rcout << res1 << }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{; }\CommentTok{// 1 0 0 0}
+\NormalTok{Rcout << res2 << }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{; }\CommentTok{// 1 1 1 0}
+\NormalTok{Rcout << res3 << }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{; }\CommentTok{// 0 0 0 1}
+\end{Highlighting}
+\end{Shaded}
+
+\section{接收LogicalVector的函数}\label{Function-that-receives-LogicalVector}
+
+接收\texttt{LogicalVector}的函数有\texttt{all()}, \texttt{any()} 及
+\texttt{ifelse()}等。
+
+\subsection{all(), any()}\label{all-any}
+
+对于\texttt{LogicalVector}
+v，当所有元素都为\texttt{TRUE}时，\texttt{all\ (v)}返回\texttt{TRUE},当任意一个元素为\texttt{TRUE}时，\texttt{any\ (v)}返回\texttt{TRUE}，
+
+然而，用户并不能在\texttt{if}语句的条件表达式中，使用\texttt{all()}或者\texttt{any()}的返回值。这是因为这两者的返回值并不是\texttt{bool}型，而是\texttt{SingleLogicalResult}型。如果要在\texttt{if}条件语句中使用这两个函数，可以考虑使用\texttt{is\_true()},
+\texttt{is\_false()} 和
+\texttt{is\_na()}。这些函数会把\texttt{SingleLogicalResult}
+类型转为\texttt{bool}型。
+
+下面的代码展示了，如何在\texttt{if}语句的条件表达式中使用\texttt{all()}和\texttt{any()}。在这个例子中，条件表达式的值为\texttt{true}，\texttt{all()}和\texttt{any()}的返回值也会被打印显示。
+
+在\texttt{test.cpp}文件中输入下面代码。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{// [[Rcpp::export]]}
+\NormalTok{List rcpp_logical_03()\{}
+\NormalTok{  LogicalVector v1 = LogicalVector::create(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,NA_LOGICAL);}
+\NormalTok{  LogicalVector v2 = LogicalVector::create(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,NA_LOGICAL);}
+  \CommentTok{// 对于包含有NA的Logical向量，all (), any () 函数的结果与R一致 }
+\NormalTok{  LogicalVector lv1 = all( v1 );   }\CommentTok{// NA}
+\NormalTok{  LogicalVector lv2 = all( v2 );   }\CommentTok{// FALSE}
+\NormalTok{  LogicalVector lv3 = any( v2 ); }\CommentTok{// TRUE}
+  \CommentTok{// 将`SingleLogicalResult` 类型转为`bool`型，然后赋值}
+  \DataTypeTok{bool}\NormalTok{ b1 = is_true ( all(v1) );  }\CommentTok{// false}
+  \DataTypeTok{bool}\NormalTok{ b2 = is_false( all(v1) );  }\CommentTok{// false}
+  \DataTypeTok{bool}\NormalTok{ b3 = is_na   ( all(v1) );  }\CommentTok{// true}
+  \CommentTok{// 在if语句条件判别式中的情况}
+  \ControlFlowTok{if}\NormalTok{(is_na(all( v1 ))) \{ }\CommentTok{// OK}
+\NormalTok{    Rcout << }\StringTok{"all( v1 ) is NA}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{;}
+\NormalTok{  \}}
+  \CommentTok{//打印所有信息}
+\NormalTok{  Rcout << }\StringTok{"lv1"}\NormalTok{ << lv1 << }\StringTok{'}\SpecialCharTok{\textbackslash{}n}\StringTok{'}\NormalTok{;}
+\NormalTok{  Rcout << }\StringTok{"lv2"}\NormalTok{ << lv2 << }\StringTok{'}\SpecialCharTok{\textbackslash{}n}\StringTok{'}\NormalTok{;}
+\NormalTok{  Rcout << }\StringTok{"lv3"}\NormalTok{ <<lv3 << }\StringTok{'}\SpecialCharTok{\textbackslash{}n}\StringTok{'}\NormalTok{;}
+\NormalTok{  Rcout << }\StringTok{"b1: "}\NormalTok{ << b1 << }\StringTok{'}\SpecialCharTok{\textbackslash{}n}\StringTok{'}\NormalTok{;}
+\NormalTok{  Rcout << }\StringTok{"b2: "}\NormalTok{ << b2 << }\StringTok{'}\SpecialCharTok{\textbackslash{}n}\StringTok{'}\NormalTok{;}
+\NormalTok{  Rcout << }\StringTok{"b3: "}\NormalTok{ << b3 << }\StringTok{'}\SpecialCharTok{\textbackslash{}n}\StringTok{'}\NormalTok{;}
+  \ControlFlowTok{return}\NormalTok{ List::create(lv1, lv2, lv3, b1, b2, b3);}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+在R中的运行结果为:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OperatorTok{>}\StringTok{ }\KeywordTok{sourceCpp}\NormalTok{(}\StringTok{'test.cpp'}\NormalTok{)}
+
+\OperatorTok{>}\StringTok{ }\NormalTok{test_list <-}\StringTok{ }\KeywordTok{rcpp_logical_03}\NormalTok{()}
+\KeywordTok{all}\NormalTok{( v1 ) is }\OtherTok{NA}
+\NormalTok{lv1}\OperatorTok{:}\StringTok{ }\OperatorTok{-}\DecValTok{2147483648}
+\NormalTok{lv2}\OperatorTok{:}\StringTok{ }\DecValTok{0}
+\NormalTok{lv3}\OperatorTok{:}\StringTok{ }\DecValTok{1}
+\NormalTok{b1}\OperatorTok{:}\StringTok{ }\DecValTok{0}
+\NormalTok{b2}\OperatorTok{:}\StringTok{ }\DecValTok{0}
+\NormalTok{b3}\OperatorTok{:}\StringTok{ }\DecValTok{1}
+\end{Highlighting}
+\end{Shaded}
+
+需要注意的是，在@ref(\#LogicalVector-elements)中提到过，\texttt{NA}的值为-2147483648，与打印的\texttt{lv1}信息一致。
+
+\subsection{ifelse()}\label{ifelse}
+
+\texttt{ifelse\ (v,\ x1,\ x2)}
+接收逻辑向量\texttt{v}，如果\texttt{v}中的某元素为\texttt{TRUE}，那么返回\texttt{x1}中对应位置的元素，如果为\texttt{FLASE}，那么返回x2中对应位置的元素。尽管\texttt{x1}和\texttt{x2}可以是标量或者向量，但如果是向量，两者的长度必须与\texttt{v}的长度一致。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{// [[Rcpp::export]]}
+\DataTypeTok{int}\NormalTok{ rcpp_logical_02(NumericVector v1, NumericVector v2)\{}
+  
+  \CommentTok{//向量元素个数}
+  \DataTypeTok{int}\NormalTok{ n = v1.length();}
+  \CommentTok{// 情况1：x1 和 x2是标量的情况}
+\NormalTok{  IntegerVector res1     = ifelse( v1>v2, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{);}
+\NormalTok{  NumericVector res2     = ifelse( v1>v2, }\FloatTok{1.0}\NormalTok{, }\FloatTok{0.0}\NormalTok{);}
+  
+  \CommentTok{//CharacterVector res3 = ifelse( v1>v2, "T", "F"); // 不支持此种写法}
+  \CommentTok{//ifelse() 不支持字符串标量，为了得到和R一样的结果}
+  \CommentTok{// 我们需要使用字符串向量，该向量所有元素相同 }
+\NormalTok{  CharacterVector chr_v1 = rep(CharacterVector(}\StringTok{"T"}\NormalTok{), n);}
+\NormalTok{  CharacterVector chr_v2 = rep(CharacterVector(}\StringTok{"F"}\NormalTok{), n);}
+\NormalTok{  CharacterVector res3   = ifelse( v1>v2, chr_v1, chr_v2);}
+\NormalTok{  Rcout <<}\StringTok{"case1: both x1 and x2 are scalar"}\NormalTok{<<}\StringTok{'}\SpecialCharTok{\textbackslash{}n}\StringTok{'}\NormalTok{;}
+\NormalTok{  Rcout << }\StringTok{"}\SpecialCharTok{\textbackslash{}t}\StringTok{ v1 > v2 "}\NormalTok{ << res1 <<}\StringTok{'}\SpecialCharTok{\textbackslash{}n}\StringTok{'}\NormalTok{;}
+\NormalTok{  Rcout << }\StringTok{"}\SpecialCharTok{\textbackslash{}t}\StringTok{ v1 > v2 "}\NormalTok{ << res2 <<}\StringTok{'}\SpecialCharTok{\textbackslash{}n}\StringTok{'}\NormalTok{;}
+\NormalTok{  Rcout << }\StringTok{"}\SpecialCharTok{\textbackslash{}t}\StringTok{ v1 > v2 "}\NormalTok{ << res3 <<}\StringTok{'}\SpecialCharTok{\textbackslash{}n}\StringTok{'}\NormalTok{;}
+  
+  \CommentTok{//情况2，x1是向量，x2是标量}
+\NormalTok{  IntegerVector int_v1, int_v2;}
+\NormalTok{  int_v1 = rep(}\DecValTok{1}\NormalTok{,n);}
+\NormalTok{  int_v2 = rep(}\DecValTok{0}\NormalTok{,n);}
+\NormalTok{  NumericVector num_v1, num_v2;}
+\NormalTok{  num_v1 = rep(}\DecValTok{1}\NormalTok{.,n);}
+\NormalTok{  num_v2 = rep(}\DecValTok{0}\NormalTok{.,n);}
+  
+\NormalTok{  IntegerVector   res4 = ifelse( v1>v2, int_v1, }\DecValTok{0}\NormalTok{);}
+\NormalTok{  NumericVector   res5 = ifelse( v1>v2, num_v1, }\FloatTok{0.0}\NormalTok{);}
+\NormalTok{  CharacterVector res6 = ifelse( v1>v2, chr_v1, Rf_mkChar(}\StringTok{"F"}\NormalTok{)); }\CommentTok{// Note}
+  
+\NormalTok{  Rcout <<}\StringTok{"case2: x1 and x2 are vector and scalar"}\NormalTok{<<}\StringTok{'}\SpecialCharTok{\textbackslash{}n}\StringTok{'}\NormalTok{;}
+\NormalTok{  Rcout << }\StringTok{"}\SpecialCharTok{\textbackslash{}t}\StringTok{ v1 > v2 "}\NormalTok{ << res4 <<}\StringTok{'}\SpecialCharTok{\textbackslash{}n}\StringTok{'}\NormalTok{;}
+\NormalTok{  Rcout << }\StringTok{"}\SpecialCharTok{\textbackslash{}t}\StringTok{ v1 > v2 "}\NormalTok{ << res5 <<}\StringTok{'}\SpecialCharTok{\textbackslash{}n}\StringTok{'}\NormalTok{;}
+\NormalTok{  Rcout << }\StringTok{"}\SpecialCharTok{\textbackslash{}t}\StringTok{ v1 > v2 "}\NormalTok{ << res6 <<}\StringTok{'}\SpecialCharTok{\textbackslash{}n}\StringTok{'}\NormalTok{;}
+  
+  \CommentTok{//情况3，x1和x2均为向量}
+\NormalTok{  IntegerVector   res7 = ifelse( v1>v2, int_v1, int_v2);}
+\NormalTok{  NumericVector   res8 = ifelse( v1>v2, num_v1, num_v2);}
+\NormalTok{  CharacterVector res9 = ifelse( v1>v2, chr_v1, chr_v2);}
+  
+\NormalTok{  Rcout <<}\StringTok{"case3: both x1 and x2 are vector"}\NormalTok{<<}\StringTok{'}\SpecialCharTok{\textbackslash{}n}\StringTok{'}\NormalTok{;}
+\NormalTok{  Rcout << }\StringTok{"}\SpecialCharTok{\textbackslash{}t}\StringTok{ v1 > v2 "}\NormalTok{ << res7 <<}\StringTok{'}\SpecialCharTok{\textbackslash{}n}\StringTok{'}\NormalTok{;}
+\NormalTok{  Rcout << }\StringTok{"}\SpecialCharTok{\textbackslash{}t}\StringTok{ v1 > v2 "}\NormalTok{ << res8 <<}\StringTok{'}\SpecialCharTok{\textbackslash{}n}\StringTok{'}\NormalTok{;}
+\NormalTok{  Rcout << }\StringTok{"}\SpecialCharTok{\textbackslash{}t}\StringTok{ v1 > v2 "}\NormalTok{ << res9 <<}\StringTok{'}\SpecialCharTok{\textbackslash{}n}\StringTok{'}\NormalTok{;}
+  
+  \ControlFlowTok{return} \DecValTok{0}\NormalTok{;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Note:
+\texttt{Rf\_mkChar\ ()}函数作用为将C语言中的字符串(\texttt{char*})转为\texttt{CHARSXP}(\texttt{CharacterVector}中的元素类型)。
+
+在R中运行结果为:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OperatorTok{>}\StringTok{ }\KeywordTok{sourceCpp}\NormalTok{(}\StringTok{'test.cpp'}\NormalTok{)}
+
+\OperatorTok{>}\StringTok{ }\NormalTok{tmp <-}\StringTok{ }\KeywordTok{rcpp_logical_02}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{4}\NormalTok{,}\DecValTok{4}\OperatorTok{:}\DecValTok{1}\NormalTok{)}
+\NormalTok{case1}\OperatorTok{:}\StringTok{ }\NormalTok{both x1 and x2 are scalar}
+\NormalTok{     v1 }\OperatorTok{>}\StringTok{ }\NormalTok{v2 }\DecValTok{0} \DecValTok{0} \DecValTok{1} \DecValTok{1}
+\NormalTok{     v1 }\OperatorTok{>}\StringTok{ }\NormalTok{v2 }\DecValTok{0} \DecValTok{0} \DecValTok{1} \DecValTok{1}
+\NormalTok{     v1 }\OperatorTok{>}\StringTok{ }\NormalTok{v2 }\StringTok{"F"} \StringTok{"F"} \StringTok{"T"} \StringTok{"T"}
+\NormalTok{case2}\OperatorTok{:}\StringTok{ }\NormalTok{x1 and x2 are vector and scalar}
+\NormalTok{     v1 }\OperatorTok{>}\StringTok{ }\NormalTok{v2 }\DecValTok{0} \DecValTok{0} \DecValTok{1} \DecValTok{1}
+\NormalTok{     v1 }\OperatorTok{>}\StringTok{ }\NormalTok{v2 }\DecValTok{0} \DecValTok{0} \DecValTok{1} \DecValTok{1}
+\NormalTok{     v1 }\OperatorTok{>}\StringTok{ }\NormalTok{v2 }\StringTok{"F"} \StringTok{"F"} \StringTok{"T"} \StringTok{"T"}
+\NormalTok{case3}\OperatorTok{:}\StringTok{ }\NormalTok{both x1 and x2 are vector}
+\NormalTok{     v1 }\OperatorTok{>}\StringTok{ }\NormalTok{v2 }\DecValTok{0} \DecValTok{0} \DecValTok{1} \DecValTok{1}
+\NormalTok{     v1 }\OperatorTok{>}\StringTok{ }\NormalTok{v2 }\DecValTok{0} \DecValTok{0} \DecValTok{1} \DecValTok{1}
+\NormalTok{     v1 }\OperatorTok{>}\StringTok{ }\NormalTok{v2 }\StringTok{"F"} \StringTok{"F"} \StringTok{"T"} \StringTok{"T"}
+\end{Highlighting}
+\end{Shaded}
+
+\section{LogicalVector元素的估值}\label{Evaluation-LogicalVector}
+
+\texttt{LogicalVector}的元素值不应当被用作\texttt{if}语句的条件表达式。因为，C++中\texttt{if}语句将条件表达式评估为\texttt{bool}型。而\texttt{bool}型把所有非零的值均评估为\texttt{true}，因此，\texttt{LogicalVector}中的\texttt{NA}(\texttt{NA\_LOGICAL})也会被认为是\texttt{true}。
+
+下面的代码示例展示了\texttt{if}语句是如何评估\texttt{LogicalVector}的元素值。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{// [[Rcpp::plugins(cpp11)]]}
+\CommentTok{// [[Rcpp::export]]}
+\NormalTok{LogicalVector rcpp_logical()\{}
+  \CommentTok{// 构建一个包含NA值得整型向量}
+\NormalTok{  IntegerVector x = \{}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,NA_INTEGER\};}
+  \CommentTok{// 比较运算的结果是逻辑向量}
+\NormalTok{  LogicalVector v = (x >= }\DecValTok{3}\NormalTok{);}
+  \CommentTok{//如果将逻辑向量的元素直接用于if语句中，NA_LOGICAL会被认为是TRUE}
+  \ControlFlowTok{for}\NormalTok{(}\DataTypeTok{int}\NormalTok{ i=}\DecValTok{0}\NormalTok{; i<v.size();++i) \{}
+    \ControlFlowTok{if}\NormalTok{(v[i]) Rprintf(}\StringTok{"v[}\SpecialCharTok{%i}\StringTok{]:}\SpecialCharTok{%i}\StringTok{ is evaluated as true.}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{,i,v[i]);}
+    \ControlFlowTok{else}\NormalTok{ Rprintf(}\StringTok{"v[}\SpecialCharTok{%i}\StringTok{]:}\SpecialCharTok{%i}\StringTok{ is evaluated as false.}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{,i,v[i]);}
+\NormalTok{  \}}
+  \CommentTok{// 评估逻辑向量的元素}
+  \ControlFlowTok{for}\NormalTok{(}\DataTypeTok{int}\NormalTok{ i=}\DecValTok{0}\NormalTok{; i<v.size();++i) \{}
+    \ControlFlowTok{if}\NormalTok{(v[i]==TRUE) Rprintf(}\StringTok{"v[}\SpecialCharTok{%i}\StringTok{] is TRUE.}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{,i);}
+    \ControlFlowTok{else} \ControlFlowTok{if}\NormalTok{ (v[i]==FALSE) Rprintf(}\StringTok{"v[}\SpecialCharTok{%i}\StringTok{] is FALSE.}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{,i);}
+    \ControlFlowTok{else} \ControlFlowTok{if}\NormalTok{ (v[i]==NA_LOGICAL) Rprintf(}\StringTok{"v[}\SpecialCharTok{%i}\StringTok{] is NA.}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{,i);}
+    \ControlFlowTok{else}\NormalTok{ Rcout << }\StringTok{"v["}\NormalTok{ << i << }\StringTok{"] is not 1}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{;}
+\NormalTok{  \}}
+  \CommentTok{// 打印TRUE, FALSE 和 NA_LOGICAL的值}
+\NormalTok{  Rcout << }\StringTok{"TRUE "}\NormalTok{ << TRUE << }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{;}
+\NormalTok{  Rcout << }\StringTok{"FALSE "}\NormalTok{ << FALSE << }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{;}
+\NormalTok{  Rcout << }\StringTok{"NA_LOGICAL "}\NormalTok{ << NA_LOGICAL << }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{;}
+  \ControlFlowTok{return}\NormalTok{ v;}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+需要注意的是，在原始代码上，需要加入\texttt{//\ {[}{[}Rcpp::plugins(cpp11){]}{]}}语句启动C++11的特性，否则代码会因为初始化语句而报错。
+
+执行结果为:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OperatorTok{>}\StringTok{ }\KeywordTok{sourceCpp}\NormalTok{(}\StringTok{'test.cpp'}\NormalTok{)}
+
+\OperatorTok{>}\StringTok{ }\KeywordTok{rcpp_logical}\NormalTok{()}
+\NormalTok{v[}\DecValTok{0}\NormalTok{]}\OperatorTok{:}\DecValTok{0}\NormalTok{ is evaluated as false.}
+\NormalTok{v[}\DecValTok{1}\NormalTok{]}\OperatorTok{:}\DecValTok{0}\NormalTok{ is evaluated as false.}
+\NormalTok{v[}\DecValTok{2}\NormalTok{]}\OperatorTok{:}\DecValTok{1}\NormalTok{ is evaluated as true.}
+\NormalTok{v[}\DecValTok{3}\NormalTok{]}\OperatorTok{:}\DecValTok{1}\NormalTok{ is evaluated as true.}
+\NormalTok{v[}\DecValTok{4}\NormalTok{]}\OperatorTok{:-}\DecValTok{2147483648}\NormalTok{ is evaluated as true.}
+\NormalTok{v[}\DecValTok{0}\NormalTok{] is FALSE.}
+\NormalTok{v[}\DecValTok{1}\NormalTok{] is FALSE.}
+\NormalTok{v[}\DecValTok{2}\NormalTok{] is TRUE.}
+\NormalTok{v[}\DecValTok{3}\NormalTok{] is TRUE.}
+\NormalTok{v[}\DecValTok{4}\NormalTok{] is NA.}
+\OtherTok{TRUE} \DecValTok{1}
+\OtherTok{FALSE} \DecValTok{0}
+\NormalTok{NA_LOGICAL }\OperatorTok{-}\DecValTok{2147483648}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\OtherTok{FALSE} \OtherTok{FALSE}  \OtherTok{TRUE}  \OtherTok{TRUE}    \OtherTok{NA}
+\end{Highlighting}
+\end{Shaded}
+
+\bibliography{book.bib,packages.bib}
+
+\backmatter
+\printindex
+
+\end{document}
