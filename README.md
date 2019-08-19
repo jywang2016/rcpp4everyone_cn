@@ -50,3 +50,7 @@ Rcpp for everyone => Advanced R => Seamless R and C++ intergration with Rcpp
 - [ ] Iterator
 - [ ] Environment
 - [ ] R Math Library
+
+### 补完计划
+
+在项目的最后，我会尝试使用Rcpp集成一个C++库至R，所以文档可能会补充其它来源的相关知识。
