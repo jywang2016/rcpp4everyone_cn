@@ -24,7 +24,7 @@ Rcpp for everyone => Advanced R => Seamless R and C++ intergration with Rcpp
 - [x] Installation 安装
 - [x] Basic usage 基本用法
 - [x] Embedding Rcpp code in your R code 将Rcpp代码嵌入R代码
-- [x] C++11 开启C++11特性
+- [x] C++11 启用C++11特性
 - [x] Printing messages 打印信息
 - [x] Data types 数据类型
 - [x] Vector 向量类
