@@ -1,0 +1,63 @@
+--- 
+title: "老少咸宜Rcpp"
+author: "Masaki E. Tsuda 著  jywang 译"
+date: "`r Sys.Date()`"
+documentclass: ctexbook
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+colorlinks: yes
+lot: yes
+lof: yes
+geometry: [b5paper, tmargin=2.5cm, bmargin=2.5cm, lmargin=3.5cm, rmargin=2.5cm]
+site: bookdown::bookdown_site
+description: "R用户入门Rcpp"
+github-repo: jywang2016/rcpp4everyone_cn
+---
+
+```{r setup, include=FALSE}
+options(
+  htmltools.dir.version = FALSE, formatR.indent = 2, width = 55, digits = 4
+)
+
+# 填上你需要用到的包，如 c('ggplot2', 'dplyr')
+lapply(c(), function(pkg) {
+  if (system.file(package = pkg) == '') install.packages(pkg)
+})
+```
+
+# 欢迎 {-}
+
+Rcpp能够让你在R中使用C++。即便你对C++没有很深刻的了解，也可以轻松用R的风格来写C++。此外，Rcpp在易用的同时并不会牺牲执行速度，任何人都可以以此获得高性能的结果。
+
+本文档旨在给那些不熟悉C++的用户提供（使用Rcpp）必要的信息。因此，在某些情况，作者会从Rcpp的角度来解释其用法，让读者容易理解，而不是从C++的视角来力求描述准确。
+
+如果你能为本文档来提供反馈，我会十分感激。
+
+[项目原地址](https://github.com/teuder/rcpp4everyone_en)
+
+# 本书编译环境 {-}
+
+按照惯例，感谢yihui大佬，以及他的 **knitr**\index{knitr} [@xie2015] 和 **bookdown**\index{bookdown} [@R-bookdown]。以下为本书的 R 进程信息：
+
+```{r}
+sessionInfo()
+```
+
+# 翻译的初衷 {-}
+
+由于研究需要，我在尝试使用C++来实现一些数值算法，求解优化问题。在倒腾Rmarkdown主题美化的时候，关注了[prettydoc](https://github.com/yixuan/prettydoc)。巧的是，在作者yihuan(后面发现也是给`Rcpp:R与C++的无缝整合`写序的大佬)的[github](https://github.com/yixuan)上，看到了很多相关的工作，比如优化和数值积分，`Readme`上我看到的都是`fast`和`c++`俩词。因此，开始学习[Rcpp](RcppCore/Rcpp)。
+
+`Rcpp:R与C++的无缝整合`是我见到的第一份完备的Rcpp资料。拿到中文书籍的那一刻，爱不释手，然而读了一遍，大半内容我都是云里雾里。因此只能搁置。于是，算法只能用R写，速度慢也只能认了。后来在一些嵌入式系统上写了一段时间c，回头再看书，内容渐渐明了起来。我这才意识到，此前是我没有达到看书的门槛。
+
+Hadley Wickham在[Advanced R](https://adv-r.hadley.nz/)中的前言谈到，很多R用户并不是程序员，且R用户追求的是解决问题，而不在意该过程。相信同我一样，很多R用户，其他语言背景（尤其是C/C++）很薄弱。这也意味着，以C++的角度来学Rcpp，会阻挡一部分的R用户迈入Rcpp。
+
+[Rcpp for everyone](rcpp4everyone_en)一书对这个问题给出了自己的答案。**This document focuses on providing necessary information to users who are not familiar with C++. Therefore, in some cases, I explain usage of Rcpp conceptually rather than describing accurately from the viewpoint of C++, so that I hope readers can easily understand it.** 与其设想的描述方式一致，本书的内容偏重于从Rcpp的角度来讲问题，较少涉及到C++的知识。这在保证用户理解的情况下，又能让用户以一种R语言的风格，来写Rcpp代码。在我看来，这可能是对C/C++了解不多的R用户，最简明的Rcpp入门教材。
+
+最后，`Rcpp for everyone ==>> Advanced R Rcpp部分 ==>> Rcpp:R与C++的无缝整合`应该是我目前能发现的最平滑的Rcpp学习路线。希望本书的中文翻译能对更近一步地降低Rcpp的学习门槛，对大家的学习科研有所帮助。
+
+```{block2, type='flushright', html.tag='p'}
+jywang    
+二零一九年八月
+```
+
