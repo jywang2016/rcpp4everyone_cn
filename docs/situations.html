@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>第 1 章 啥情况该用Rcpp | 老少咸宜Rcpp</title>
+  <title>第 1 章 适用Rcpp的情况 | 老少咸宜Rcpp</title>
   <meta name="description" content="R用户入门Rcpp" />
   <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="第 1 章 啥情况该用Rcpp | 老少咸宜Rcpp" />
+  <meta property="og:title" content="第 1 章 适用Rcpp的情况 | 老少咸宜Rcpp" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="jywang2016/rcpp4everyone_cn" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="第 1 章 啥情况该用Rcpp | 老少咸宜Rcpp" />
+  <meta name="twitter:title" content="第 1 章 适用Rcpp的情况 | 老少咸宜Rcpp" />
   
   <meta name="twitter:description" content="R用户入门Rcpp" />
   
@@ -107,7 +107,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="" data-path="e69cace4b9a6e7bc96e8af91e78eafe5a283.html"><a href="e69cace4b9a6e7bc96e8af91e78eafe5a283.html"><i class="fa fa-check"></i>本书编译环境</a></li>
 <li class="chapter" data-level="" data-path="e7bfbbe8af91e79a84e5889de8a1b7.html"><a href="e7bfbbe8af91e79a84e5889de8a1b7.html"><i class="fa fa-check"></i>翻译的初衷</a></li>
 <li class="chapter" data-level="" data-path="author.html"><a href="author.html"><i class="fa fa-check"></i>作者简介</a></li>
-<li class="chapter" data-level="1" data-path="situations.html"><a href="situations.html"><i class="fa fa-check"></i><b>1</b> 啥情况该用Rcpp</a></li>
+<li class="chapter" data-level="1" data-path="situations.html"><a href="situations.html"><i class="fa fa-check"></i><b>1</b> 适用Rcpp的情况</a></li>
 <li class="chapter" data-level="2" data-path="install.html"><a href="install.html"><i class="fa fa-check"></i><b>2</b> 安装</a><ul>
 <li class="chapter" data-level="2.1" data-path="install.html"><a href="install.html#cppcompiler"><i class="fa fa-check"></i><b>2.1</b> 安装C++编译器</a><ul>
 <li class="chapter" data-level="2.1.1" data-path="install.html"><a href="install.html#cppcwindows"><i class="fa fa-check"></i><b>2.1.1</b> Windows</a></li>
@@ -241,8 +241,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
             <section class="normal" id="section-">
 <div id="situations" class="section level1">
-<h1><span class="header-section-number">第 1 章</span> 啥情况该用Rcpp</h1>
-<p>R 在做某些操作的时候是弱的。如果你需要做下面列出来的一些运算/操作，是时候考虑使用Rcpp了。</p>
+<h1><span class="header-section-number">第 1 章</span> 适用Rcpp的情况</h1>
+<p>R 在做某些操作的时候较为乏力。如果你需要做下面列出来的一些运算/操作，是时候考虑使用Rcpp了。</p>
 <ul>
 <li>循环，下一次循环依赖此前的循环结果(<code>猜测应该是无法直接用向量化来加速循环，所以需要Rcpp</code>)</li>
 <li>遍历一个向量或者矩阵中的每一个元素</li>

@@ -1,3 +1,3 @@
 # 作者简介 {#author .unnumbered}
 
-Masaki E.Tsuda，github主页为https://github.com/teuder ，著有[Rcpp for everyone](https://teuder.github.io/rcpp4everyone_en/)。
+Masaki E.Tsuda，[github](https://github.com/teuder)，著有[Rcpp for everyone](https://teuder.github.io/rcpp4everyone_en/)。
