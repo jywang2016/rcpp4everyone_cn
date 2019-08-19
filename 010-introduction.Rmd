@@ -1,0 +1,184 @@
+\mainmatter
+
+# 啥情况该用Rcpp {#situations}
+
+R 在做某些操作的时候是弱的。如果你需要做下面列出来的一些运算/操作，是时候考虑使用Rcpp了。
+
+-  循环，下一次循环依赖此前的循环结果(`猜测应该是无法直接用向量化来加速循环，所以需要Rcpp`)
+-  遍历一个向量或者矩阵中的每一个元素
+-  有循环的递归函数
+-  向量大小动态变化
+-  需要更高端的数据结构和算法的操作
+
+# 安装 {#install}
+
+在使用Rcpp开发之前，你需要安装一个c++的编译器。
+
+## 安装C++编译器 {#cppcompiler}
+
+### Windows {#cppcwindows}
+
+安装`Rtools`。
+
+参考Rstan的教程可能会有帮助（为Windows安装Rtools）。
+
+### Mac{#cppmac}
+
+安装Xcode命令行工具。在终端执行 `xcode-select --install`命令。
+
+### Linux{#cpplinux}
+
+安装gcc和其他相关的包。
+在Ubuntu Linux中，终端执行`sudo apt-get install r-base-dev`命令。
+
+### 使用其他编译器
+
+如果你安装有与上述不同的其他编译器(g++,clang++)，在用户的根目录下创建如下的文件。然后在这个文件中设置环境变量。
+
+**Linux,Mac**
+
+-  .R/Makevars
+
+**Windows**
+
+-  .R/Makevars.win
+
+**环境变量设定范例**
+
+```txt
+CC=/opt/local/bin/gcc-mp-4.7
+CXX=/opt/local/bin/g++-mp-4.7
+CPLUS_INCLUDE_PATH=/opt/local/include:$CPLUS_INCLUDE_PATH
+LD_LIBRARY_PATH=/opt/local/lib:$LD_LIBRARY_PATH
+CXXFLAGS= -g0 -O2 -Wall
+MAKE=make -j4
+```
+
+## 安装Rcpp {#Rcppinstallation}
+
+用户能通过执行下面代码安装Rcpp。
+
+```r
+install.packages("Rcpp")
+```
+
+# 基本用法 {#basicUsage}
+
+按照如下三步，即可使用你的Rcpp函数。
+
+1.  写（你的函数的）Rcpp代码
+2.  编译上述代码
+3.  执行函数
+
+## 写Rcpp代码 {#WriteRcppCode}
+
+下面的代码定义了一个名为`rcpp_sum()`的函数，来计算一个向量的元素之和。保存代码块内容至 `sum.cpp`文件。
+
+**sum.cpp**
+
+```c++
+//sum.cpp
+#include <Rcpp.h>
+using namespace Rcpp;
+// [[Rcpp::export]]
+double rcpp_sum(NumericVector v){
+    double sum = 0;
+    for(int i=0; i<v.length(); ++i){
+        sum += v[i];
+    }
+    return(sum);
+}
+```
+
+### 在Rcpp中定义一个函数的格式 {#formatForFunction}
+
+下面的代码展示了如何定义一个Rcpp函数的基本格式。
+
+```c++
+#include<Rcpp.h>
+using namespace Rcpp;
+// [[Rcpp::export]]
+RETURN_TYPE FUNCTION_NAME(ARGUMENT_TYPE ARGUMENT){
+    //do something
+    return RETURN_VALUE;
+}
+```
+-  `#include<Rcpp.h>` : 保证你能使用Rcpp包中定义的的类和函数
+- `// [[Rcpp::export]]`：在这行代码下定义的函数，才能（在后面的步骤中）被R获取.
+- `using namespace Rcpp;` : 这行代码是可选的。如果你不写，那么你需要在特定的类和函数前面加上前缀`Rcpp::`. (比如, `Rcpp::NumericVector`)
+
+- `RETURN_TYPE FUNCTION_NAME(ARGMENT_TYPE ARGMENT){}`：需要指定函数的返回值和参数的类型，以及函数名.
+
+- `return RETURN_VALUE;`：`return`声明强制返回一个值，但是如果你不返回值（例如，`RETURN_TYPE`是`void`型，即空），那么可以忽略`return`。
+
+## 编译代码{#compile}
+
+函数`Rcpp::sourceCpp()`会编译上述源代码并在R中加载。
+
+```r
+library(Rcpp)
+sourceCpp('sum.cpp')
+```
+## 执行函数{#Execute}
+
+你可以像使用其他R函数一样，来使用加载好的Rcpp函数。
+
+```r
+> rcpp_sum(1:10)
+[1] 55
+> sum(1:10)
+[1] 55
+```
+
+# 将Rcpp嵌入R代码 {#embedd}
+
+三种方式可以让你在R代码中写Rcpp代码，即使用`sourceCpp()`， `cppFunction()`， `evalCpp()`函数.
+
+## sourceCpp() {#sourcecpp}
+
+不同于\@ref(compile)中需要加载外部的Rcpp文件，你可以直接在R中，写Rcpp代码，并且将其保存为一个字符串对象，然后利用`sourceCpp()`加载这个对象。
+
+``` R
+src <-
+"#include <Rcpp.h>
+using namespace Rcpp;
+// [[Rcpp::export]]
+double rcpp_sum(NumericVector v){
+  double sum = 0;
+  for(int i=0; i<v.length(); ++i){
+    sum += v[i];
+  }
+  return(sum);
+}"
+sourceCpp(code = src)
+rcpp_sum(1:10)
+```
+
+## cppFunction() {#cppFunction}
+
+`cppFunction()`提供了一种更加便利的方式来构建**单一的**Rcpp函数(采用sourceCpp的方式可以写多个Rcpp函数被R调用)。使用`cppFunction()`时，可以忽略`#include <Rcpp.h>` 和 `using namespase Rcpp;`。
+
+
+```r
+src <-
+  "double rcpp_sum(NumericVector v){
+    double sum = 0;
+    for(int i=0; i<v.length(); ++i){
+      sum += v[i];
+    }
+    return(sum);
+  }
+  "
+Rcpp::cppFunction(src)
+rcpp_sum(1:10)
+```
+
+## evalCpp(){#evalcpp}
+
+可以使用`evalCpp()`直接执行单个的C++声明。
+
+```r
+# Showing maximum value of double.
+evalCpp('std::numeric_limits<double>::max()')
+```
+

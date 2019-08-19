@@ -1,0 +1,67 @@
+# 向量运算{#Vector-operations}
+
+## 数学运算{#Arithmetic-operations}
+
+使用`+ - * /`运算符，用户可以对相同长度的向量进行元素级别的运算。
+
+``` c++
+NumericVector x ;
+NumericVector y ;
+// 向量与向量运算
+NumericVector res = x + y ;
+NumericVector res = x - y ;
+NumericVector res = x * y ;
+NumericVector res = x / y ;
+// 向量与标量运算
+NumericVector res = x   + 2.0 ;
+NumericVector res = 2.0 - x;
+NumericVector res = y   * 2.0 ;
+NumericVector res = 2.0 / y;
+// expression and expression operation
+NumericVector res = x * y + y / 2.0 ;
+NumericVector res = x * ( y - 2.0 ) ;
+NumericVector res = x / ( y * y ) ;
+```
+
+`-`号逆转了符号。
+
+```c++
+NumericVector res = -x ;
+```
+
+## 比较运算{#Comparison-operations}
+
+使用`==` `! =` `<` `>` `> =` `<=`运算符进行向量比较，会产生逻辑向量。用户可以通过逻辑向量来访问向量元素。
+
+```c++
+NumericVector x ;
+NumericVector y ;
+// Comparison of vector and vector
+LogicalVector res = x < y ;
+LogicalVector res = x > y ;
+LogicalVector res = x <= y ;
+LogicalVector res = x >= y ;
+LogicalVector res = x == y ;
+LogicalVector res = x != y ;
+// Comparison of vector and scalar
+LogicalVector res = x < 2 ;
+LogicalVector res = 2 > x;
+LogicalVector res = y <= 2 ;
+LogicalVector res = 2 != y;
+// Comparison of expression and expression
+LogicalVector res = ( x + y ) < ( x*x ) ;
+LogicalVector res = ( x + y ) >= ( x*x ) ;
+LogicalVector res = ( x + y ) == ( x*x ) ;
+```
+
+ `!` 表示对逻辑值的否运算。
+
+```c++
+LogicalVector res = ! ( x < y );
+```
+
+通过逻辑向量来访问向量元素。
+
+```c++
+NumericVector res = x[x < 2];
+```

@@ -1,0 +1,42 @@
+# 数据类型 {#datatypes}
+
+Rcpp提供了R中所有的基本数据类型。通过使用这些数据类型，你能够直接使用在R中的对象。
+
+## 向量和矩阵 {#vectorMatrix}
+
+下面7种数据类型在R中被经常使用。
+
+`logical` `integer` `numeric` `complex` `character` `Date` `POSIXct`
+
+上面的7种类型与Rcpp中的向量(`vector`)类型和矩阵(`matrix`)类型是对应的（比如，有 logicalVector,integerVector等类型，上面7种基本的数据类型都可以在后面加上Vector或者Matrix）。
+
+本文档中， `Vector` 和 `Matrix` 用于特指Rcpp中所有的向量和矩阵类型。
+
+下表中展示了R/Rcpp/C++中对应的数据类型。
+
+|Value | R vector|Rcpp vector|Rcpp matrix|Rcpp scalar|C++ scalar|
+|:---:|:---:|:---:|:---:|:---:|:---:|
+|Logical|`logical`  |`LogicalVector`| `LogicalMatrix`| - |`bool`|
+|Integer|`integer`  |`IntegerVector`|`IntegerMatrix`|-|`int`|
+|Real|`numeric` |`NumericVector`|`NumericMatrix`|-|`double`|
+|Complex|`complex`  |`ComplexVector`| `ComplexMatrix`|`Rcomplex`|`complex`|
+|String|`character`|`CharacterVector` (`StringVector`)| `CharacterMatrix` (`StringMatrix`)|`String`|`string`|
+|Date  |`Date`     |`DateVector`|-|`Date`|-|
+|Datetime  |`POSIXct`  |`DatetimeVector`|-| `Datetime` | `time_t` |
+
+
+## data.frame, list, S3, S4 {#dataframe}
+
+除了向量和矩阵，在R中海油一些数据结构，比如 data.frame，list，S3和S4类。所有这些数据结构同样也可以在Rcpp中处理。
+
+|R|Rcpp|
+|:---:|:---:|
+|`data.frame`|`DataFrame`|
+|`list`|`List`|
+|S3 class|`List`|
+|S4 class|`S4`|
+
+在Rcpp中，`Vector`, `DataFrame`, `List`都以向量的方式实现。即，`Vector` 是一个元素全部为标量的向量，`DataFrame`是元素全部为向量的向量，`List`是元素为各种各样数据类型的向量。因此，在Rcpp中`Vector`, `DataFrame`, `List` 有很多共同的成员函数。
+
+
+

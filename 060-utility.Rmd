@@ -1,0 +1,51 @@
+# 信息打印 {#print}
+
+你可以通过`Rprintf()`和`Rcout`在R的控制台上来打印对象的信息和值。
+
+`REprintf()` 和 `Rcerr` 可用于打印报错信息。
+
+## Rcout, Rcerr {#Rcout}
+
+使用`Rcout` 和 `Rcerr`的方式与 使用`std::cout`和`std::cerr`方式相同。将你想要输出的信息，按照特定的顺序，使用`<<`输出符号链接。**当在**`<<`**前是向量对象时**，程序会打印向量的所有元素。
+
+```cpp
+// [[Rcpp::export]]
+void rcpp_rcout(NumericVector v){
+  // 打印向量的所有元素值
+  Rcout << "The value of v : " << v << "\n";
+  // 打印报错信息
+  Rcerr << "Error message\n";
+}
+```
+
+## Rprintf(), REprintf() {#Rprintf}
+
+使用`Rprintf()` 和 `REprintf()` 的方式和 `std::printf()`相同, 函数会按照指定的格式打印信息。
+
+```cpp
+Rprintf( format, variables)
+```
+
+在`format`字符串中，你可以使用下面的格式指示符来打印变了的值。如果要打印多个变量，你需要按照对应的格式字符串的顺序，来排列你的变量。
+
+下面只列举了一部分的格式指示符，可以参考其他的文档以深入探究（如，[cplusplus.com](http://www.cplusplus.com/reference/cstdio/printf/)）。
+
+|specifier|explanation|
+|:---:|---|
+|`%i`| 打印 signed integer (`int`)|
+|`%u`| 打印 unsigned integer (`unsigned int`)|
+|`%f`| 打印 floating point number (`double`)|
+|`%e`| 打印 floating point number (`double`) in exponential style|
+|`%s`| 打印 C string (`char*`)|
+
+此外，`Rprintf()` 和 `REprintf()` **只能打印在标准的C语言中已有的数据类型**，因此，用户并不能直接传递Rcpp包中定义的数据类型，如`NumericVector`给`Rprintf()`打印。如果你想进行此类操作，那么你可能需要逐个元素进行传递打印，代码如下。
+
+```c++
+// [[Rcpp::export]]
+void rcpp_rprintf(NumericVector v){
+    // printing values of all the elements of Rcpp vector  
+    for(int i=0; i<v.length(); ++i){
+        Rprintf("the value of v[%i] : %f \n", i, v[i]);
+    }
+}
+```

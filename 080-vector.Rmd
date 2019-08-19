@@ -1,0 +1,778 @@
+# Vector类{#vector}
+
+## 创建向量对象 {#create-vector-object}
+
+你可以使用下面的几种方法来创建向量对象。
+
+```c++
+// 等价于 v <- rep(0, 3)
+NumericVector v (3);
+
+// 等价于 v <- rep(1, 3)
+NumericVector v (3,1);
+
+// 等价于 v <- c(1,2,3) 
+// C++11 初始化列表
+NumericVector v = {1,2,3}; 
+
+// 等价于 v <- c(1,2,3)
+NumericVector v = NumericVector::create(1,2,3);
+
+// 命名向量 等价于 v <- c(x=1, y=2, z=3)
+NumericVector v =
+  NumericVector::create(Named("x",1), Named("y")=2 , _["z"]=3);
+```
+
+## 获取向量元素{#Accessing-vector-elements}
+
+你可以使用`[]` 或 `()`运算符来获取一个向量的个别元素。两种操作符都接受 数值向量/整型向量(NumericVector/IntegerVector) 的数值索引，字符向量的元素名索引和逻辑向量。`[]`运算符会忽略边界溢出，而`()` 运算符会抛出`index_out_of_bounds`错误。
+
+**需要注意的是 C++中的向量索引开始于0**
+
+```c++
+// [[Rcpp::export]]
+void rcpp_vector_access(){
+
+  // 创建向量
+  NumericVector v  {10,20,30,40,50};
+  // 设置元素名称
+  v.names() = CharacterVector({"A","B","C","D","E"});
+  
+  // 准备向量索引
+  NumericVector   numeric = {1,3};
+  IntegerVector   integer = {1,3};
+  CharacterVector character = {"B","D"};
+  LogicalVector   logical = {false, true, false, true, false};
+  
+  // 根据向量索引获取向量元素值
+  double x1 = v[0];
+  double x2 = v["A"];
+  NumericVector res1 = v[numeric];
+  NumericVector res2 = v[integer];
+  NumericVector res3 = v[character];
+  NumericVector res4 = v[logical];
+  
+  // 向量元素赋值
+  v[0]   = 100;
+  v["A"] = 100;
+  NumericVector v2 {100,200};
+  v[numeric]   = v2;
+  v[integer]   = v2;
+  v[character] = v2;
+  v[logical]   = v2;
+}
+```
+
+## 成员函数{#Member-functions}
+
+成员函数（也被称作方法）是某个对象中的函数。你可以以`v.f()`的形式来调用对象`v`中的成员函数`f()`。
+
+```c++
+NumericVector v = {1,2,3,4,5};
+
+// 调用成员函数length()，求对象v的长度
+int n = v.length(); // 5
+```
+Rcpp中，向量对象的成员函数列举如下。
+
+### length(), size(){#vector-length-size}
+
+返回该向量对象中元素的个数。
+
+```c++
+//test.cpp 文件
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+int test(NumericVector v) {
+  
+  Rcout << v.length() << '\n';
+  Rcout << v.size() << '\n';
+  return 0;
+}
+
+```
+在R中，运行结果为：
+
+```r
+> sourceCpp("test.cpp")
+
+> test(c(1:10))
+10
+10
+[1] 0
+```
+
+### names(){#vector-names}
+
+以字符向量的形式，返回该向量的元素名称。
+
+```c++
+//test.cpp 文件
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+CharacterVector test(NumericVector v) {
+  
+  return v.names();
+}
+
+```
+在R中，运行结果为：
+
+```r
+> sourceCpp("test.cpp")
+
+> test(c(a = 1,b = 2, c = 3))
+[1] "a" "b" "c"
+```
+
+### offset( name ), findName( name ) {#offsetname}
+
+按照指定字符串`name`的方式，返回对应元素的数值索引。
+
+```c++
+//test.cpp 文件
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+int test(NumericVector v, std::string name) {
+  
+  return v.offset(name);
+}
+```
+在R中，运行结果为：
+
+```r
+> sourceCpp("test.cpp")
+
+> test(c(a = 1,b = 2, c = 3),"a")
+[1] 0
+
+```
+
+
+### offset( i ){#offseti}
+
+函数在检查数值索引i没有超过边界后，返回该索引。
+
+举例说明，在`test.cpp`文件中键入以下代码，
+
+```c++
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+int test(NumericVector v, int i) {
+  return v.offset(i);
+}
+
+```
+
+在R中，运行结果为：
+
+```r
+> sourceCpp('test.cpp')
+
+> test(c(11,22,33,44,55),2)
+[1] 2
+
+```
+
+### fill( x ) {#fillx}
+
+将该向量的所有元素用标量`x`填充。
+
+举例说明，在`test.cpp`文件中键入以下代码，
+
+```c++
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+NumericVector test(NumericVector v, double i) {
+  v.fill(i);
+  return v;
+}
+
+```
+
+```r
+> sourceCpp("test.cpp")
+
+> test(c(1,2,3,4,5),6)
+[1] 6 6 6 6 6
+```
+
+### sort() {#sort}
+
+将该向量对象中的元素升序排列。
+
+举例说明，在`test.cpp`文件中键入以下代码，
+
+```c++
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+NumericVector test(NumericVector v) {
+  v.sort();
+  return v;
+}
+```
+
+```r
+> sourceCpp("test.cpp")
+
+> test(c(5,4,7,6,8))
+[1] 4 5 6 7 8
+```
+
+### assign( first_it, last_it )
+
+assign values specified by the iterator `first_it` and `last_it` to this vector object.
+将迭代器`first_it`至`lates_it`所指向的元素赋给向量对象。
+
+举例说明，在`test.cpp`文件中键入以下代码，
+
+```c++
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+NumericVector test(NumericVector v) {
+  NumericVector v1;
+  v1.assign(v.begin(),v.end());
+  return v1;
+}
+```
+`begin`和`end`也是成员函数，下面\@ref(begin)也有对应的例子
+
+```r
+> sourceCpp("test.cpp")
+
+> test(1:10)
+ [1]  1  2  3  4  5  6  7  8  9 10
+```
+
+### push_back( x ) {#push-backx}
+
+在向量对象的最后加入新的标量值 `x`。
+
+在`test.cpp`文件中键入以下代码，
+
+```c++
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+NumericVector test(NumericVector v, double var_PB) {
+  
+  v.push_back(var_PB);
+  return v;
+}
+```
+
+```r
+> sourceCpp("test.cpp")
+
+> test(c(1,2,3,4,5),6)
+[1] 1 2 3 4 5 6
+
+```
+
+### push_back( x, name ) {#push-back-name}
+
+在向量后加入标量元素`x`时，指定其元素名称。
+
+在`test.cpp`文件中键入以下代码，
+
+```c++
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+NumericVector test(NumericVector v, 
+                   double var_PB, 
+                   std::string var_Name) {
+  
+  //v.names() = CharacterVector::create("a","b","c","d","e");
+  v.push_back(var_PB,var_Name);
+  return v;
+}
+```
+
+```r
+> sourceCpp('test.cpp')
+
+> test(c(a = 1,b = 2,c = 3,d = 4,e = 5),6,"f")
+a b c d e f
+1 2 3 4 5 6
+
+```
+
+### push_front( x ) {#push-front-x}
+
+在向量前面加入一个标量`x`。
+
+在`test.cpp`文件中键入以下代码，
+
+```c++
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+NumericVector test(NumericVector v, 
+                   double var_f) {
+  v.push_front(var_f);
+  return v;
+}
+```
+
+```r
+> sourceCpp('test.cpp')
+
+> test(c(1,2,3,4,5),6)
+6 1 2 3 4 5 
+
+```
+### push_front( x, name ){#push-front-name}
+
+在向量前加入标量元素`x`时，指定其元素名称。
+
+在`test.cpp`文件中键入以下代码，
+
+```c++
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+NumericVector test(NumericVector v, 
+                   double var_f, 
+                   std::string var_Name) {
+  
+  //v.names() = CharacterVector::create("a","b","c","d","e");
+  v.push_front(var_f,var_Name);
+  return v;
+}
+```
+
+```r
+> sourceCpp('test.cpp')
+
+> test(c(a = 1,b = 2,c = 3,d = 4,e = 5),6,"f")
+f a b c d e 
+6 1 2 3 4 5 
+
+```
+
+### begin() {#vector-begin}
+
+返回一个指向向量第一个元素的迭代器。
+
+### end() {#vector-end}
+
+返回一个指向向量最后一个元素的迭代器。 (**one past the last element of this vector**).
+
+以求和函数说明`begin()`和`end()`的作用。
+
+```c++
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+double test(NumericVector v) {
+  
+  double mysum = 0;
+  NumericVector::iterator it;
+  for(it = v.begin();it!=v.end();it++){
+    mysum += *it;
+  }
+  return mysum;
+}
+
+```
+
+```r
+> sourceCpp('test.cpp')
+
+> test(1:10)
+[1] 55
+
+```
+>在循环体内，我们用*it获取向量v中的元素，在指明循环范围的时候，也并不是我们熟悉的 int i = 0; i < n; i++
+
+该例子来源于Advanced R中案例，请点击[传送门](http://adv-r.had.co.nz/Rcpp.html#rcpp-classes)。
+
+### cbegin() {#cbegin}
+
+返回一个指向向量第一个元素的具有const属性的迭代器。
+
+> 无法用于元素的修改
+
+### cend() {#cend}
+
+返回一个指向向量最后一个元素的具有const属性的迭代器。 (**one past the last element of this vector**).
+
+以求和函数说明`cbegin()`和`cend()`的作用。**下面的例子只在声明迭代器it的时候，将iterator改为const_iterator**，因为`cbegin()`和`cend()`得到是const_iterator.
+
+```c++
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+double test(NumericVector v) {
+  
+  double mysum = 0;
+  NumericVector::const_iterator it;
+  for(it = v.begin();it!=v.end();it++){
+    mysum += *it;
+  }
+  return mysum;
+}
+
+```
+
+> 当然，对于c++不熟悉的用户，完全可以忽视`const_iterator`。不声明it，而是采用auto，如下。
+
+```c++
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::plugins(cpp11)]]
+// [[Rcpp::export]]
+double test(NumericVector v) {
+  
+  double mysum = 0;
+  for(auto it = v.cbegin();it!=v.cend();it++){
+    mysum += *it;
+    
+  }
+  return mysum;
+}
+```
+上面的这段代码，在循环体中，使用auto，来自动判别it的类型。对于不熟悉C++的用户而言（也包括我），是十分便捷的。但需要注意的是，一定要加上`// [[Rcpp::plugins(cpp11)]]`，表明你希望使用c++11的新特性，否则程序会报错。
+
+```r
+> sourceCpp('test.cpp')
+
+> test(1:10)
+[1] 55
+
+```
+
+
+### insert( i, x ) {#inserti}
+
+在数值索引`i`指定的位置插入标量`x`。返回一个指向插入元素的迭代器。
+
+test.cpp文件如下：
+```c++
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+NumericVector test(NumericVector v) {
+  v.insert(1,6);
+  return v;
+}
+```
+R运行结果如下:
+
+```r
+> sourceCpp("test.cpp")
+
+> test(2:5)
+[1] 2 6 3 4 5
+```
+
+### insert( it, x ) {#insertit}
+
+在迭代器`it`指定的位置插入标量`x`。返回迭代器指向的元素。
+
+test.cpp文件如下：
+```c++
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+NumericVector test(NumericVector v) {
+  v.insert(v.begin()+1,6);
+  return v;
+}
+```
+R运行结果如下:
+
+```r
+> sourceCpp("test.cpp")
+
+> test(2:5)
+[1] 2 6 3 4 5
+```
+
+### erase(i) {#vector-erasei}
+
+擦除数值索引`i`指定的标量元素`x`。返回指向擦除元素之后一个元素的迭代器。
+
+test.cpp文件如下：
+```c++
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+double test(NumericVector v) {
+  NumericVector::iterator it = v.erase(0);
+  return *it;
+}
+```
+R运行结果如下:
+
+```r
+> sourceCpp("test.cpp")
+
+> test(1:5)
+[1] 2
+```
+
+### erase(it) {#vector-eraseit}
+
+擦除迭代器`it`指向的元素。返回指向擦除元素之后一个元素的迭代器。
+
+test.cpp文件如下：
+```c++
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+double test(NumericVector v) {
+  NumericVector::iterator it = v.erase(v.begin());
+  return *it;
+}
+```
+R运行结果如下:
+
+```r
+> sourceCpp("test.cpp")
+
+> test(1:5)
+[1] 2
+```
+
+### erase( first_i, last_i ) {#erase-first-lasti}
+
+擦除数值索引`first_i`至`last_i - 1`之间的所有元素。返回指向擦除元素之后一个元素的迭代器。
+
+test.cpp文件如下：
+```c++
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+double test(NumericVector v) {
+  NumericVector::iterator it = v.erase(0,3);
+  return *it;
+}
+```
+R运行结果如下:
+
+```r
+> sourceCpp("test.cpp")
+
+> test(1:5)
+[1] 4
+```
+
+由于擦除的是索引0和3-1，即，第1个元素至第3个元素被擦除，返回的是对应原本第四个元素的迭代器，*it为4，也印证了结果。
+
+### erase( first_it, last_it ) {#erase-first-lastit}
+
+擦除迭代器`first_it`至`last_it - 1`之间的所有元素。返回指向擦除元素之后一个元素的迭代器。
+
+test.cpp文件如下：
+```c++
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+double test(NumericVector v) {
+  NumericVector::iterator it = v.erase(v.begin(),v.end());
+  return *it;
+}
+```
+R运行结果如下:
+
+```r
+> sourceCpp("test.cpp")
+
+> test(1:5)
+[1] 5
+```
+
+### containsElementNamed(name) {#containsEN}
+
+如果向量包含有某一个元素，其名称与字符串name相同，那么返回`true`。
+
+test.cpp文件如下：
+```c++
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+bool test(NumericVector v) {
+	if(v.containsElementNamed("b")){
+		Rcout <<"name is included" << '\n';
+	}else{
+		Rcout <<"name is not included" << '\n';
+	}
+  return v.containsElementNamed("b");
+}
+```
+R运行结果如下:
+
+```r
+> sourceCpp("test.cpp")
+
+> test(c(a = 1, b = 2, c = 3))
+name is included
+[1] TRUE
+```
+
+
+## 静态成员函数 {#Static-member-functions}
+
+静态成员函数是对象所在类的函数。k可以按照 `NumericVector::create()` 的方式来调用该静态成员函数。
+
+### get_na() {#get_na}
+
+返回`Vector`类中的`NA`值。
+
+test.cpp文件如下：
+
+```c++
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+NumericVector test(NumericVector v) {
+  v.fill(NumericVector::get_na());
+  return v;
+}
+```
+R运行结果如下:
+
+```r
+> sourceCpp("test.cpp")
+
+> test(1:5)
+[1] NA NA NA NA NA
+```
+该例子有参考stackoverflow上的答案，详情点击[传送门](https://stackoverflow.com/questions/23748572/initializing-a-matrix-to-na-in-rcpp)。
+
+### is_na(x) {#is_na}
+
+如果`x`为`NA`，则返回`true`。
+
+test.cpp文件如下：
+
+```c++
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+bool test(NumericVector v,int id) {
+  return NumericVector::is_na(v(id));
+}
+```
+R运行结果如下:
+
+```r
+> sourceCpp("test.cpp")
+
+>   test(c(1:3,NA,5),3)
+[1] TRUE
+
+```
+
+### create( x1, x2, ...) {#create}
+
+创建一个`Vector`对象，其包含的元素由标量`x1`，`x2`指定。参数最大个数为20。
+
+可以命名元素或不命名，例子如下:
+
+```c++
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+NumericVector test() {
+  
+  NumericVector v = NumericVector::create(_["a"] = 1,_["b"] = 2,_["c"] = 3,_["d"] = 4);
+	//NumericVector v = NumericVector::create(1,2,3,4);
+  return v;
+}
+```
+
+
+```r
+> sourceCpp("test.cpp")
+
+> test()
+a b c d 
+1 2 3 4 
+> 
+```
+
+### import( first_it , last_it ) {#import}
+
+创建一个`Vector`对象，其元素由迭代器`first_it` 至 `last_it - 1`指定。
+
+```c++
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+NumericVector test(NumericVector v) {
+	NumericVector v1 = NumericVector::import(v.begin(),v.end());
+  return v1;
+}
+```
+
+
+```r
+> sourceCpp("test.cpp")
+
+> test(1:5)
+[1] 1 2 3 4 5
+```
+
+### import_transform( first_it, last_it, func) {#import_transform}
+
+在`import( first_it , last_it )`的基础上，对于每一个迭代器范围内的元素，进行`func`函数的操作。类似于`apply()`函数族。
+
+```c++
+#include <Rcpp.h>
+using namespace Rcpp;
+
+//构建mypow2函数，求取元素平方
+
+// [[Rcpp::export]]
+double mypow2(double x) {
+  return x*x;
+}
+
+// [[Rcpp::export]]
+NumericVector test(NumericVector v) {
+	NumericVector v1 = NumericVector::import_transform(v.begin(),v.end(),mypow2);
+  return v1;
+}
+```
+
+```r
+> sourceCpp("test.cpp")
+
+> test(1:5)
+[1]  1  4  9 16 25
+```

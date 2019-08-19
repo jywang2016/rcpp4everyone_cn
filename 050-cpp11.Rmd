@@ -1,0 +1,115 @@
+# C++11 {#cpp11}
+
+C++11是在2011年新建立的C++标准，该标准引入了新的函数(functionalities)和符号(notations)。相较于之前的标准，很多新的特性使得C++对于初学者而言更为简单。本文档会对C++11的新特性做很多探索。
+
+**重要：代码示例是在默认C++11可得的情况下写的。**
+
+## 开启C++11 {#enable}
+
+为了开启C++11，在你的Rcpp代码中任意一处加入下面的代码。
+
+```c++
+// [[Rcpp::plugins("cpp11")]]
+```
+
+## 推荐的 C++11 特性 {#recommend}
+
+
+### 初始化 {#initializer}
+
+使用 `{}`来初始化变量.
+
+```c++
+// 初始化向量
+// 下面三行代码等同于R中的 c (1, 2, 3).
+NumericVector v1 = NumericVector::create(1.0, 2.0, 3.0);
+NumericVector v2 = {1.0, 2.0, 3.0};
+NumericVector v3   {1.0, 2.0, 3.0}; // 你可以忽略 "=".
+```
+
+
+### auto {#auto}
+
+使用`auto`关键字，根据赋值，来推断变量的类型
+
+```c++
+// 变量 "i" 会是 int 型
+auto  i  = 4;
+NumericVector v;
+// 变量 "it" 会是 NumericVector::iterator 
+auto it = v.begin();
+```
+
+
+### decltype {#decltype}
+
+通过使用 `decltype`，你能声明变量的类型与已存在的变量相同.
+
+```c++
+int i;
+decltype(i) x; // 变量 "x" 会是 int 型
+```
+
+
+### 基于范围的for循环 {#rangefor}
+
+能用一种比较R风格的方式来写for循环。
+
+```c++
+IntegerVector v{1,2,3};
+int sum=0;
+for(auto& x : v) {
+  sum += x;
+}
+```
+
+
+### Lambda 表达式{#Lambda}
+
+你能使用lambda表达式来创建一个函数对象。函数对象常用于作为未命名函数传递给其他函数。
+
+Lambda表达式的形式为 `[](){}`.
+
+在 `[]`中，写你希望在函数对象中使用的局部变量的列表.
+
+- `[]` 不允许函数对象获取所有的局部变量.
+- `[=]` 传值，将所有局部变量的值传递给函数对象.
+- `[&]` 引用，函数直接引用所有的局部变量的值.
+- `[=x, &y]`  "x" 传值给函数对象，而"y" 可以被函数对象直接引用.
+
+在 `()`中，写传递给函数的参数列表.
+
+在`{}`中，写想做的操作.
+  
+**lambda 表达式的返回类型**
+
+函数对象的返回类型会被自动地设定为`{}`操作中返回值的类型。如果你希望显式定义返回类型，可以按照`[]()->int{}`的方式。
+
+**例子**
+下面的例子展示了如何使用lambda表达式。可以按照R的风格来写某些类型的C++代码。
+
+*R 例子*
+
+``` R
+v <- c(1,2,3,4,5)
+A <- 2.0
+res <-
+  sapply(v, function(x){A*x})
+```
+
+> 译者：上面的sapply函数，将function(x){A*x}作用于v中的每个元素。这是很典型的向量化编程，可以看apply函数族来对此有更深的了解。
+
+*Rcpp 例子*
+
+``` c++
+// [[Rcpp::plugins("cpp11")]] 
+// [[Rcpp::export]]
+NumericVector rcpp_lambda_1(){
+  NumericVector v = {1,2,3,4,5};
+  double A = 2.0;
+  NumericVector res =
+    sapply(v, [&](double x){return A*x;});
+  return res;
+}
+```
+> 译者：上面代码中也使用sapply函数，将R中的function(x)(A*x) 用lambda表达式的方式替代。而sapply，则是吃到了Rcpp给我们提供的语法糖(sugar)。如果要对语法糖有更深的了解，可以阅读Rcpp:R与C++的无缝整合中的相关章节。

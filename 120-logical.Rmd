@@ -1,0 +1,225 @@
+# 逻辑运算符{#Logical-operations} 
+
+## LogicalVector{#LogicalVector}
+
+### LogicalVector元素的数据类型{#LogicalVector-elements}  
+
+LogicalVector的元素类型**不是**`bool`。这是因为，`bool`只能表示`true`和`false`，但是在R中，逻辑向量有三种可能的取值，即`TRUE`，`FALSE`以及`NA`。因此，LogicalVector元素的数据类型为`int`，而非`bool`。
+
+在Rcpp中，`TRUE`用1表示，`FALSE`用0表示，而`NA`由`NA_LOGICAL`表示(整型的最小值：-2147483648)。
+
+|R|Rcpp|int|bool|
+|:---:|:---:|:---:|:---:|
+|TRUE|TRUE|1 (除却-2147483648至0之间的int)|true|
+|FALSE|FALSE|0|false|
+|NA|NA_LOGICAL|-2147483648|true|
+
+
+## 逻辑运算符{#Logical-operations-subtitle}
+
+使用运算符`&`（与）`|`（或）`!`（非）来对LogicalVector中的每个元素进行逻辑运算。
+
+```c++
+LogicalVector v1 = {1,1,0,0};
+LogicalVector v2 = {1,0,1,0};
+LogicalVector res1 = v1 & v2;
+LogicalVector res2 = v1 | v2;
+LogicalVector res3 = !(v1 | v2);
+Rcout << res1 << "\n"; // 1 0 0 0
+Rcout << res2 << "\n"; // 1 1 1 0
+Rcout << res3 << "\n"; // 0 0 0 1
+```
+
+## 接收LogicalVector的函数{#Function-that-receives-LogicalVector}
+
+接收`LogicalVector`的函数有`all()`, `any()` 及 `ifelse()`等。
+
+### all(),  any(){#all-any}
+
+对于`LogicalVector` v，当所有元素都为`TRUE`时，`all (v) `返回`TRUE`,当任意一个元素为`TRUE`时，`any (v) `返回`TRUE`，
+
+然而，用户并不能在`if`语句的条件表达式中，使用`all()`或者`any()`的返回值。这是因为这两者的返回值并不是`bool`型，而是`SingleLogicalResult`型。如果要在`if`条件语句中使用这两个函数，可以考虑使用`is_true()`, `is_false()` 和 `is_na()`。这些函数会把`SingleLogicalResult` 类型转为`bool`型。
+
+下面的代码展示了，如何在`if`语句的条件表达式中使用`all()`和`any()`。在这个例子中，条件表达式的值为`true`，`all()`和`any()`的返回值也会被打印显示。
+
+在`test.cpp`文件中输入下面代码。
+
+```c++
+// [[Rcpp::export]]
+List rcpp_logical_03(){
+  LogicalVector v1 = LogicalVector::create(1,1,1,NA_LOGICAL);
+  LogicalVector v2 = LogicalVector::create(0,1,0,NA_LOGICAL);
+  // 对于包含有NA的Logical向量，all (), any () 函数的结果与R一致 
+  LogicalVector lv1 = all( v1 );   // NA
+  LogicalVector lv2 = all( v2 );   // FALSE
+  LogicalVector lv3 = any( v2 ); // TRUE
+  // 将`SingleLogicalResult` 类型转为`bool`型，然后赋值
+  bool b1 = is_true ( all(v1) );  // false
+  bool b2 = is_false( all(v1) );  // false
+  bool b3 = is_na   ( all(v1) );  // true
+  // 在if语句条件判别式中的情况
+  if(is_na(all( v1 ))) { // OK
+    Rcout << "all( v1 ) is NA\n";
+  }
+  //打印所有信息
+  Rcout << "lv1" << lv1 << '\n';
+  Rcout << "lv2" << lv2 << '\n';
+  Rcout << "lv3" <<lv3 << '\n';
+  Rcout << "b1: " << b1 << '\n';
+  Rcout << "b2: " << b2 << '\n';
+  Rcout << "b3: " << b3 << '\n';
+  return List::create(lv1, lv2, lv3, b1, b2, b3);
+}
+```
+
+在R中的运行结果为:
+
+```r
+> sourceCpp('test.cpp')
+
+> test_list <- rcpp_logical_03()
+all( v1 ) is NA
+lv1: -2147483648
+lv2: 0
+lv3: 1
+b1: 0
+b2: 0
+b3: 1
+```
+
+需要注意的是，在\@ref(#LogicalVector-elements)中提到过，`NA`的值为-2147483648，与打印的`lv1`信息一致。
+
+### ifelse() {#ifelse}
+
+`ifelse (v, x1, x2)` 接收逻辑向量`v`，如果`v`中的某元素为`TRUE`，那么返回`x1`中对应位置的元素，如果为`FLASE`，那么返回x2中对应位置的元素。尽管`x1`和`x2`可以是标量或者向量，但如果是向量，两者的长度必须与`v`的长度一致。
+
+```c++
+// [[Rcpp::export]]
+int rcpp_logical_02(NumericVector v1, NumericVector v2){
+  
+  //向量元素个数
+  int n = v1.length();
+  // 情况1：x1 和 x2是标量的情况
+  IntegerVector res1     = ifelse( v1>v2, 1, 0);
+  NumericVector res2     = ifelse( v1>v2, 1.0, 0.0);
+  
+  //CharacterVector res3 = ifelse( v1>v2, "T", "F"); // 不支持此种写法
+  //ifelse() 不支持字符串标量，为了得到和R一样的结果
+  // 我们需要使用字符串向量，该向量所有元素相同 
+  CharacterVector chr_v1 = rep(CharacterVector("T"), n);
+  CharacterVector chr_v2 = rep(CharacterVector("F"), n);
+  CharacterVector res3   = ifelse( v1>v2, chr_v1, chr_v2);
+  Rcout <<"case1: both x1 and x2 are scalar"<<'\n';
+  Rcout << "\t v1 > v2 " << res1 <<'\n';
+  Rcout << "\t v1 > v2 " << res2 <<'\n';
+  Rcout << "\t v1 > v2 " << res3 <<'\n';
+  
+  //情况2，x1是向量，x2是标量
+  IntegerVector int_v1, int_v2;
+  int_v1 = rep(1,n);
+  int_v2 = rep(0,n);
+  NumericVector num_v1, num_v2;
+  num_v1 = rep(1.,n);
+  num_v2 = rep(0.,n);
+  
+  IntegerVector   res4 = ifelse( v1>v2, int_v1, 0);
+  NumericVector   res5 = ifelse( v1>v2, num_v1, 0.0);
+  CharacterVector res6 = ifelse( v1>v2, chr_v1, Rf_mkChar("F")); // Note
+  
+  Rcout <<"case2: x1 and x2 are vector and scalar"<<'\n';
+  Rcout << "\t v1 > v2 " << res4 <<'\n';
+  Rcout << "\t v1 > v2 " << res5 <<'\n';
+  Rcout << "\t v1 > v2 " << res6 <<'\n';
+  
+  //情况3，x1和x2均为向量
+  IntegerVector   res7 = ifelse( v1>v2, int_v1, int_v2);
+  NumericVector   res8 = ifelse( v1>v2, num_v1, num_v2);
+  CharacterVector res9 = ifelse( v1>v2, chr_v1, chr_v2);
+  
+  Rcout <<"case3: both x1 and x2 are vector"<<'\n';
+  Rcout << "\t v1 > v2 " << res7 <<'\n';
+  Rcout << "\t v1 > v2 " << res8 <<'\n';
+  Rcout << "\t v1 > v2 " << res9 <<'\n';
+  
+  return 0;
+}
+```
+Note: `Rf_mkChar ()`函数作用为将C语言中的字符串(`char*`)转为`CHARSXP`(`CharacterVector`中的元素类型)。
+
+在R中运行结果为:
+
+```r
+> sourceCpp('test.cpp')
+
+> tmp <- rcpp_logical_02(1:4,4:1)
+case1: both x1 and x2 are scalar
+	 v1 > v2 0 0 1 1
+	 v1 > v2 0 0 1 1
+	 v1 > v2 "F" "F" "T" "T"
+case2: x1 and x2 are vector and scalar
+	 v1 > v2 0 0 1 1
+	 v1 > v2 0 0 1 1
+	 v1 > v2 "F" "F" "T" "T"
+case3: both x1 and x2 are vector
+	 v1 > v2 0 0 1 1
+	 v1 > v2 0 0 1 1
+	 v1 > v2 "F" "F" "T" "T"
+```
+
+
+## LogicalVector元素的估值 {#Evaluation-LogicalVector}
+
+`LogicalVector`的元素值不应当被用作`if`语句的条件表达式。因为，C++中`if`语句将条件表达式评估为`bool`型。而`bool`型把所有非零的值均评估为`true`，因此，`LogicalVector`中的`NA`(`NA_LOGICAL`)也会被认为是`true`。
+
+下面的代码示例展示了`if`语句是如何评估`LogicalVector`的元素值。
+
+```c++
+// [[Rcpp::plugins(cpp11)]]
+// [[Rcpp::export]]
+LogicalVector rcpp_logical(){
+  // 构建一个包含NA值得整型向量
+  IntegerVector x = {1,2,3,4,NA_INTEGER};
+  // 比较运算的结果是逻辑向量
+  LogicalVector v = (x >= 3);
+  //如果将逻辑向量的元素直接用于if语句中，NA_LOGICAL会被认为是TRUE
+  for(int i=0; i<v.size();++i) {
+    if(v[i]) Rprintf("v[%i]:%i is evaluated as true.\n",i,v[i]);
+    else Rprintf("v[%i]:%i is evaluated as false.\n",i,v[i]);
+  }
+  // 评估逻辑向量的元素
+  for(int i=0; i<v.size();++i) {
+    if(v[i]==TRUE) Rprintf("v[%i] is TRUE.\n",i);
+    else if (v[i]==FALSE) Rprintf("v[%i] is FALSE.\n",i);
+    else if (v[i]==NA_LOGICAL) Rprintf("v[%i] is NA.\n",i);
+    else Rcout << "v[" << i << "] is not 1\n";
+  }
+  // 打印TRUE, FALSE 和 NA_LOGICAL的值
+  Rcout << "TRUE " << TRUE << "\n";
+  Rcout << "FALSE " << FALSE << "\n";
+  Rcout << "NA_LOGICAL " << NA_LOGICAL << "\n";
+  return v;
+}
+```
+需要注意的是，在原始代码上，需要加入`// [[Rcpp::plugins(cpp11)]]`语句启动C++11的特性，否则代码会因为初始化语句而报错。
+
+执行结果为:
+
+```r
+> sourceCpp('test.cpp')
+
+> rcpp_logical()
+v[0]:0 is evaluated as false.
+v[1]:0 is evaluated as false.
+v[2]:1 is evaluated as true.
+v[3]:1 is evaluated as true.
+v[4]:-2147483648 is evaluated as true.
+v[0] is FALSE.
+v[1] is FALSE.
+v[2] is TRUE.
+v[3] is TRUE.
+v[4] is NA.
+TRUE 1
+FALSE 0
+NA_LOGICAL -2147483648
+[1] FALSE FALSE  TRUE  TRUE    NA
+```

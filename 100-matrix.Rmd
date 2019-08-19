@@ -1,0 +1,391 @@
+# Matrix类 {#matrix}
+
+## 创建矩阵对象{#Creating-Matrix-object}
+
+矩阵对象可由如下几种方式创建。
+
+```c++
+// 创建一个矩阵对象，等价于在R语句
+// m <- matrix(0, nrow=2, ncol=2)
+NumericMatrix m1( 2 );
+// m <- matrix(0, nrow=2, ncol=3)
+NumericMatrix m2( 2 , 3 );
+// m <- matrix(v, nrow=2, ncol=3)
+NumericMatrix m3( 2 , 3 , v.begin() );
+```
+
+此外，R中的矩阵对象，实际上是行数和列数在属性`dim`中设定好的向量。因此，如果你在Rcpp中，创建一个有`dim`属性的向量，并且将其作为返回值传递给R，那么该向量在R中会被作为矩阵对待。
+
+```c++
+#include <Rcpp.h>
+using namespace Rcpp;
+// [[Rcpp::plugins(cpp11)]]
+
+// [[Rcpp::export]]
+NumericVector rcpp_matrix(){
+    // 创建一个向量对象
+    NumericVector v = {1,2,3,4};
+    // 设置该对象的`dim`属性
+    v.attr("dim") = Dimension(2, 2);
+    // 返回该对象给R
+    return v;
+}
+```
+需要注意的是，c++98是不允许直接使用`v = {1,2,3,4}`来赋值的，因此，需要加上 `// [[Rcpp::plugins(cpp11)]]`，确保能使用C++11的新特性。
+
+执行结果：
+
+```r
+> rcpp_matrix()
+     [,1] [,2]
+[1,]    1    3
+[2,]    2    4
+```
+
+然而，即便你给某个向量对象的`dim`属性赋值，在Rcpp中对象的类型还是为向量类。因此，如果你希望在Rcpp中，将其转化为矩阵类，你需要使用 `as<T>()`函数。
+
+```c++
+// 设定维度属性
+v.attr("dim") = Dimension(2, 2);
+// 转为矩阵类
+NumericMatrix m = as<NumericMatrix>(v);
+```
+
+## 访问矩阵元素 {#Accessing-to-Matrix-elements}
+
+通过使用`()`符号，你可以指定行，列号来获取，分配矩阵对象的元素值。和在向量中的索引类似，矩阵中的行与列号也是从0开始。如果你希望获取某一行或者一列，使用`_`符号。也可以使用`[]`操作符，来访问矩阵元素（将矩阵理解为按列连接的向量）。
+
+
+```c++
+// 创建一个5*5的矩阵
+NumericMatrix m( 5, 5 );
+// 检索0行，2列的元素，即第一行，第三列的元素
+double x = m( 0 , 2 );
+// 将0行（向量）赋给v
+NumericVector v = m( 0 , _ );
+// 将2列赋给v
+NumericVector v = m( _ , 2 );
+// 将矩阵m的0~1行，2~3列赋值给矩阵m2
+NumericMatrix m2 = m( Range(0,1) , Range(2,3) );
+// 按照向量的方式来检索矩阵元素
+m[5]; // 指向m(0,1)的位置，即第6个元素（矩阵按列连接），为第1行，第2列元素，
+```
+
+
+### 访问行，列与子矩阵{#row-col-sub}
+
+Rcpp也提供了类型来进行矩阵特定部分的“引用”(references)。
+
+```c++
+NumericMatrix::Column col = m( _ , 1);  // 对于列1的引用
+NumericMatrix::Row    row = m( 1 , _ ); // 对行1的引用
+NumericMatrix::Sub    sub = m( Range(0,1) , Range(2,3) ); //对子矩阵的引用
+```
+
+对这些"引用"对象的赋值，**等效于**直接修改其原始矩阵的对应部分。比如，对于上面例子中的`col`对象进行赋值，会直接把m的列1的值进行对应的修改。
+
+在`test.cpp`文件中键入下面的代码。
+
+```c++
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+NumericMatrix test(NumericMatrix v, int idx){
+    NumericMatrix::Column col = v( _, idx);
+    //将idx列的所有元素乘以2，v也会被修改
+    col = col * 2; 
+    
+    //上行代码等效于
+    //v( _, idx) = 2 * v( _, idx);
+    return v;
+}
+```
+在R中的执行结果为：
+
+```r
+> sourceCpp('test.cpp')
+
+> a <- matrix(1:16,4,4)
+
+> a
+     [,1] [,2] [,3] [,4]
+[1,]    1    5    9   13
+[2,]    2    6   10   14
+[3,]    3    7   11   15
+[4,]    4    8   12   16
+
+> test(a,1)
+     [,1] [,2] [,3] [,4]
+[1,]    1   10    9   13
+[2,]    2   12   10   14
+[3,]    3   14   11   15
+[4,]    4   16   12   16
+```
+可以看到，矩阵的第2列（Rcpp索引为1）已经变为原来的2倍。
+
+
+## 成员函数 {#Member-functions-matrix}
+
+Since `Matrix` is actually `Vector`, `Matrix` basically has the same member functions as `Vector`. Thus, member functions unique to `Matrix` are only presented below.
+
+此前提到，`Matrix`实际上也是`Vector`，所以，`Matrix`基本上与`Vector`有着相同的成员函数。因此，在在此列出`Matrix`自身独特的成员函数。
+
+### nrow() rows() {#nrow-rows}
+
+返回行数。
+
+在`test.cpp`文件中键入下面的代码。
+
+```c++
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+int test(NumericMatrix v){
+
+	return v.nrow();
+}
+```
+在R中的执行结果为：
+
+```r
+> sourceCpp('test.cpp')
+
+> test(matrix(1:16,2,8))
+[1] 2
+```
+
+### ncol()　cols() {#ncol-cols}
+
+返回矩阵列数。
+
+在`test.cpp`文件中键入下面的代码。
+
+```c++
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+int test(NumericMatrix v){
+
+	return v.ncol();
+}
+```
+在R中的执行结果为：
+
+```r
+> sourceCpp('test.cpp')
+
+> test(matrix(1:16,2,8))
+[1] 8
+```
+
+### row( i ) {#rowi}
+
+返回矩阵 行`i`的"引用"，关于"引用"的具体信息，可参考\@ref(row-col-sub)。
+
+在`test.cpp`文件中键入下面的代码。
+
+```c++
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+NumericMatrix test(NumericMatrix v){
+    v.row(1) = 2 * v.row(1);
+	return v;
+}
+```
+在R中的执行结果为：
+
+```r
+> sourceCpp('test.cpp')
+
+> (a <- matrix(1:8,2,4))
+     [,1] [,2] [,3] [,4]
+[1,]    1    3    5    7
+[2,]    2    4    6    8
+
+> test(a)
+     [,1] [,2] [,3] [,4]
+[1,]    1    3    5    7
+[2,]    4    8   12   16
+```
+
+### column( i ){#columni}
+
+返回矩阵 行`i`列的"引用"
+
+### fill_diag( x ){#fill_diag}
+
+使用`x`填充矩阵对角线元素。
+
+在`test.cpp`文件中键入下面的代码。
+
+```c++
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+NumericMatrix test(NumericMatrix v,double x){
+    v.fill_diag(x);
+	return v;
+}
+```
+在R中的执行结果为：
+
+```r
+> sourceCpp('test.cpp')
+
+> (a <- matrix(0,4,4))
+     [,1] [,2] [,3] [,4]
+[1,]    0    0    0    0
+[2,]    0    0    0    0
+[3,]    0    0    0    0
+[4,]    0    0    0    0
+
+> test(a,1)
+     [,1] [,2] [,3] [,4]
+[1,]    1    0    0    0
+[2,]    0    1    0    0
+[3,]    0    0    1    0
+[4,]    0    0    0    1
+```
+
+### offset( i, j ) {#offsetij}
+
+返回`i`行和`j`列对应的元素，在将矩阵作为列向量连接时其对应的索引。
+
+> matrix中的offset函数是私有的，似乎因此导致调用失败。
+
+
+
+## 静态成员函数 {#MStatic-member-functions}
+
+`Matrix`基本上有着和`Vector`相同的成员函数。其独特的成员函数在此处列出。
+
+### Matrix::diag( size, x ){#Mdiag}
+
+返回一个矩阵，行列数均为`size`，对角元素为`x`。
+
+在`test.cpp`文件中键入下面的代码。
+
+```c++
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+NumericMatrix test(int size, double x){
+  NumericMatrix v = NumericMatrix::diag(size,x);
+  return v;
+}
+```
+在R中的执行结果为：
+
+```r
+> sourceCpp('test.cpp')
+
+> test(3L,1)
+     [,1] [,2] [,3]
+[1,]    1    0    0
+[2,]    0    1    0
+[3,]    0    0    1
+```
+
+## 与Matrix相关的其他函数{#other-functions}
+
+此部分展示一些其他与矩阵相关的函数。
+
+### rownames( m ) {#rownamesMatrix}
+
+获取和设定矩阵行名。
+
+``` c++
+CharacterVector ch = rownames(m);
+rownames(m) = ch;
+```
+在`test.cpp`文件中键入下面的代码。
+
+```c++
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+NumericMatrix test(NumericMatrix v1, NumericMatrix v2){
+  CharacterVector v1_rname = rownames(v1);
+  rownames(v2) = v1_rname;
+  return v2;
+}
+```
+在R中的执行结果为：
+
+```r
+> sourceCpp('test.cpp')
+
+> a <- matrix(0,3,3)
+
+> b <- matrix(1,3,3)
+
+> rownames(a) <- c('a','b','c')
+
+> a;b
+  [,1] [,2] [,3]
+a    0    0    0
+b    0    0    0
+c    0    0    0
+     [,1] [,2] [,3]
+[1,]    1    1    1
+[2,]    1    1    1
+[3,]    1    1    1
+
+> test(a,b)
+  [,1] [,2] [,3]
+a    1    1    1
+b    1    1    1
+c    1    1    1
+```
+
+
+### colnames( m ) {#colnamesMatrix}
+
+获取和设定矩阵列名,方法同上。
+
+```
+CharacterVector ch = colnames(m);
+colnames(m) = ch;
+```
+
+
+### transpose( m ) {#transpose}
+
+返回矩阵`m`的转置。
+
+在`test.cpp`文件中键入下面的代码。
+
+```c++
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+NumericMatrix test(NumericMatrix v){
+  return transpose(v);
+}
+```
+在R中的执行结果为：
+
+```r
+> sourceCpp('test.cpp')
+
+> (a <- matrix(1:9,3,3))
+     [,1] [,2] [,3]
+[1,]    1    4    7
+[2,]    2    5    8
+[3,]    3    6    9
+
+> test(a)
+     [,1] [,2] [,3]
+[1,]    1    2    3
+[2,]    4    5    6
+[3,]    7    8    9
+```
