@@ -1,4 +1,4 @@
-# 逻辑运算符{#Logical-operations} 
+# 逻辑运算{#Logical-operations} 
 
 ## LogicalVector{#LogicalVector}
 

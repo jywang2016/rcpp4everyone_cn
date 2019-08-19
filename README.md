@@ -20,17 +20,17 @@ Rcpp for everyone => Advanced R => Seamless R and C++ intergration with Rcpp
 
 ### 完成情况
 
-- [x] Suitable situations to use Rcpp
-- [ ] Installation
-- [ ] Basic usage
-- [ ] Embedding Rcpp code in your R code
-- [ ] C++11
-- [ ] Printing messages
-- [ ] Data types
-- [ ] Vector
-- [ ] Matrix
-- [ ] Vector operations
-- [ ] Logical operations
+- [x] Suitable situations to use Rcpp 适用Rcpp的情形
+- [x] Installation 安装
+- [x] Basic usage 基本用法
+- [x] Embedding Rcpp code in your R code 将Rcpp代码嵌入R代码
+- [x] C++11 开启C++11特性
+- [x] Printing messages 打印信息
+- [x] Data types 数据类型
+- [x] Vector 向量类
+- [x] Matrix 矩阵类
+- [x] Vector operations 向量运算
+- [x] Logical operations 逻辑运算
 - [ ] DataFrame
 - [ ] List
 - [ ] S3·S4 class
