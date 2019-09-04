@@ -1,0 +1,258 @@
+# 数据框{#DataFrame}
+
+本章主要讲述如何创建一个`DataFrame`对象，以及如何访问其元素，及其成员函数。在`Rcpp`中，`DataFrame`是按照一种向量的方式实施的。换言之，`Vector`是一种元素为标量的向量，而`DataFrame`是元素为具有相同长度的`Vector`的向量。因此，`Vector`和`DataFrame`在创建对象，访问元素和成员函数上，有很多相同的方法。
+
+## 创建数据框对象{#Creating-DF}
+
+`DataFrame::create()`被用于创建`DataFrame`对象。使用`Named()` 或 `_[]`可以为数据框对象指定列名。
+
+```c++
+// 由 Vector v1, v2创建数据框
+DataFrame df = DataFrame::create(v1, v2);
+// 指定列名
+DataFrame df = DataFrame::create( Named("V1") = v1 , _["V2"] = v2 );
+```
+
+当用户使用` DataFrame::create() `来创建`DataFrame`时，原始的` Vector`元素不会被复制到数据框的列中，该列实际上是对原始`Vector`的"引用"("reference")。因此，改变原始`Vector`的值，也会改变数据框对应列的值。为了避免上述情况，在创建`DataFrame`的列时，我们可以使用`clone()`函数来复制`Vector`元素的值。
+
+通过下面的代码示例，可以看到使用`clone()`和不使用之间的区别。数据框`df`的两列`v1`和`v2`，分别是对`Vector` v的引用，以及复制。可以看到，如果改变`Vector` v，那么 v1会被改变，但是v2不受影响。
+
+``` c++
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::plugins(cpp11)]]
+
+// [[Rcpp::export]]
+DataFrame rcpp_df(){
+  // 创建向量v
+  NumericVector v = {1,2};
+  // 创建数据框df
+  DataFrame df = DataFrame::create( Named("V1") = v,         // simple assign
+                                    Named("V2") = clone(v)); // using clone()
+  // 改变向量v
+  v = v * 2;
+  return df;
+}
+```
+
+执行结果如下:
+
+```
+> rcpp_df()
+  V1 V2
+1  2  1
+2  4  2
+```
+
+
+## 访问数据框元素 {#Accessing-DataFrame-elements}
+
+当我们想访问`DataFrame`的某一列时，这一列会被暂时地赋值到`Vector`对象上，然后通过该对象来访问。与`Vector`类似，`DataFrame`的列可以通过一个数值向量(某个列数)，一个字符串向量(某个列名)，或一个逻辑向量来指定。
+
+```r
+NumericVector v1 = df[0];
+NumericVector v2 = df["V2"];
+```
+
+和`DataFrame` 的创建类似, 通过上面的方法，给一个` DataFrame` 列赋到`Vector` 不会把这个值赋值到 `Vector` 对象上, 但是会是一个对列的"reference"（引用）. 因此，当你改变`Vector` 对象的值时,该列的值也会被相应地改变。
+
+如果你希望，通过拷贝列值的方式来创建`Vector`，使用`clone()`函数，这样原始的`DataFrmae`列的值不会随着这个`Vector`的改变而改变。
+
+```
+NumericVector v1 = df[0]; // v1 成为"reference" df 0列的引用
+v1 = v1 * 2;              // 改变v1的值，也会导致df[0]的值改变
+NumericVector v2 = clone(df[0]); // 将df[0]的值复制给v2
+v2 = v2*2;                       // 改变v2的值，不会导致df[0]的值改变
+```
+
+
+
+## 成员函数{#DF-Member-functions}
+
+在Rcpp中，`DataFrmae`是利用某些种类的向量来实现的。换言之，`Vector`是元素为标量的向量，而`DataFrame`是元素为`Vector`的向量。因此，`DataFrame`和`Vector`有着很多共同的成员函数。
+
+### length() size() {#DF-length}
+
+返回列数。
+
+### nrows() {#DF-nrows}
+
+返回行数。
+
+### names() {#DF-names}
+
+以字符向量的方式返回列名。
+
+### offset(name) findName(name) {#DF-offset-findName}
+
+返回用"name"字符串指定列名的数值索引。
+
+### fill(v) {#DF-fill}
+
+使用`Vector` v来填充`DataFrame`的所有列。
+
+> 需要注意的是，如果v的长度不等于数据框的列长度，那么会有warning
+
+```cpp
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::plugins(cpp11)]]
+
+// [[Rcpp::export]]
+DataFrame rcpp_df(NumericVector v){
+  // 创建向量v
+  NumericVector v1 = {0,0,0};
+  // 创建数据框df
+  DataFrame df = DataFrame::create( Named("V1") = clone(v1),
+                                    Named("V2") = clone(v1));
+  
+  df.fill(v);
+  return df;
+}
+
+```
+在R中，执行下面的代码会有不同的结果。
+
+```r
+> sourceCpp('test.cpp')
+
+> rcpp_df(1:6)
+  V1 V2
+1  1  1
+2  2  2
+3  3  3
+Warning message:
+In format.data.frame(if (omit) x[seq_len(n0), , drop = FALSE] else x,  :
+  corrupt data frame: columns will be truncated or padded with NAs
+
+> rcpp_df(1:3)
+  V1 V2
+1  1  1
+2  2  2
+3  3  3
+
+> rcpp_df(1:2)
+    V1   V2
+1    1    1
+2    2    2
+3 <NA> <NA>
+Warning message:
+In format.data.frame(if (omit) x[seq_len(n0), , drop = FALSE] else x,  :
+  corrupt data frame: columns will be truncated or padded with NAs
+```
+可以看出，只有在向量v和数据框的行数一致时，不会出现报错。向量过长则会丢弃后面的信息，过短则在每列最后用NA来补全。
+
+
+### assign( first_it, last_it){#DF-assign}
+
+通过迭代器 first_it 和 last_it 指定的范围来给`DataFrmae`的列赋值。具体可以参考`Vector`\@ref(vector-assign)章节。
+
+### push_back(v){#DF-push-back}
+
+在` DataFrame`后加入`Vector`v.
+
+### push_back( v, name ){#DF-push-back-name}
+
+在` DataFrame`后加入`Vector`v，其列名为指定的"name"。
+
+### push_front(x){#DF-push-front}
+
+在` DataFrame`前加入`Vector`v.
+
+### push_front( x, name ){#DF-push-front-name}
+
+在` DataFrame`前加入`Vector`v，其列名为指定的"name"。
+
+### begin(){#DF-begin}
+
+返回一个指向`DataFrame`第一列的迭代器。
+
+### end(){#DF-end}
+
+返回一个指向`DataFrame`最后一列的迭代器。
+
+### insert( it, v ){#DF-insert}
+
+通过迭代器指定的位置，在`DataFrame`上加入 `Vector` v，返回一个指向该元素的迭代器。
+
+### erase(i){#DF-erase}
+
+删除 `DataFrame`的`i`列，返回指向该列后一列的迭代器。
+
+### erase(it){#DF-erase-it}
+
+删除 迭代器`it`所指向的`DataFrame`的列，返回指向该列后一列的迭代器。
+
+###erase(first_i, last_i){#DF-erase-first-last-i}
+
+删除`first_i`到`last_i-1`列，返回指向删除列后一列的迭代器。
+
+### erase(first_it, last_it){#DF-erase-first-last-it}
+
+删除`first_it`到`last_it-1`迭代器所指向的列，返回指向删除列后一列的迭代器。
+
+### containsElementNamed(name){#DF-containsElementNamed-name}
+
+如果`DataFrame`包含有列名`name`所指定的列，那么返回true。
+
+```cpp
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::plugins(cpp11)]]
+
+// [[Rcpp::export]]
+bool rcpp_df(){
+
+  IntegerVector v = {1,3,5};
+  
+  // 创建数据框df
+  DataFrame df = DataFrame::create(_["v1"] = v,
+                                   _["v2"] = v); 
+  return df.containsElementNamed("v1");
+}
+
+```
+
+```r
+> sourceCpp('test.cpp')
+
+> rcpp_df()
+[1] TRUE
+```
+
+### inherits(str){#DF-inherits}
+
+如果对象的属性"class"中包含有字符串`str`，那么返回true。
+
+```cpp
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::plugins(cpp11)]]
+
+// [[Rcpp::export]]
+bool rcpp_df(){
+
+  IntegerVector v = {1,3,5};
+  
+  // 创建数据框df
+  DataFrame df = DataFrame::create(_["v1"] = v,
+                                   _["v2"] = v); 
+  auto classname = "my_class";
+  df.attr("class") = classname;
+  return df.inherits(classname);
+}
+
+
+```
+
+```r
+> sourceCpp('test.cpp')
+
+> rcpp_df()
+[1] TRUE
+```
+

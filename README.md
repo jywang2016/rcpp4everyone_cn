@@ -31,7 +31,7 @@ Rcpp for everyone => Advanced R => Seamless R and C++ intergration with Rcpp
 - [x] Matrix 矩阵类
 - [x] Vector operations 向量运算
 - [x] Logical operations 逻辑运算
-- [ ] DataFrame
+- [x] DataFrame 数据框
 - [ ] List
 - [ ] S3·S4 class
 - [ ] String

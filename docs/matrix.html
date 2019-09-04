@@ -24,7 +24,7 @@
 <meta name="author" content="Masaki E. Tsuda 著 jywang 译" />
 
 
-<meta name="date" content="2019-08-19" />
+<meta name="date" content="2019-09-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -50,41 +50,66 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="css\style.css" type="text/css" />
@@ -104,8 +129,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>欢迎</a></li>
-<li class="chapter" data-level="" data-path="e69cace4b9a6e7bc96e8af91e78eafe5a283.html"><a href="e69cace4b9a6e7bc96e8af91e78eafe5a283.html"><i class="fa fa-check"></i>本书编译环境</a></li>
-<li class="chapter" data-level="" data-path="e7bfbbe8af91e79a84e5889de8a1b7.html"><a href="e7bfbbe8af91e79a84e5889de8a1b7.html"><i class="fa fa-check"></i>翻译的初衷</a></li>
+<li class="chapter" data-level="" data-path="section-1.html"><a href="section-1.html"><i class="fa fa-check"></i>本书编译环境</a></li>
+<li class="chapter" data-level="" data-path="section-2.html"><a href="section-2.html"><i class="fa fa-check"></i>翻译的初衷</a></li>
 <li class="chapter" data-level="" data-path="author.html"><a href="author.html"><i class="fa fa-check"></i>作者简介</a></li>
 <li class="chapter" data-level="1" data-path="situations.html"><a href="situations.html"><i class="fa fa-check"></i><b>1</b> 适用Rcpp的情况</a></li>
 <li class="chapter" data-level="2" data-path="install.html"><a href="install.html"><i class="fa fa-check"></i><b>2</b> 安装</a><ul>
@@ -113,7 +138,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2.1.1" data-path="install.html"><a href="install.html#cppcwindows"><i class="fa fa-check"></i><b>2.1.1</b> Windows</a></li>
 <li class="chapter" data-level="2.1.2" data-path="install.html"><a href="install.html#cppmac"><i class="fa fa-check"></i><b>2.1.2</b> Mac</a></li>
 <li class="chapter" data-level="2.1.3" data-path="install.html"><a href="install.html#cpplinux"><i class="fa fa-check"></i><b>2.1.3</b> Linux</a></li>
-<li class="chapter" data-level="2.1.4" data-path="install.html"><a href="install.html#section-2.1.4"><i class="fa fa-check"></i><b>2.1.4</b> 使用其他编译器</a></li>
+<li class="chapter" data-level="2.1.4" data-path="install.html"><a href="install.html#section-3"><i class="fa fa-check"></i><b>2.1.4</b> 使用其他编译器</a></li>
 </ul></li>
 <li class="chapter" data-level="2.2" data-path="install.html"><a href="install.html#Rcppinstallation"><i class="fa fa-check"></i><b>2.2</b> 安装Rcpp</a></li>
 </ul></li>
@@ -157,7 +182,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.3.4" data-path="vector.html"><a href="vector.html#offseti"><i class="fa fa-check"></i><b>8.3.4</b> offset( i )</a></li>
 <li class="chapter" data-level="8.3.5" data-path="vector.html"><a href="vector.html#fillx"><i class="fa fa-check"></i><b>8.3.5</b> fill( x )</a></li>
 <li class="chapter" data-level="8.3.6" data-path="vector.html"><a href="vector.html#sort"><i class="fa fa-check"></i><b>8.3.6</b> sort()</a></li>
-<li class="chapter" data-level="8.3.7" data-path="vector.html"><a href="vector.html#assign-first_it-last_it"><i class="fa fa-check"></i><b>8.3.7</b> assign( first_it, last_it )</a></li>
+<li class="chapter" data-level="8.3.7" data-path="vector.html"><a href="vector.html#vector-assign"><i class="fa fa-check"></i><b>8.3.7</b> assign( first_it, last_it )</a></li>
 <li class="chapter" data-level="8.3.8" data-path="vector.html"><a href="vector.html#push-backx"><i class="fa fa-check"></i><b>8.3.8</b> push_back( x )</a></li>
 <li class="chapter" data-level="8.3.9" data-path="vector.html"><a href="vector.html#push-back-name"><i class="fa fa-check"></i><b>8.3.9</b> push_back( x, name )</a></li>
 <li class="chapter" data-level="8.3.10" data-path="vector.html"><a href="vector.html#push-front-x"><i class="fa fa-check"></i><b>8.3.10</b> push_front( x )</a></li>
@@ -219,6 +244,30 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="11.4" data-path="Logical-operations.html"><a href="Logical-operations.html#Evaluation-LogicalVector"><i class="fa fa-check"></i><b>11.4</b> LogicalVector元素的估值</a></li>
 </ul></li>
+<li class="chapter" data-level="12" data-path="DataFrame.html"><a href="DataFrame.html"><i class="fa fa-check"></i><b>12</b> 数据框</a><ul>
+<li class="chapter" data-level="12.1" data-path="DataFrame.html"><a href="DataFrame.html#Creating-DF"><i class="fa fa-check"></i><b>12.1</b> 创建数据框对象</a></li>
+<li class="chapter" data-level="12.2" data-path="DataFrame.html"><a href="DataFrame.html#Accessing-DataFrame-elements"><i class="fa fa-check"></i><b>12.2</b> 访问数据框元素</a></li>
+<li class="chapter" data-level="12.3" data-path="DataFrame.html"><a href="DataFrame.html#DF-Member-functions"><i class="fa fa-check"></i><b>12.3</b> 成员函数</a><ul>
+<li class="chapter" data-level="12.3.1" data-path="DataFrame.html"><a href="DataFrame.html#DF-length"><i class="fa fa-check"></i><b>12.3.1</b> length() size()</a></li>
+<li class="chapter" data-level="12.3.2" data-path="DataFrame.html"><a href="DataFrame.html#DF-nrows"><i class="fa fa-check"></i><b>12.3.2</b> nrows()</a></li>
+<li class="chapter" data-level="12.3.3" data-path="DataFrame.html"><a href="DataFrame.html#DF-names"><i class="fa fa-check"></i><b>12.3.3</b> names()</a></li>
+<li class="chapter" data-level="12.3.4" data-path="DataFrame.html"><a href="DataFrame.html#DF-offset-findName"><i class="fa fa-check"></i><b>12.3.4</b> offset(name) findName(name)</a></li>
+<li class="chapter" data-level="12.3.5" data-path="DataFrame.html"><a href="DataFrame.html#DF-fill"><i class="fa fa-check"></i><b>12.3.5</b> fill(v)</a></li>
+<li class="chapter" data-level="12.3.6" data-path="DataFrame.html"><a href="DataFrame.html#DF-assign"><i class="fa fa-check"></i><b>12.3.6</b> assign( first_it, last_it)</a></li>
+<li class="chapter" data-level="12.3.7" data-path="DataFrame.html"><a href="DataFrame.html#DF-push-back"><i class="fa fa-check"></i><b>12.3.7</b> push_back(v)</a></li>
+<li class="chapter" data-level="12.3.8" data-path="DataFrame.html"><a href="DataFrame.html#DF-push-back-name"><i class="fa fa-check"></i><b>12.3.8</b> push_back( v, name )</a></li>
+<li class="chapter" data-level="12.3.9" data-path="DataFrame.html"><a href="DataFrame.html#DF-push-front"><i class="fa fa-check"></i><b>12.3.9</b> push_front(x)</a></li>
+<li class="chapter" data-level="12.3.10" data-path="DataFrame.html"><a href="DataFrame.html#DF-push-front-name"><i class="fa fa-check"></i><b>12.3.10</b> push_front( x, name )</a></li>
+<li class="chapter" data-level="12.3.11" data-path="DataFrame.html"><a href="DataFrame.html#DF-begin"><i class="fa fa-check"></i><b>12.3.11</b> begin()</a></li>
+<li class="chapter" data-level="12.3.12" data-path="DataFrame.html"><a href="DataFrame.html#DF-end"><i class="fa fa-check"></i><b>12.3.12</b> end()</a></li>
+<li class="chapter" data-level="12.3.13" data-path="DataFrame.html"><a href="DataFrame.html#DF-insert"><i class="fa fa-check"></i><b>12.3.13</b> insert( it, v )</a></li>
+<li class="chapter" data-level="12.3.14" data-path="DataFrame.html"><a href="DataFrame.html#DF-erase"><i class="fa fa-check"></i><b>12.3.14</b> erase(i)</a></li>
+<li class="chapter" data-level="12.3.15" data-path="DataFrame.html"><a href="DataFrame.html#DF-erase-it"><i class="fa fa-check"></i><b>12.3.15</b> erase(it)</a></li>
+<li class="chapter" data-level="12.3.16" data-path="DataFrame.html"><a href="DataFrame.html#DF-erase-first-last-it"><i class="fa fa-check"></i><b>12.3.16</b> erase(first_it, last_it)</a></li>
+<li class="chapter" data-level="12.3.17" data-path="DataFrame.html"><a href="DataFrame.html#DF-containsElementNamed-name"><i class="fa fa-check"></i><b>12.3.17</b> containsElementNamed(name)</a></li>
+<li class="chapter" data-level="12.3.18" data-path="DataFrame.html"><a href="DataFrame.html#DF-inherits"><i class="fa fa-check"></i><b>12.3.18</b> inherits(str)</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>参考文献</a></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="blank">Powered by bookdown</a></li>
@@ -245,93 +294,93 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="Creating-Matrix-object" class="section level2">
 <h2><span class="header-section-number">9.1</span> 创建矩阵对象</h2>
 <p>矩阵对象可由如下几种方式创建。</p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">// 创建一个矩阵对象，等价于在R语句</span>
-<span class="co">// m &lt;- matrix(0, nrow=2, ncol=2)</span>
-NumericMatrix m1( <span class="dv">2</span> );
-<span class="co">// m &lt;- matrix(0, nrow=2, ncol=3)</span>
-NumericMatrix m2( <span class="dv">2</span> , <span class="dv">3</span> );
-<span class="co">// m &lt;- matrix(v, nrow=2, ncol=3)</span>
-NumericMatrix m3( <span class="dv">2</span> , <span class="dv">3</span> , v.begin() );</code></pre></div>
+<div class="sourceCode" id="cb76"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb76-1" title="1"><span class="co">// 创建一个矩阵对象，等价于在R语句</span></a>
+<a class="sourceLine" id="cb76-2" title="2"><span class="co">// m &lt;- matrix(0, nrow=2, ncol=2)</span></a>
+<a class="sourceLine" id="cb76-3" title="3">NumericMatrix m1( <span class="dv">2</span> );</a>
+<a class="sourceLine" id="cb76-4" title="4"><span class="co">// m &lt;- matrix(0, nrow=2, ncol=3)</span></a>
+<a class="sourceLine" id="cb76-5" title="5">NumericMatrix m2( <span class="dv">2</span> , <span class="dv">3</span> );</a>
+<a class="sourceLine" id="cb76-6" title="6"><span class="co">// m &lt;- matrix(v, nrow=2, ncol=3)</span></a>
+<a class="sourceLine" id="cb76-7" title="7">NumericMatrix m3( <span class="dv">2</span> , <span class="dv">3</span> , v.begin() );</a></code></pre></div>
 <p>此外，R中的矩阵对象，实际上是行数和列数在属性<code>dim</code>中设定好的向量。因此，如果你在Rcpp中，创建一个有<code>dim</code>属性的向量，并且将其作为返回值传递给R，那么该向量在R中会被作为矩阵对待。</p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span>
-<span class="kw">using</span> <span class="kw">namespace</span> Rcpp;
-<span class="co">// [[Rcpp::plugins(cpp11)]]</span>
-
-<span class="co">// [[Rcpp::export]]</span>
-NumericVector rcpp_matrix(){
-    <span class="co">// 创建一个向量对象</span>
-    NumericVector v = {<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>};
-    <span class="co">// 设置该对象的`dim`属性</span>
-    v.attr(<span class="st">&quot;dim&quot;</span>) = Dimension(<span class="dv">2</span>, <span class="dv">2</span>);
-    <span class="co">// 返回该对象给R</span>
-    <span class="cf">return</span> v;
-}</code></pre></div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb77-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
+<a class="sourceLine" id="cb77-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
+<a class="sourceLine" id="cb77-3" title="3"><span class="co">// [[Rcpp::plugins(cpp11)]]</span></a>
+<a class="sourceLine" id="cb77-4" title="4"></a>
+<a class="sourceLine" id="cb77-5" title="5"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb77-6" title="6">NumericVector rcpp_matrix(){</a>
+<a class="sourceLine" id="cb77-7" title="7">    <span class="co">// 创建一个向量对象</span></a>
+<a class="sourceLine" id="cb77-8" title="8">    NumericVector v = {<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>};</a>
+<a class="sourceLine" id="cb77-9" title="9">    <span class="co">// 设置该对象的`dim`属性</span></a>
+<a class="sourceLine" id="cb77-10" title="10">    v.attr(<span class="st">&quot;dim&quot;</span>) = Dimension(<span class="dv">2</span>, <span class="dv">2</span>);</a>
+<a class="sourceLine" id="cb77-11" title="11">    <span class="co">// 返回该对象给R</span></a>
+<a class="sourceLine" id="cb77-12" title="12">    <span class="cf">return</span> v;</a>
+<a class="sourceLine" id="cb77-13" title="13">}</a></code></pre></div>
 <p>需要注意的是，c++98是不允许直接使用<code>v = {1,2,3,4}</code>来赋值的，因此，需要加上 <code>// [[Rcpp::plugins(cpp11)]]</code>，确保能使用C++11的新特性。</p>
 <p>执行结果：</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">rcpp_matrix</span>()
-     [,<span class="dv">1</span>] [,<span class="dv">2</span>]
-[<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">3</span>
-[<span class="dv">2</span>,]    <span class="dv">2</span>    <span class="dv">4</span></code></pre></div>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb78-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">rcpp_matrix</span>()</a>
+<a class="sourceLine" id="cb78-2" title="2">     [,<span class="dv">1</span>] [,<span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb78-3" title="3">[<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">3</span></a>
+<a class="sourceLine" id="cb78-4" title="4">[<span class="dv">2</span>,]    <span class="dv">2</span>    <span class="dv">4</span></a></code></pre></div>
 <p>然而，即便你给某个向量对象的<code>dim</code>属性赋值，在Rcpp中对象的类型还是为向量类。因此，如果你希望在Rcpp中，将其转化为矩阵类，你需要使用 <code>as&lt;T&gt;()</code>函数。</p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">// 设定维度属性</span>
-v.attr(<span class="st">&quot;dim&quot;</span>) = Dimension(<span class="dv">2</span>, <span class="dv">2</span>);
-<span class="co">// 转为矩阵类</span>
-NumericMatrix m = as&lt;NumericMatrix&gt;(v);</code></pre></div>
+<div class="sourceCode" id="cb79"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb79-1" title="1"><span class="co">// 设定维度属性</span></a>
+<a class="sourceLine" id="cb79-2" title="2">v.attr(<span class="st">&quot;dim&quot;</span>) = Dimension(<span class="dv">2</span>, <span class="dv">2</span>);</a>
+<a class="sourceLine" id="cb79-3" title="3"><span class="co">// 转为矩阵类</span></a>
+<a class="sourceLine" id="cb79-4" title="4">NumericMatrix m = as&lt;NumericMatrix&gt;(v);</a></code></pre></div>
 </div>
 <div id="Accessing-to-Matrix-elements" class="section level2">
 <h2><span class="header-section-number">9.2</span> 访问矩阵元素</h2>
 <p>通过使用<code>()</code>符号，你可以指定行，列号来获取，分配矩阵对象的元素值。和在向量中的索引类似，矩阵中的行与列号也是从0开始。如果你希望获取某一行或者一列，使用<code>_</code>符号。也可以使用<code>[]</code>操作符，来访问矩阵元素（将矩阵理解为按列连接的向量）。</p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">// 创建一个5*5的矩阵</span>
-NumericMatrix m( <span class="dv">5</span>, <span class="dv">5</span> );
-<span class="co">// 检索0行，2列的元素，即第一行，第三列的元素</span>
-<span class="dt">double</span> x = m( <span class="dv">0</span> , <span class="dv">2</span> );
-<span class="co">// 将0行（向量）赋给v</span>
-NumericVector v = m( <span class="dv">0</span> , _ );
-<span class="co">// 将2列赋给v</span>
-NumericVector v = m( _ , <span class="dv">2</span> );
-<span class="co">// 将矩阵m的0~1行，2~3列赋值给矩阵m2</span>
-NumericMatrix m2 = m( Range(<span class="dv">0</span>,<span class="dv">1</span>) , Range(<span class="dv">2</span>,<span class="dv">3</span>) );
-<span class="co">// 按照向量的方式来检索矩阵元素</span>
-m[<span class="dv">5</span>]; <span class="co">// 指向m(0,1)的位置，即第6个元素（矩阵按列连接），为第1行，第2列元素，</span></code></pre></div>
+<div class="sourceCode" id="cb80"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb80-1" title="1"><span class="co">// 创建一个5*5的矩阵</span></a>
+<a class="sourceLine" id="cb80-2" title="2">NumericMatrix m( <span class="dv">5</span>, <span class="dv">5</span> );</a>
+<a class="sourceLine" id="cb80-3" title="3"><span class="co">// 检索0行，2列的元素，即第一行，第三列的元素</span></a>
+<a class="sourceLine" id="cb80-4" title="4"><span class="dt">double</span> x = m( <span class="dv">0</span> , <span class="dv">2</span> );</a>
+<a class="sourceLine" id="cb80-5" title="5"><span class="co">// 将0行（向量）赋给v</span></a>
+<a class="sourceLine" id="cb80-6" title="6">NumericVector v = m( <span class="dv">0</span> , _ );</a>
+<a class="sourceLine" id="cb80-7" title="7"><span class="co">// 将2列赋给v</span></a>
+<a class="sourceLine" id="cb80-8" title="8">NumericVector v = m( _ , <span class="dv">2</span> );</a>
+<a class="sourceLine" id="cb80-9" title="9"><span class="co">// 将矩阵m的0~1行，2~3列赋值给矩阵m2</span></a>
+<a class="sourceLine" id="cb80-10" title="10">NumericMatrix m2 = m( Range(<span class="dv">0</span>,<span class="dv">1</span>) , Range(<span class="dv">2</span>,<span class="dv">3</span>) );</a>
+<a class="sourceLine" id="cb80-11" title="11"><span class="co">// 按照向量的方式来检索矩阵元素</span></a>
+<a class="sourceLine" id="cb80-12" title="12">m[<span class="dv">5</span>]; <span class="co">// 指向m(0,1)的位置，即第6个元素（矩阵按列连接），为第1行，第2列元素，</span></a></code></pre></div>
 <div id="row-col-sub" class="section level3">
 <h3><span class="header-section-number">9.2.1</span> 访问行，列与子矩阵</h3>
 <p>Rcpp也提供了类型来进行矩阵特定部分的“引用”(references)。</p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp">NumericMatrix::Column col = m( _ , <span class="dv">1</span>);  <span class="co">// 对于列1的引用</span>
-NumericMatrix::Row    row = m( <span class="dv">1</span> , _ ); <span class="co">// 对行1的引用</span>
-NumericMatrix::Sub    sub = m( Range(<span class="dv">0</span>,<span class="dv">1</span>) , Range(<span class="dv">2</span>,<span class="dv">3</span>) ); <span class="co">//对子矩阵的引用</span></code></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb81-1" title="1">NumericMatrix::Column col = m( _ , <span class="dv">1</span>);  <span class="co">// 对于列1的引用</span></a>
+<a class="sourceLine" id="cb81-2" title="2">NumericMatrix::Row    row = m( <span class="dv">1</span> , _ ); <span class="co">// 对行1的引用</span></a>
+<a class="sourceLine" id="cb81-3" title="3">NumericMatrix::Sub    sub = m( Range(<span class="dv">0</span>,<span class="dv">1</span>) , Range(<span class="dv">2</span>,<span class="dv">3</span>) ); <span class="co">//对子矩阵的引用</span></a></code></pre></div>
 <p>对这些“引用”对象的赋值，<strong>等效于</strong>直接修改其原始矩阵的对应部分。比如，对于上面例子中的<code>col</code>对象进行赋值，会直接把m的列1的值进行对应的修改。</p>
 <p>在<code>test.cpp</code>文件中键入下面的代码。</p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span>
-<span class="kw">using</span> <span class="kw">namespace</span> Rcpp;
-
-<span class="co">// [[Rcpp::export]]</span>
-NumericMatrix test(NumericMatrix v, <span class="dt">int</span> idx){
-    NumericMatrix::Column col = v( _, idx);
-    <span class="co">//将idx列的所有元素乘以2，v也会被修改</span>
-    col = col * <span class="dv">2</span>; 
-    
-    <span class="co">//上行代码等效于</span>
-    <span class="co">//v( _, idx) = 2 * v( _, idx);</span>
-    <span class="cf">return</span> v;
-}</code></pre></div>
+<div class="sourceCode" id="cb82"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb82-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
+<a class="sourceLine" id="cb82-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
+<a class="sourceLine" id="cb82-3" title="3"></a>
+<a class="sourceLine" id="cb82-4" title="4"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb82-5" title="5">NumericMatrix test(NumericMatrix v, <span class="dt">int</span> idx){</a>
+<a class="sourceLine" id="cb82-6" title="6">    NumericMatrix::Column col = v( _, idx);</a>
+<a class="sourceLine" id="cb82-7" title="7">    <span class="co">//将idx列的所有元素乘以2，v也会被修改</span></a>
+<a class="sourceLine" id="cb82-8" title="8">    col = col * <span class="dv">2</span>; </a>
+<a class="sourceLine" id="cb82-9" title="9">    </a>
+<a class="sourceLine" id="cb82-10" title="10">    <span class="co">//上行代码等效于</span></a>
+<a class="sourceLine" id="cb82-11" title="11">    <span class="co">//v( _, idx) = 2 * v( _, idx);</span></a>
+<a class="sourceLine" id="cb82-12" title="12">    <span class="cf">return</span> v;</a>
+<a class="sourceLine" id="cb82-13" title="13">}</a></code></pre></div>
 <p>在R中的执行结果为：</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)
-
-<span class="op">&gt;</span><span class="st"> </span>a &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">16</span>,<span class="dv">4</span>,<span class="dv">4</span>)
-
-<span class="op">&gt;</span><span class="st"> </span>a
-     [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>] [,<span class="dv">4</span>]
-[<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">5</span>    <span class="dv">9</span>   <span class="dv">13</span>
-[<span class="dv">2</span>,]    <span class="dv">2</span>    <span class="dv">6</span>   <span class="dv">10</span>   <span class="dv">14</span>
-[<span class="dv">3</span>,]    <span class="dv">3</span>    <span class="dv">7</span>   <span class="dv">11</span>   <span class="dv">15</span>
-[<span class="dv">4</span>,]    <span class="dv">4</span>    <span class="dv">8</span>   <span class="dv">12</span>   <span class="dv">16</span>
-
-<span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(a,<span class="dv">1</span>)
-     [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>] [,<span class="dv">4</span>]
-[<span class="dv">1</span>,]    <span class="dv">1</span>   <span class="dv">10</span>    <span class="dv">9</span>   <span class="dv">13</span>
-[<span class="dv">2</span>,]    <span class="dv">2</span>   <span class="dv">12</span>   <span class="dv">10</span>   <span class="dv">14</span>
-[<span class="dv">3</span>,]    <span class="dv">3</span>   <span class="dv">14</span>   <span class="dv">11</span>   <span class="dv">15</span>
-[<span class="dv">4</span>,]    <span class="dv">4</span>   <span class="dv">16</span>   <span class="dv">12</span>   <span class="dv">16</span></code></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb83-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)</a>
+<a class="sourceLine" id="cb83-2" title="2"></a>
+<a class="sourceLine" id="cb83-3" title="3"><span class="op">&gt;</span><span class="st"> </span>a &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">16</span>,<span class="dv">4</span>,<span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb83-4" title="4"></a>
+<a class="sourceLine" id="cb83-5" title="5"><span class="op">&gt;</span><span class="st"> </span>a</a>
+<a class="sourceLine" id="cb83-6" title="6">     [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>] [,<span class="dv">4</span>]</a>
+<a class="sourceLine" id="cb83-7" title="7">[<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">5</span>    <span class="dv">9</span>   <span class="dv">13</span></a>
+<a class="sourceLine" id="cb83-8" title="8">[<span class="dv">2</span>,]    <span class="dv">2</span>    <span class="dv">6</span>   <span class="dv">10</span>   <span class="dv">14</span></a>
+<a class="sourceLine" id="cb83-9" title="9">[<span class="dv">3</span>,]    <span class="dv">3</span>    <span class="dv">7</span>   <span class="dv">11</span>   <span class="dv">15</span></a>
+<a class="sourceLine" id="cb83-10" title="10">[<span class="dv">4</span>,]    <span class="dv">4</span>    <span class="dv">8</span>   <span class="dv">12</span>   <span class="dv">16</span></a>
+<a class="sourceLine" id="cb83-11" title="11"></a>
+<a class="sourceLine" id="cb83-12" title="12"><span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(a,<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb83-13" title="13">     [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>] [,<span class="dv">4</span>]</a>
+<a class="sourceLine" id="cb83-14" title="14">[<span class="dv">1</span>,]    <span class="dv">1</span>   <span class="dv">10</span>    <span class="dv">9</span>   <span class="dv">13</span></a>
+<a class="sourceLine" id="cb83-15" title="15">[<span class="dv">2</span>,]    <span class="dv">2</span>   <span class="dv">12</span>   <span class="dv">10</span>   <span class="dv">14</span></a>
+<a class="sourceLine" id="cb83-16" title="16">[<span class="dv">3</span>,]    <span class="dv">3</span>   <span class="dv">14</span>   <span class="dv">11</span>   <span class="dv">15</span></a>
+<a class="sourceLine" id="cb83-17" title="17">[<span class="dv">4</span>,]    <span class="dv">4</span>   <span class="dv">16</span>   <span class="dv">12</span>   <span class="dv">16</span></a></code></pre></div>
 <p>可以看到，矩阵的第2列（Rcpp索引为1）已经变为原来的2倍。</p>
 </div>
 </div>
@@ -343,62 +392,62 @@ NumericMatrix test(NumericMatrix v, <span class="dt">int</span> idx){
 <h3><span class="header-section-number">9.3.1</span> nrow() rows()</h3>
 <p>返回行数。</p>
 <p>在<code>test.cpp</code>文件中键入下面的代码。</p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span>
-<span class="kw">using</span> <span class="kw">namespace</span> Rcpp;
-
-<span class="co">// [[Rcpp::export]]</span>
-<span class="dt">int</span> test(NumericMatrix v){
-
-    <span class="cf">return</span> v.nrow();
-}</code></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb84-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
+<a class="sourceLine" id="cb84-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
+<a class="sourceLine" id="cb84-3" title="3"></a>
+<a class="sourceLine" id="cb84-4" title="4"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb84-5" title="5"><span class="dt">int</span> test(NumericMatrix v){</a>
+<a class="sourceLine" id="cb84-6" title="6"></a>
+<a class="sourceLine" id="cb84-7" title="7">    <span class="cf">return</span> v.nrow();</a>
+<a class="sourceLine" id="cb84-8" title="8">}</a></code></pre></div>
 <p>在R中的执行结果为：</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)
-
-<span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">16</span>,<span class="dv">2</span>,<span class="dv">8</span>))
-[<span class="dv">1</span>] <span class="dv">2</span></code></pre></div>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)</a>
+<a class="sourceLine" id="cb85-2" title="2"></a>
+<a class="sourceLine" id="cb85-3" title="3"><span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">16</span>,<span class="dv">2</span>,<span class="dv">8</span>))</a>
+<a class="sourceLine" id="cb85-4" title="4">[<span class="dv">1</span>] <span class="dv">2</span></a></code></pre></div>
 </div>
 <div id="ncol-cols" class="section level3">
 <h3><span class="header-section-number">9.3.2</span> ncol()　cols()</h3>
 <p>返回矩阵列数。</p>
 <p>在<code>test.cpp</code>文件中键入下面的代码。</p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span>
-<span class="kw">using</span> <span class="kw">namespace</span> Rcpp;
-
-<span class="co">// [[Rcpp::export]]</span>
-<span class="dt">int</span> test(NumericMatrix v){
-
-    <span class="cf">return</span> v.ncol();
-}</code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb86-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
+<a class="sourceLine" id="cb86-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
+<a class="sourceLine" id="cb86-3" title="3"></a>
+<a class="sourceLine" id="cb86-4" title="4"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb86-5" title="5"><span class="dt">int</span> test(NumericMatrix v){</a>
+<a class="sourceLine" id="cb86-6" title="6"></a>
+<a class="sourceLine" id="cb86-7" title="7">    <span class="cf">return</span> v.ncol();</a>
+<a class="sourceLine" id="cb86-8" title="8">}</a></code></pre></div>
 <p>在R中的执行结果为：</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)
-
-<span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">16</span>,<span class="dv">2</span>,<span class="dv">8</span>))
-[<span class="dv">1</span>] <span class="dv">8</span></code></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)</a>
+<a class="sourceLine" id="cb87-2" title="2"></a>
+<a class="sourceLine" id="cb87-3" title="3"><span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">16</span>,<span class="dv">2</span>,<span class="dv">8</span>))</a>
+<a class="sourceLine" id="cb87-4" title="4">[<span class="dv">1</span>] <span class="dv">8</span></a></code></pre></div>
 </div>
 <div id="rowi" class="section level3">
 <h3><span class="header-section-number">9.3.3</span> row( i )</h3>
 <p>返回矩阵 行<code>i</code>的“引用”，关于“引用”的具体信息，可参考<a href="matrix.html#row-col-sub">9.2.1</a>。</p>
 <p>在<code>test.cpp</code>文件中键入下面的代码。</p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span>
-<span class="kw">using</span> <span class="kw">namespace</span> Rcpp;
-
-<span class="co">// [[Rcpp::export]]</span>
-NumericMatrix test(NumericMatrix v){
-    v.row(<span class="dv">1</span>) = <span class="dv">2</span> * v.row(<span class="dv">1</span>);
-    <span class="cf">return</span> v;
-}</code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb88-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
+<a class="sourceLine" id="cb88-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
+<a class="sourceLine" id="cb88-3" title="3"></a>
+<a class="sourceLine" id="cb88-4" title="4"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb88-5" title="5">NumericMatrix test(NumericMatrix v){</a>
+<a class="sourceLine" id="cb88-6" title="6">    v.row(<span class="dv">1</span>) = <span class="dv">2</span> * v.row(<span class="dv">1</span>);</a>
+<a class="sourceLine" id="cb88-7" title="7">    <span class="cf">return</span> v;</a>
+<a class="sourceLine" id="cb88-8" title="8">}</a></code></pre></div>
 <p>在R中的执行结果为：</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)
-
-<span class="op">&gt;</span><span class="st"> </span>(a &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">8</span>,<span class="dv">2</span>,<span class="dv">4</span>))
-     [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>] [,<span class="dv">4</span>]
-[<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">3</span>    <span class="dv">5</span>    <span class="dv">7</span>
-[<span class="dv">2</span>,]    <span class="dv">2</span>    <span class="dv">4</span>    <span class="dv">6</span>    <span class="dv">8</span>
-
-<span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(a)
-     [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>] [,<span class="dv">4</span>]
-[<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">3</span>    <span class="dv">5</span>    <span class="dv">7</span>
-[<span class="dv">2</span>,]    <span class="dv">4</span>    <span class="dv">8</span>   <span class="dv">12</span>   <span class="dv">16</span></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)</a>
+<a class="sourceLine" id="cb89-2" title="2"></a>
+<a class="sourceLine" id="cb89-3" title="3"><span class="op">&gt;</span><span class="st"> </span>(a &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">8</span>,<span class="dv">2</span>,<span class="dv">4</span>))</a>
+<a class="sourceLine" id="cb89-4" title="4">     [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>] [,<span class="dv">4</span>]</a>
+<a class="sourceLine" id="cb89-5" title="5">[<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">3</span>    <span class="dv">5</span>    <span class="dv">7</span></a>
+<a class="sourceLine" id="cb89-6" title="6">[<span class="dv">2</span>,]    <span class="dv">2</span>    <span class="dv">4</span>    <span class="dv">6</span>    <span class="dv">8</span></a>
+<a class="sourceLine" id="cb89-7" title="7"></a>
+<a class="sourceLine" id="cb89-8" title="8"><span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(a)</a>
+<a class="sourceLine" id="cb89-9" title="9">     [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>] [,<span class="dv">4</span>]</a>
+<a class="sourceLine" id="cb89-10" title="10">[<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">3</span>    <span class="dv">5</span>    <span class="dv">7</span></a>
+<a class="sourceLine" id="cb89-11" title="11">[<span class="dv">2</span>,]    <span class="dv">4</span>    <span class="dv">8</span>   <span class="dv">12</span>   <span class="dv">16</span></a></code></pre></div>
 </div>
 <div id="columni" class="section level3">
 <h3><span class="header-section-number">9.3.4</span> column( i )</h3>
@@ -408,30 +457,30 @@ NumericMatrix test(NumericMatrix v){
 <h3><span class="header-section-number">9.3.5</span> fill_diag( x )</h3>
 <p>使用<code>x</code>填充矩阵对角线元素。</p>
 <p>在<code>test.cpp</code>文件中键入下面的代码。</p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span>
-<span class="kw">using</span> <span class="kw">namespace</span> Rcpp;
-
-<span class="co">// [[Rcpp::export]]</span>
-NumericMatrix test(NumericMatrix v,<span class="dt">double</span> x){
-    v.fill_diag(x);
-    <span class="cf">return</span> v;
-}</code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb90-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
+<a class="sourceLine" id="cb90-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
+<a class="sourceLine" id="cb90-3" title="3"></a>
+<a class="sourceLine" id="cb90-4" title="4"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb90-5" title="5">NumericMatrix test(NumericMatrix v,<span class="dt">double</span> x){</a>
+<a class="sourceLine" id="cb90-6" title="6">    v.fill_diag(x);</a>
+<a class="sourceLine" id="cb90-7" title="7">    <span class="cf">return</span> v;</a>
+<a class="sourceLine" id="cb90-8" title="8">}</a></code></pre></div>
 <p>在R中的执行结果为：</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)
-
-<span class="op">&gt;</span><span class="st"> </span>(a &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">0</span>,<span class="dv">4</span>,<span class="dv">4</span>))
-     [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>] [,<span class="dv">4</span>]
-[<span class="dv">1</span>,]    <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">0</span>
-[<span class="dv">2</span>,]    <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">0</span>
-[<span class="dv">3</span>,]    <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">0</span>
-[<span class="dv">4</span>,]    <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">0</span>
-
-<span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(a,<span class="dv">1</span>)
-     [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>] [,<span class="dv">4</span>]
-[<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">0</span>
-[<span class="dv">2</span>,]    <span class="dv">0</span>    <span class="dv">1</span>    <span class="dv">0</span>    <span class="dv">0</span>
-[<span class="dv">3</span>,]    <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">1</span>    <span class="dv">0</span>
-[<span class="dv">4</span>,]    <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">1</span></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)</a>
+<a class="sourceLine" id="cb91-2" title="2"></a>
+<a class="sourceLine" id="cb91-3" title="3"><span class="op">&gt;</span><span class="st"> </span>(a &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">0</span>,<span class="dv">4</span>,<span class="dv">4</span>))</a>
+<a class="sourceLine" id="cb91-4" title="4">     [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>] [,<span class="dv">4</span>]</a>
+<a class="sourceLine" id="cb91-5" title="5">[<span class="dv">1</span>,]    <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">0</span></a>
+<a class="sourceLine" id="cb91-6" title="6">[<span class="dv">2</span>,]    <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">0</span></a>
+<a class="sourceLine" id="cb91-7" title="7">[<span class="dv">3</span>,]    <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">0</span></a>
+<a class="sourceLine" id="cb91-8" title="8">[<span class="dv">4</span>,]    <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">0</span></a>
+<a class="sourceLine" id="cb91-9" title="9"></a>
+<a class="sourceLine" id="cb91-10" title="10"><span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(a,<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb91-11" title="11">     [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>] [,<span class="dv">4</span>]</a>
+<a class="sourceLine" id="cb91-12" title="12">[<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">0</span></a>
+<a class="sourceLine" id="cb91-13" title="13">[<span class="dv">2</span>,]    <span class="dv">0</span>    <span class="dv">1</span>    <span class="dv">0</span>    <span class="dv">0</span></a>
+<a class="sourceLine" id="cb91-14" title="14">[<span class="dv">3</span>,]    <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">1</span>    <span class="dv">0</span></a>
+<a class="sourceLine" id="cb91-15" title="15">[<span class="dv">4</span>,]    <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">1</span></a></code></pre></div>
 </div>
 <div id="offsetij" class="section level3">
 <h3><span class="header-section-number">9.3.6</span> offset( i, j )</h3>
@@ -448,22 +497,22 @@ NumericMatrix test(NumericMatrix v,<span class="dt">double</span> x){
 <h3><span class="header-section-number">9.4.1</span> Matrix::diag( size, x )</h3>
 <p>返回一个矩阵，行列数均为<code>size</code>，对角元素为<code>x</code>。</p>
 <p>在<code>test.cpp</code>文件中键入下面的代码。</p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span>
-<span class="kw">using</span> <span class="kw">namespace</span> Rcpp;
-
-<span class="co">// [[Rcpp::export]]</span>
-NumericMatrix test(<span class="dt">int</span> size, <span class="dt">double</span> x){
-  NumericMatrix v = NumericMatrix::diag(size,x);
-  <span class="cf">return</span> v;
-}</code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb92-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
+<a class="sourceLine" id="cb92-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
+<a class="sourceLine" id="cb92-3" title="3"></a>
+<a class="sourceLine" id="cb92-4" title="4"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb92-5" title="5">NumericMatrix test(<span class="dt">int</span> size, <span class="dt">double</span> x){</a>
+<a class="sourceLine" id="cb92-6" title="6">  NumericMatrix v = NumericMatrix::diag(size,x);</a>
+<a class="sourceLine" id="cb92-7" title="7">  <span class="cf">return</span> v;</a>
+<a class="sourceLine" id="cb92-8" title="8">}</a></code></pre></div>
 <p>在R中的执行结果为：</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)
-
-<span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(3L,<span class="dv">1</span>)
-     [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>]
-[<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">0</span>    <span class="dv">0</span>
-[<span class="dv">2</span>,]    <span class="dv">0</span>    <span class="dv">1</span>    <span class="dv">0</span>
-[<span class="dv">3</span>,]    <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">1</span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb93-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)</a>
+<a class="sourceLine" id="cb93-2" title="2"></a>
+<a class="sourceLine" id="cb93-3" title="3"><span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(3L,<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb93-4" title="4">     [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>]</a>
+<a class="sourceLine" id="cb93-5" title="5">[<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">0</span>    <span class="dv">0</span></a>
+<a class="sourceLine" id="cb93-6" title="6">[<span class="dv">2</span>,]    <span class="dv">0</span>    <span class="dv">1</span>    <span class="dv">0</span></a>
+<a class="sourceLine" id="cb93-7" title="7">[<span class="dv">3</span>,]    <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">1</span></a></code></pre></div>
 </div>
 </div>
 <div id="other-functions" class="section level2">
@@ -472,42 +521,42 @@ NumericMatrix test(<span class="dt">int</span> size, <span class="dt">double</sp
 <div id="rownamesMatrix" class="section level3">
 <h3><span class="header-section-number">9.5.1</span> rownames( m )</h3>
 <p>获取和设定矩阵行名。</p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp">CharacterVector ch = rownames(m);
-rownames(m) = ch;</code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb94-1" title="1">CharacterVector ch = rownames(m);</a>
+<a class="sourceLine" id="cb94-2" title="2">rownames(m) = ch;</a></code></pre></div>
 <p>在<code>test.cpp</code>文件中键入下面的代码。</p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span>
-<span class="kw">using</span> <span class="kw">namespace</span> Rcpp;
-
-<span class="co">// [[Rcpp::export]]</span>
-NumericMatrix test(NumericMatrix v1, NumericMatrix v2){
-  CharacterVector v1_rname = rownames(v1);
-  rownames(v2) = v1_rname;
-  <span class="cf">return</span> v2;
-}</code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb95-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
+<a class="sourceLine" id="cb95-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
+<a class="sourceLine" id="cb95-3" title="3"></a>
+<a class="sourceLine" id="cb95-4" title="4"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb95-5" title="5">NumericMatrix test(NumericMatrix v1, NumericMatrix v2){</a>
+<a class="sourceLine" id="cb95-6" title="6">  CharacterVector v1_rname = rownames(v1);</a>
+<a class="sourceLine" id="cb95-7" title="7">  rownames(v2) = v1_rname;</a>
+<a class="sourceLine" id="cb95-8" title="8">  <span class="cf">return</span> v2;</a>
+<a class="sourceLine" id="cb95-9" title="9">}</a></code></pre></div>
 <p>在R中的执行结果为：</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)
-
-<span class="op">&gt;</span><span class="st"> </span>a &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">0</span>,<span class="dv">3</span>,<span class="dv">3</span>)
-
-<span class="op">&gt;</span><span class="st"> </span>b &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">3</span>)
-
-<span class="op">&gt;</span><span class="st"> </span><span class="kw">rownames</span>(a) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;a&#39;</span>,<span class="st">&#39;b&#39;</span>,<span class="st">&#39;c&#39;</span>)
-
-<span class="op">&gt;</span><span class="st"> </span>a;b
-  [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>]
-a    <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">0</span>
-b    <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">0</span>
-c    <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">0</span>
-     [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>]
-[<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">1</span>    <span class="dv">1</span>
-[<span class="dv">2</span>,]    <span class="dv">1</span>    <span class="dv">1</span>    <span class="dv">1</span>
-[<span class="dv">3</span>,]    <span class="dv">1</span>    <span class="dv">1</span>    <span class="dv">1</span>
-
-<span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(a,b)
-  [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>]
-a    <span class="dv">1</span>    <span class="dv">1</span>    <span class="dv">1</span>
-b    <span class="dv">1</span>    <span class="dv">1</span>    <span class="dv">1</span>
-c    <span class="dv">1</span>    <span class="dv">1</span>    <span class="dv">1</span></code></pre></div>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb96-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)</a>
+<a class="sourceLine" id="cb96-2" title="2"></a>
+<a class="sourceLine" id="cb96-3" title="3"><span class="op">&gt;</span><span class="st"> </span>a &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">0</span>,<span class="dv">3</span>,<span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb96-4" title="4"></a>
+<a class="sourceLine" id="cb96-5" title="5"><span class="op">&gt;</span><span class="st"> </span>b &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb96-6" title="6"></a>
+<a class="sourceLine" id="cb96-7" title="7"><span class="op">&gt;</span><span class="st"> </span><span class="kw">rownames</span>(a) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;a&#39;</span>,<span class="st">&#39;b&#39;</span>,<span class="st">&#39;c&#39;</span>)</a>
+<a class="sourceLine" id="cb96-8" title="8"></a>
+<a class="sourceLine" id="cb96-9" title="9"><span class="op">&gt;</span><span class="st"> </span>a;b</a>
+<a class="sourceLine" id="cb96-10" title="10">  [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>]</a>
+<a class="sourceLine" id="cb96-11" title="11">a    <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">0</span></a>
+<a class="sourceLine" id="cb96-12" title="12">b    <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">0</span></a>
+<a class="sourceLine" id="cb96-13" title="13">c    <span class="dv">0</span>    <span class="dv">0</span>    <span class="dv">0</span></a>
+<a class="sourceLine" id="cb96-14" title="14">     [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>]</a>
+<a class="sourceLine" id="cb96-15" title="15">[<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">1</span>    <span class="dv">1</span></a>
+<a class="sourceLine" id="cb96-16" title="16">[<span class="dv">2</span>,]    <span class="dv">1</span>    <span class="dv">1</span>    <span class="dv">1</span></a>
+<a class="sourceLine" id="cb96-17" title="17">[<span class="dv">3</span>,]    <span class="dv">1</span>    <span class="dv">1</span>    <span class="dv">1</span></a>
+<a class="sourceLine" id="cb96-18" title="18"></a>
+<a class="sourceLine" id="cb96-19" title="19"><span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(a,b)</a>
+<a class="sourceLine" id="cb96-20" title="20">  [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>]</a>
+<a class="sourceLine" id="cb96-21" title="21">a    <span class="dv">1</span>    <span class="dv">1</span>    <span class="dv">1</span></a>
+<a class="sourceLine" id="cb96-22" title="22">b    <span class="dv">1</span>    <span class="dv">1</span>    <span class="dv">1</span></a>
+<a class="sourceLine" id="cb96-23" title="23">c    <span class="dv">1</span>    <span class="dv">1</span>    <span class="dv">1</span></a></code></pre></div>
 </div>
 <div id="colnamesMatrix" class="section level3">
 <h3><span class="header-section-number">9.5.2</span> colnames( m )</h3>
@@ -519,27 +568,27 @@ colnames(m) = ch;</code></pre>
 <h3><span class="header-section-number">9.5.3</span> transpose( m )</h3>
 <p>返回矩阵<code>m</code>的转置。</p>
 <p>在<code>test.cpp</code>文件中键入下面的代码。</p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span>
-<span class="kw">using</span> <span class="kw">namespace</span> Rcpp;
-
-<span class="co">// [[Rcpp::export]]</span>
-NumericMatrix test(NumericMatrix v){
-  <span class="cf">return</span> transpose(v);
-}</code></pre></div>
+<div class="sourceCode" id="cb98"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb98-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
+<a class="sourceLine" id="cb98-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
+<a class="sourceLine" id="cb98-3" title="3"></a>
+<a class="sourceLine" id="cb98-4" title="4"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb98-5" title="5">NumericMatrix test(NumericMatrix v){</a>
+<a class="sourceLine" id="cb98-6" title="6">  <span class="cf">return</span> transpose(v);</a>
+<a class="sourceLine" id="cb98-7" title="7">}</a></code></pre></div>
 <p>在R中的执行结果为：</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)
-
-<span class="op">&gt;</span><span class="st"> </span>(a &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">9</span>,<span class="dv">3</span>,<span class="dv">3</span>))
-     [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>]
-[<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">4</span>    <span class="dv">7</span>
-[<span class="dv">2</span>,]    <span class="dv">2</span>    <span class="dv">5</span>    <span class="dv">8</span>
-[<span class="dv">3</span>,]    <span class="dv">3</span>    <span class="dv">6</span>    <span class="dv">9</span>
-
-<span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(a)
-     [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>]
-[<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">2</span>    <span class="dv">3</span>
-[<span class="dv">2</span>,]    <span class="dv">4</span>    <span class="dv">5</span>    <span class="dv">6</span>
-[<span class="dv">3</span>,]    <span class="dv">7</span>    <span class="dv">8</span>    <span class="dv">9</span></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb99-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)</a>
+<a class="sourceLine" id="cb99-2" title="2"></a>
+<a class="sourceLine" id="cb99-3" title="3"><span class="op">&gt;</span><span class="st"> </span>(a &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">9</span>,<span class="dv">3</span>,<span class="dv">3</span>))</a>
+<a class="sourceLine" id="cb99-4" title="4">     [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>]</a>
+<a class="sourceLine" id="cb99-5" title="5">[<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">4</span>    <span class="dv">7</span></a>
+<a class="sourceLine" id="cb99-6" title="6">[<span class="dv">2</span>,]    <span class="dv">2</span>    <span class="dv">5</span>    <span class="dv">8</span></a>
+<a class="sourceLine" id="cb99-7" title="7">[<span class="dv">3</span>,]    <span class="dv">3</span>    <span class="dv">6</span>    <span class="dv">9</span></a>
+<a class="sourceLine" id="cb99-8" title="8"></a>
+<a class="sourceLine" id="cb99-9" title="9"><span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(a)</a>
+<a class="sourceLine" id="cb99-10" title="10">     [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>]</a>
+<a class="sourceLine" id="cb99-11" title="11">[<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">2</span>    <span class="dv">3</span></a>
+<a class="sourceLine" id="cb99-12" title="12">[<span class="dv">2</span>,]    <span class="dv">4</span>    <span class="dv">5</span>    <span class="dv">6</span></a>
+<a class="sourceLine" id="cb99-13" title="13">[<span class="dv">3</span>,]    <span class="dv">7</span>    <span class="dv">8</span>    <span class="dv">9</span></a></code></pre></div>
 
 </div>
 </div>

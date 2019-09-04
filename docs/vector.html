@@ -24,7 +24,7 @@
 <meta name="author" content="Masaki E. Tsuda 著 jywang 译" />
 
 
-<meta name="date" content="2019-08-19" />
+<meta name="date" content="2019-09-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -50,41 +50,66 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="css\style.css" type="text/css" />
@@ -104,8 +129,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>欢迎</a></li>
-<li class="chapter" data-level="" data-path="e69cace4b9a6e7bc96e8af91e78eafe5a283.html"><a href="e69cace4b9a6e7bc96e8af91e78eafe5a283.html"><i class="fa fa-check"></i>本书编译环境</a></li>
-<li class="chapter" data-level="" data-path="e7bfbbe8af91e79a84e5889de8a1b7.html"><a href="e7bfbbe8af91e79a84e5889de8a1b7.html"><i class="fa fa-check"></i>翻译的初衷</a></li>
+<li class="chapter" data-level="" data-path="section-1.html"><a href="section-1.html"><i class="fa fa-check"></i>本书编译环境</a></li>
+<li class="chapter" data-level="" data-path="section-2.html"><a href="section-2.html"><i class="fa fa-check"></i>翻译的初衷</a></li>
 <li class="chapter" data-level="" data-path="author.html"><a href="author.html"><i class="fa fa-check"></i>作者简介</a></li>
 <li class="chapter" data-level="1" data-path="situations.html"><a href="situations.html"><i class="fa fa-check"></i><b>1</b> 适用Rcpp的情况</a></li>
 <li class="chapter" data-level="2" data-path="install.html"><a href="install.html"><i class="fa fa-check"></i><b>2</b> 安装</a><ul>
@@ -113,7 +138,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2.1.1" data-path="install.html"><a href="install.html#cppcwindows"><i class="fa fa-check"></i><b>2.1.1</b> Windows</a></li>
 <li class="chapter" data-level="2.1.2" data-path="install.html"><a href="install.html#cppmac"><i class="fa fa-check"></i><b>2.1.2</b> Mac</a></li>
 <li class="chapter" data-level="2.1.3" data-path="install.html"><a href="install.html#cpplinux"><i class="fa fa-check"></i><b>2.1.3</b> Linux</a></li>
-<li class="chapter" data-level="2.1.4" data-path="install.html"><a href="install.html#section-2.1.4"><i class="fa fa-check"></i><b>2.1.4</b> 使用其他编译器</a></li>
+<li class="chapter" data-level="2.1.4" data-path="install.html"><a href="install.html#section-3"><i class="fa fa-check"></i><b>2.1.4</b> 使用其他编译器</a></li>
 </ul></li>
 <li class="chapter" data-level="2.2" data-path="install.html"><a href="install.html#Rcppinstallation"><i class="fa fa-check"></i><b>2.2</b> 安装Rcpp</a></li>
 </ul></li>
@@ -157,7 +182,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.3.4" data-path="vector.html"><a href="vector.html#offseti"><i class="fa fa-check"></i><b>8.3.4</b> offset( i )</a></li>
 <li class="chapter" data-level="8.3.5" data-path="vector.html"><a href="vector.html#fillx"><i class="fa fa-check"></i><b>8.3.5</b> fill( x )</a></li>
 <li class="chapter" data-level="8.3.6" data-path="vector.html"><a href="vector.html#sort"><i class="fa fa-check"></i><b>8.3.6</b> sort()</a></li>
-<li class="chapter" data-level="8.3.7" data-path="vector.html"><a href="vector.html#assign-first_it-last_it"><i class="fa fa-check"></i><b>8.3.7</b> assign( first_it, last_it )</a></li>
+<li class="chapter" data-level="8.3.7" data-path="vector.html"><a href="vector.html#vector-assign"><i class="fa fa-check"></i><b>8.3.7</b> assign( first_it, last_it )</a></li>
 <li class="chapter" data-level="8.3.8" data-path="vector.html"><a href="vector.html#push-backx"><i class="fa fa-check"></i><b>8.3.8</b> push_back( x )</a></li>
 <li class="chapter" data-level="8.3.9" data-path="vector.html"><a href="vector.html#push-back-name"><i class="fa fa-check"></i><b>8.3.9</b> push_back( x, name )</a></li>
 <li class="chapter" data-level="8.3.10" data-path="vector.html"><a href="vector.html#push-front-x"><i class="fa fa-check"></i><b>8.3.10</b> push_front( x )</a></li>
@@ -219,6 +244,30 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="11.4" data-path="Logical-operations.html"><a href="Logical-operations.html#Evaluation-LogicalVector"><i class="fa fa-check"></i><b>11.4</b> LogicalVector元素的估值</a></li>
 </ul></li>
+<li class="chapter" data-level="12" data-path="DataFrame.html"><a href="DataFrame.html"><i class="fa fa-check"></i><b>12</b> 数据框</a><ul>
+<li class="chapter" data-level="12.1" data-path="DataFrame.html"><a href="DataFrame.html#Creating-DF"><i class="fa fa-check"></i><b>12.1</b> 创建数据框对象</a></li>
+<li class="chapter" data-level="12.2" data-path="DataFrame.html"><a href="DataFrame.html#Accessing-DataFrame-elements"><i class="fa fa-check"></i><b>12.2</b> 访问数据框元素</a></li>
+<li class="chapter" data-level="12.3" data-path="DataFrame.html"><a href="DataFrame.html#DF-Member-functions"><i class="fa fa-check"></i><b>12.3</b> 成员函数</a><ul>
+<li class="chapter" data-level="12.3.1" data-path="DataFrame.html"><a href="DataFrame.html#DF-length"><i class="fa fa-check"></i><b>12.3.1</b> length() size()</a></li>
+<li class="chapter" data-level="12.3.2" data-path="DataFrame.html"><a href="DataFrame.html#DF-nrows"><i class="fa fa-check"></i><b>12.3.2</b> nrows()</a></li>
+<li class="chapter" data-level="12.3.3" data-path="DataFrame.html"><a href="DataFrame.html#DF-names"><i class="fa fa-check"></i><b>12.3.3</b> names()</a></li>
+<li class="chapter" data-level="12.3.4" data-path="DataFrame.html"><a href="DataFrame.html#DF-offset-findName"><i class="fa fa-check"></i><b>12.3.4</b> offset(name) findName(name)</a></li>
+<li class="chapter" data-level="12.3.5" data-path="DataFrame.html"><a href="DataFrame.html#DF-fill"><i class="fa fa-check"></i><b>12.3.5</b> fill(v)</a></li>
+<li class="chapter" data-level="12.3.6" data-path="DataFrame.html"><a href="DataFrame.html#DF-assign"><i class="fa fa-check"></i><b>12.3.6</b> assign( first_it, last_it)</a></li>
+<li class="chapter" data-level="12.3.7" data-path="DataFrame.html"><a href="DataFrame.html#DF-push-back"><i class="fa fa-check"></i><b>12.3.7</b> push_back(v)</a></li>
+<li class="chapter" data-level="12.3.8" data-path="DataFrame.html"><a href="DataFrame.html#DF-push-back-name"><i class="fa fa-check"></i><b>12.3.8</b> push_back( v, name )</a></li>
+<li class="chapter" data-level="12.3.9" data-path="DataFrame.html"><a href="DataFrame.html#DF-push-front"><i class="fa fa-check"></i><b>12.3.9</b> push_front(x)</a></li>
+<li class="chapter" data-level="12.3.10" data-path="DataFrame.html"><a href="DataFrame.html#DF-push-front-name"><i class="fa fa-check"></i><b>12.3.10</b> push_front( x, name )</a></li>
+<li class="chapter" data-level="12.3.11" data-path="DataFrame.html"><a href="DataFrame.html#DF-begin"><i class="fa fa-check"></i><b>12.3.11</b> begin()</a></li>
+<li class="chapter" data-level="12.3.12" data-path="DataFrame.html"><a href="DataFrame.html#DF-end"><i class="fa fa-check"></i><b>12.3.12</b> end()</a></li>
+<li class="chapter" data-level="12.3.13" data-path="DataFrame.html"><a href="DataFrame.html#DF-insert"><i class="fa fa-check"></i><b>12.3.13</b> insert( it, v )</a></li>
+<li class="chapter" data-level="12.3.14" data-path="DataFrame.html"><a href="DataFrame.html#DF-erase"><i class="fa fa-check"></i><b>12.3.14</b> erase(i)</a></li>
+<li class="chapter" data-level="12.3.15" data-path="DataFrame.html"><a href="DataFrame.html#DF-erase-it"><i class="fa fa-check"></i><b>12.3.15</b> erase(it)</a></li>
+<li class="chapter" data-level="12.3.16" data-path="DataFrame.html"><a href="DataFrame.html#DF-erase-first-last-it"><i class="fa fa-check"></i><b>12.3.16</b> erase(first_it, last_it)</a></li>
+<li class="chapter" data-level="12.3.17" data-path="DataFrame.html"><a href="DataFrame.html#DF-containsElementNamed-name"><i class="fa fa-check"></i><b>12.3.17</b> containsElementNamed(name)</a></li>
+<li class="chapter" data-level="12.3.18" data-path="DataFrame.html"><a href="DataFrame.html#DF-inherits"><i class="fa fa-check"></i><b>12.3.18</b> inherits(str)</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>参考文献</a></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="blank">Powered by bookdown</a></li>
@@ -245,274 +294,275 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="create-vector-object" class="section level2">
 <h2><span class="header-section-number">8.1</span> 创建向量对象</h2>
 <p>你可以使用下面的几种方法来创建向量对象。</p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">// 等价于 v &lt;- rep(0, 3)</span>
-NumericVector v (<span class="dv">3</span>);
-
-<span class="co">// 等价于 v &lt;- rep(1, 3)</span>
-NumericVector v (<span class="dv">3</span>,<span class="dv">1</span>);
-
-<span class="co">// 等价于 v &lt;- c(1,2,3) </span>
-<span class="co">// C++11 初始化列表</span>
-NumericVector v = {<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>}; 
-
-<span class="co">// 等价于 v &lt;- c(1,2,3)</span>
-NumericVector v = NumericVector::create(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>);
-
-<span class="co">// 命名向量 等价于 v &lt;- c(x=1, y=2, z=3)</span>
-NumericVector v =
-  NumericVector::create(Named(<span class="st">&quot;x&quot;</span>,<span class="dv">1</span>), Named(<span class="st">&quot;y&quot;</span>)=<span class="dv">2</span> , _[<span class="st">&quot;z&quot;</span>]=<span class="dv">3</span>);</code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb22-1" title="1"><span class="co">// 等价于 v &lt;- rep(0, 3)</span></a>
+<a class="sourceLine" id="cb22-2" title="2">NumericVector v (<span class="dv">3</span>);</a>
+<a class="sourceLine" id="cb22-3" title="3"></a>
+<a class="sourceLine" id="cb22-4" title="4"><span class="co">// 等价于 v &lt;- rep(1, 3)</span></a>
+<a class="sourceLine" id="cb22-5" title="5">NumericVector v (<span class="dv">3</span>,<span class="dv">1</span>);</a>
+<a class="sourceLine" id="cb22-6" title="6"></a>
+<a class="sourceLine" id="cb22-7" title="7"><span class="co">// 等价于 v &lt;- c(1,2,3) </span></a>
+<a class="sourceLine" id="cb22-8" title="8"><span class="co">// C++11 初始化列表</span></a>
+<a class="sourceLine" id="cb22-9" title="9">NumericVector v = {<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>}; </a>
+<a class="sourceLine" id="cb22-10" title="10"></a>
+<a class="sourceLine" id="cb22-11" title="11"><span class="co">// 等价于 v &lt;- c(1,2,3)</span></a>
+<a class="sourceLine" id="cb22-12" title="12">NumericVector v = NumericVector::create(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>);</a>
+<a class="sourceLine" id="cb22-13" title="13"></a>
+<a class="sourceLine" id="cb22-14" title="14"><span class="co">// 命名向量 等价于 v &lt;- c(x=1, y=2, z=3)</span></a>
+<a class="sourceLine" id="cb22-15" title="15">NumericVector v =</a>
+<a class="sourceLine" id="cb22-16" title="16">  NumericVector::create(Named(<span class="st">&quot;x&quot;</span>,<span class="dv">1</span>), Named(<span class="st">&quot;y&quot;</span>)=<span class="dv">2</span> , _[<span class="st">&quot;z&quot;</span>]=<span class="dv">3</span>);</a></code></pre></div>
 </div>
 <div id="Accessing-vector-elements" class="section level2">
 <h2><span class="header-section-number">8.2</span> 获取向量元素</h2>
 <p>你可以使用<code>[]</code> 或 <code>()</code>运算符来获取一个向量的个别元素。两种操作符都接受 数值向量/整型向量(NumericVector/IntegerVector) 的数值索引，字符向量的元素名索引和逻辑向量。<code>[]</code>运算符会忽略边界溢出，而<code>()</code> 运算符会抛出<code>index_out_of_bounds</code>错误。</p>
 <p><strong>需要注意的是 C++中的向量索引开始于0</strong></p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">// [[Rcpp::export]]</span>
-<span class="dt">void</span> rcpp_vector_access(){
-
-  <span class="co">// 创建向量</span>
-  NumericVector v  {<span class="dv">10</span>,<span class="dv">20</span>,<span class="dv">30</span>,<span class="dv">40</span>,<span class="dv">50</span>};
-  <span class="co">// 设置元素名称</span>
-  v.names() = CharacterVector({<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>,<span class="st">&quot;C&quot;</span>,<span class="st">&quot;D&quot;</span>,<span class="st">&quot;E&quot;</span>});
-  
-  <span class="co">// 准备向量索引</span>
-  NumericVector   numeric = {<span class="dv">1</span>,<span class="dv">3</span>};
-  IntegerVector   integer = {<span class="dv">1</span>,<span class="dv">3</span>};
-  CharacterVector character = {<span class="st">&quot;B&quot;</span>,<span class="st">&quot;D&quot;</span>};
-  LogicalVector   logical = {<span class="kw">false</span>, <span class="kw">true</span>, <span class="kw">false</span>, <span class="kw">true</span>, <span class="kw">false</span>};
-  
-  <span class="co">// 根据向量索引获取向量元素值</span>
-  <span class="dt">double</span> x1 = v[<span class="dv">0</span>];
-  <span class="dt">double</span> x2 = v[<span class="st">&quot;A&quot;</span>];
-  NumericVector res1 = v[numeric];
-  NumericVector res2 = v[integer];
-  NumericVector res3 = v[character];
-  NumericVector res4 = v[logical];
-  
-  <span class="co">// 向量元素赋值</span>
-  v[<span class="dv">0</span>]   = <span class="dv">100</span>;
-  v[<span class="st">&quot;A&quot;</span>] = <span class="dv">100</span>;
-  NumericVector v2 {<span class="dv">100</span>,<span class="dv">200</span>};
-  v[numeric]   = v2;
-  v[integer]   = v2;
-  v[character] = v2;
-  v[logical]   = v2;
-}</code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb23-1" title="1"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb23-2" title="2"><span class="dt">void</span> rcpp_vector_access(){</a>
+<a class="sourceLine" id="cb23-3" title="3"></a>
+<a class="sourceLine" id="cb23-4" title="4">  <span class="co">// 创建向量</span></a>
+<a class="sourceLine" id="cb23-5" title="5">  NumericVector v  {<span class="dv">10</span>,<span class="dv">20</span>,<span class="dv">30</span>,<span class="dv">40</span>,<span class="dv">50</span>};</a>
+<a class="sourceLine" id="cb23-6" title="6">  <span class="co">// 设置元素名称</span></a>
+<a class="sourceLine" id="cb23-7" title="7">  v.names() = CharacterVector({<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>,<span class="st">&quot;C&quot;</span>,<span class="st">&quot;D&quot;</span>,<span class="st">&quot;E&quot;</span>});</a>
+<a class="sourceLine" id="cb23-8" title="8">  </a>
+<a class="sourceLine" id="cb23-9" title="9">  <span class="co">// 准备向量索引</span></a>
+<a class="sourceLine" id="cb23-10" title="10">  NumericVector   numeric = {<span class="dv">1</span>,<span class="dv">3</span>};</a>
+<a class="sourceLine" id="cb23-11" title="11">  IntegerVector   integer = {<span class="dv">1</span>,<span class="dv">3</span>};</a>
+<a class="sourceLine" id="cb23-12" title="12">  CharacterVector character = {<span class="st">&quot;B&quot;</span>,<span class="st">&quot;D&quot;</span>};</a>
+<a class="sourceLine" id="cb23-13" title="13">  LogicalVector   logical = {<span class="kw">false</span>, <span class="kw">true</span>, <span class="kw">false</span>, <span class="kw">true</span>, <span class="kw">false</span>};</a>
+<a class="sourceLine" id="cb23-14" title="14">  </a>
+<a class="sourceLine" id="cb23-15" title="15">  <span class="co">// 根据向量索引获取向量元素值</span></a>
+<a class="sourceLine" id="cb23-16" title="16">  <span class="dt">double</span> x1 = v[<span class="dv">0</span>];</a>
+<a class="sourceLine" id="cb23-17" title="17">  <span class="dt">double</span> x2 = v[<span class="st">&quot;A&quot;</span>];</a>
+<a class="sourceLine" id="cb23-18" title="18">  NumericVector res1 = v[numeric];</a>
+<a class="sourceLine" id="cb23-19" title="19">  NumericVector res2 = v[integer];</a>
+<a class="sourceLine" id="cb23-20" title="20">  NumericVector res3 = v[character];</a>
+<a class="sourceLine" id="cb23-21" title="21">  NumericVector res4 = v[logical];</a>
+<a class="sourceLine" id="cb23-22" title="22">  </a>
+<a class="sourceLine" id="cb23-23" title="23">  <span class="co">// 向量元素赋值</span></a>
+<a class="sourceLine" id="cb23-24" title="24">  v[<span class="dv">0</span>]   = <span class="dv">100</span>;</a>
+<a class="sourceLine" id="cb23-25" title="25">  v[<span class="st">&quot;A&quot;</span>] = <span class="dv">100</span>;</a>
+<a class="sourceLine" id="cb23-26" title="26">  NumericVector v2 {<span class="dv">100</span>,<span class="dv">200</span>};</a>
+<a class="sourceLine" id="cb23-27" title="27">  v[numeric]   = v2;</a>
+<a class="sourceLine" id="cb23-28" title="28">  v[integer]   = v2;</a>
+<a class="sourceLine" id="cb23-29" title="29">  v[character] = v2;</a>
+<a class="sourceLine" id="cb23-30" title="30">  v[logical]   = v2;</a>
+<a class="sourceLine" id="cb23-31" title="31">}</a></code></pre></div>
 </div>
 <div id="Member-functions" class="section level2">
 <h2><span class="header-section-number">8.3</span> 成员函数</h2>
 <p>成员函数（也被称作方法）是某个对象中的函数。你可以以<code>v.f()</code>的形式来调用对象<code>v</code>中的成员函数<code>f()</code>。</p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp">NumericVector v = {<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>};
-
-<span class="co">// 调用成员函数length()，求对象v的长度</span>
-<span class="dt">int</span> n = v.length(); <span class="co">// 5</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb24-1" title="1">NumericVector v = {<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>};</a>
+<a class="sourceLine" id="cb24-2" title="2"></a>
+<a class="sourceLine" id="cb24-3" title="3"><span class="co">// 调用成员函数length()，求对象v的长度</span></a>
+<a class="sourceLine" id="cb24-4" title="4"><span class="dt">int</span> n = v.length(); <span class="co">// 5</span></a></code></pre></div>
 <p>Rcpp中，向量对象的成员函数列举如下。</p>
 <div id="vector-length-size" class="section level3">
 <h3><span class="header-section-number">8.3.1</span> length(), size()</h3>
 <p>返回该向量对象中元素的个数。</p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">//test.cpp 文件</span>
-<span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span>
-<span class="kw">using</span> <span class="kw">namespace</span> Rcpp;
-
-<span class="co">// [[Rcpp::export]]</span>
-<span class="dt">int</span> test(NumericVector v) {
-  
-  Rcout &lt;&lt; v.length() &lt;&lt; <span class="st">&#39;</span><span class="sc">\n</span><span class="st">&#39;</span>;
-  Rcout &lt;&lt; v.size() &lt;&lt; <span class="st">&#39;</span><span class="sc">\n</span><span class="st">&#39;</span>;
-  <span class="cf">return</span> <span class="dv">0</span>;
-}</code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb25-1" title="1"><span class="co">//test.cpp 文件</span></a>
+<a class="sourceLine" id="cb25-2" title="2"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
+<a class="sourceLine" id="cb25-3" title="3"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
+<a class="sourceLine" id="cb25-4" title="4"></a>
+<a class="sourceLine" id="cb25-5" title="5"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb25-6" title="6"><span class="dt">int</span> test(NumericVector v) {</a>
+<a class="sourceLine" id="cb25-7" title="7">  </a>
+<a class="sourceLine" id="cb25-8" title="8">  Rcout &lt;&lt; v.length() &lt;&lt; <span class="ch">&#39;</span><span class="sc">\n</span><span class="ch">&#39;</span>;</a>
+<a class="sourceLine" id="cb25-9" title="9">  Rcout &lt;&lt; v.size() &lt;&lt; <span class="ch">&#39;</span><span class="sc">\n</span><span class="ch">&#39;</span>;</a>
+<a class="sourceLine" id="cb25-10" title="10">  <span class="cf">return</span> <span class="dv">0</span>;</a>
+<a class="sourceLine" id="cb25-11" title="11">}</a></code></pre></div>
 <p>在R中，运行结果为：</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&quot;test.cpp&quot;</span>)
-
-<span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>))
-<span class="dv">10</span>
-<span class="dv">10</span>
-[<span class="dv">1</span>] <span class="dv">0</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&quot;test.cpp&quot;</span>)</a>
+<a class="sourceLine" id="cb26-2" title="2"></a>
+<a class="sourceLine" id="cb26-3" title="3"><span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>))</a>
+<a class="sourceLine" id="cb26-4" title="4"><span class="dv">10</span></a>
+<a class="sourceLine" id="cb26-5" title="5"><span class="dv">10</span></a>
+<a class="sourceLine" id="cb26-6" title="6">[<span class="dv">1</span>] <span class="dv">0</span></a></code></pre></div>
 </div>
 <div id="vector-names" class="section level3">
 <h3><span class="header-section-number">8.3.2</span> names()</h3>
 <p>以字符向量的形式，返回该向量的元素名称。</p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">//test.cpp 文件</span>
-<span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span>
-<span class="kw">using</span> <span class="kw">namespace</span> Rcpp;
-
-<span class="co">// [[Rcpp::export]]</span>
-CharacterVector test(NumericVector v) {
-  
-  <span class="cf">return</span> v.names();
-}</code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb27-1" title="1"><span class="co">//test.cpp 文件</span></a>
+<a class="sourceLine" id="cb27-2" title="2"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
+<a class="sourceLine" id="cb27-3" title="3"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
+<a class="sourceLine" id="cb27-4" title="4"></a>
+<a class="sourceLine" id="cb27-5" title="5"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb27-6" title="6">CharacterVector test(NumericVector v) {</a>
+<a class="sourceLine" id="cb27-7" title="7">  </a>
+<a class="sourceLine" id="cb27-8" title="8">  <span class="cf">return</span> v.names();</a>
+<a class="sourceLine" id="cb27-9" title="9">}</a></code></pre></div>
 <p>在R中，运行结果为：</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&quot;test.cpp&quot;</span>)
-
-<span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="kw">c</span>(<span class="dt">a =</span> <span class="dv">1</span>,<span class="dt">b =</span> <span class="dv">2</span>, <span class="dt">c =</span> <span class="dv">3</span>))
-[<span class="dv">1</span>] <span class="st">&quot;a&quot;</span> <span class="st">&quot;b&quot;</span> <span class="st">&quot;c&quot;</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&quot;test.cpp&quot;</span>)</a>
+<a class="sourceLine" id="cb28-2" title="2"></a>
+<a class="sourceLine" id="cb28-3" title="3"><span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="kw">c</span>(<span class="dt">a =</span> <span class="dv">1</span>,<span class="dt">b =</span> <span class="dv">2</span>, <span class="dt">c =</span> <span class="dv">3</span>))</a>
+<a class="sourceLine" id="cb28-4" title="4">[<span class="dv">1</span>] <span class="st">&quot;a&quot;</span> <span class="st">&quot;b&quot;</span> <span class="st">&quot;c&quot;</span></a></code></pre></div>
 </div>
 <div id="offsetname" class="section level3">
 <h3><span class="header-section-number">8.3.3</span> offset( name ), findName( name )</h3>
 <p>按照指定字符串<code>name</code>的方式，返回对应元素的数值索引。</p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">//test.cpp 文件</span>
-<span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span>
-<span class="kw">using</span> <span class="kw">namespace</span> Rcpp;
-
-<span class="co">// [[Rcpp::export]]</span>
-<span class="dt">int</span> test(NumericVector v, <span class="bu">std::</span>string name) {
-  
-  <span class="cf">return</span> v.offset(name);
-}</code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb29-1" title="1"><span class="co">//test.cpp 文件</span></a>
+<a class="sourceLine" id="cb29-2" title="2"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
+<a class="sourceLine" id="cb29-3" title="3"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
+<a class="sourceLine" id="cb29-4" title="4"></a>
+<a class="sourceLine" id="cb29-5" title="5"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb29-6" title="6"><span class="dt">int</span> test(NumericVector v, <span class="bu">std::</span>string name) {</a>
+<a class="sourceLine" id="cb29-7" title="7">  </a>
+<a class="sourceLine" id="cb29-8" title="8">  <span class="cf">return</span> v.offset(name);</a>
+<a class="sourceLine" id="cb29-9" title="9">}</a></code></pre></div>
 <p>在R中，运行结果为：</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&quot;test.cpp&quot;</span>)
-
-<span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="kw">c</span>(<span class="dt">a =</span> <span class="dv">1</span>,<span class="dt">b =</span> <span class="dv">2</span>, <span class="dt">c =</span> <span class="dv">3</span>),<span class="st">&quot;a&quot;</span>)
-[<span class="dv">1</span>] <span class="dv">0</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&quot;test.cpp&quot;</span>)</a>
+<a class="sourceLine" id="cb30-2" title="2"></a>
+<a class="sourceLine" id="cb30-3" title="3"><span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="kw">c</span>(<span class="dt">a =</span> <span class="dv">1</span>,<span class="dt">b =</span> <span class="dv">2</span>, <span class="dt">c =</span> <span class="dv">3</span>),<span class="st">&quot;a&quot;</span>)</a>
+<a class="sourceLine" id="cb30-4" title="4">[<span class="dv">1</span>] <span class="dv">0</span></a></code></pre></div>
 </div>
 <div id="offseti" class="section level3">
 <h3><span class="header-section-number">8.3.4</span> offset( i )</h3>
 <p>函数在检查数值索引i没有超过边界后，返回该索引。</p>
 <p>举例说明，在<code>test.cpp</code>文件中键入以下代码，</p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span>
-<span class="kw">using</span> <span class="kw">namespace</span> Rcpp;
-
-<span class="co">// [[Rcpp::export]]</span>
-<span class="dt">int</span> test(NumericVector v, <span class="dt">int</span> i) {
-  <span class="cf">return</span> v.offset(i);
-}</code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb31-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
+<a class="sourceLine" id="cb31-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
+<a class="sourceLine" id="cb31-3" title="3"></a>
+<a class="sourceLine" id="cb31-4" title="4"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb31-5" title="5"><span class="dt">int</span> test(NumericVector v, <span class="dt">int</span> i) {</a>
+<a class="sourceLine" id="cb31-6" title="6">  <span class="cf">return</span> v.offset(i);</a>
+<a class="sourceLine" id="cb31-7" title="7">}</a></code></pre></div>
 <p>在R中，运行结果为：</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)
-
-<span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="kw">c</span>(<span class="dv">11</span>,<span class="dv">22</span>,<span class="dv">33</span>,<span class="dv">44</span>,<span class="dv">55</span>),<span class="dv">2</span>)
-[<span class="dv">1</span>] <span class="dv">2</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)</a>
+<a class="sourceLine" id="cb32-2" title="2"></a>
+<a class="sourceLine" id="cb32-3" title="3"><span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="kw">c</span>(<span class="dv">11</span>,<span class="dv">22</span>,<span class="dv">33</span>,<span class="dv">44</span>,<span class="dv">55</span>),<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb32-4" title="4">[<span class="dv">1</span>] <span class="dv">2</span></a></code></pre></div>
 </div>
 <div id="fillx" class="section level3">
 <h3><span class="header-section-number">8.3.5</span> fill( x )</h3>
 <p>将该向量的所有元素用标量<code>x</code>填充。</p>
 <p>举例说明，在<code>test.cpp</code>文件中键入以下代码，</p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span>
-<span class="kw">using</span> <span class="kw">namespace</span> Rcpp;
-
-<span class="co">// [[Rcpp::export]]</span>
-NumericVector test(NumericVector v, <span class="dt">double</span> i) {
-  v.fill(i);
-  <span class="cf">return</span> v;
-}</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&quot;test.cpp&quot;</span>)
-
-<span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>),<span class="dv">6</span>)
-[<span class="dv">1</span>] <span class="dv">6</span> <span class="dv">6</span> <span class="dv">6</span> <span class="dv">6</span> <span class="dv">6</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb33-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
+<a class="sourceLine" id="cb33-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
+<a class="sourceLine" id="cb33-3" title="3"></a>
+<a class="sourceLine" id="cb33-4" title="4"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb33-5" title="5">NumericVector test(NumericVector v, <span class="dt">double</span> i) {</a>
+<a class="sourceLine" id="cb33-6" title="6">  v.fill(i);</a>
+<a class="sourceLine" id="cb33-7" title="7">  <span class="cf">return</span> v;</a>
+<a class="sourceLine" id="cb33-8" title="8">}</a></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&quot;test.cpp&quot;</span>)</a>
+<a class="sourceLine" id="cb34-2" title="2"></a>
+<a class="sourceLine" id="cb34-3" title="3"><span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>),<span class="dv">6</span>)</a>
+<a class="sourceLine" id="cb34-4" title="4">[<span class="dv">1</span>] <span class="dv">6</span> <span class="dv">6</span> <span class="dv">6</span> <span class="dv">6</span> <span class="dv">6</span></a></code></pre></div>
 </div>
 <div id="sort" class="section level3">
 <h3><span class="header-section-number">8.3.6</span> sort()</h3>
 <p>将该向量对象中的元素升序排列。</p>
 <p>举例说明，在<code>test.cpp</code>文件中键入以下代码，</p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span>
-<span class="kw">using</span> <span class="kw">namespace</span> Rcpp;
-
-<span class="co">// [[Rcpp::export]]</span>
-NumericVector test(NumericVector v) {
-  v.sort();
-  <span class="cf">return</span> v;
-}</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&quot;test.cpp&quot;</span>)
-
-<span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">4</span>,<span class="dv">7</span>,<span class="dv">6</span>,<span class="dv">8</span>))
-[<span class="dv">1</span>] <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">7</span> <span class="dv">8</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb35-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
+<a class="sourceLine" id="cb35-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
+<a class="sourceLine" id="cb35-3" title="3"></a>
+<a class="sourceLine" id="cb35-4" title="4"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb35-5" title="5">NumericVector test(NumericVector v) {</a>
+<a class="sourceLine" id="cb35-6" title="6">  v.sort();</a>
+<a class="sourceLine" id="cb35-7" title="7">  <span class="cf">return</span> v;</a>
+<a class="sourceLine" id="cb35-8" title="8">}</a></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&quot;test.cpp&quot;</span>)</a>
+<a class="sourceLine" id="cb36-2" title="2"></a>
+<a class="sourceLine" id="cb36-3" title="3"><span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">4</span>,<span class="dv">7</span>,<span class="dv">6</span>,<span class="dv">8</span>))</a>
+<a class="sourceLine" id="cb36-4" title="4">[<span class="dv">1</span>] <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">7</span> <span class="dv">8</span></a></code></pre></div>
 </div>
-<div id="assign-first_it-last_it" class="section level3">
+<div id="vector-assign" class="section level3">
 <h3><span class="header-section-number">8.3.7</span> assign( first_it, last_it )</h3>
-<p>assign values specified by the iterator <code>first_it</code> and <code>last_it</code> to this vector object. 将迭代器<code>first_it</code>至<code>lates_it</code>所指向的元素赋给向量对象。</p>
+<p>assign values specified by the iterator <code>first_it</code> and <code>last_it</code> to this vector object.
+将迭代器<code>first_it</code>至<code>lates_it</code>所指向的元素赋给向量对象。</p>
 <p>举例说明，在<code>test.cpp</code>文件中键入以下代码，</p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span>
-<span class="kw">using</span> <span class="kw">namespace</span> Rcpp;
-
-<span class="co">// [[Rcpp::export]]</span>
-NumericVector test(NumericVector v) {
-  NumericVector v1;
-  v1.assign(v.begin(),v.end());
-  <span class="cf">return</span> v1;
-}</code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb37-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
+<a class="sourceLine" id="cb37-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
+<a class="sourceLine" id="cb37-3" title="3"></a>
+<a class="sourceLine" id="cb37-4" title="4"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb37-5" title="5">NumericVector test(NumericVector v) {</a>
+<a class="sourceLine" id="cb37-6" title="6">  NumericVector v1;</a>
+<a class="sourceLine" id="cb37-7" title="7">  v1.assign(v.begin(),v.end());</a>
+<a class="sourceLine" id="cb37-8" title="8">  <span class="cf">return</span> v1;</a>
+<a class="sourceLine" id="cb37-9" title="9">}</a></code></pre></div>
 <p><code>begin</code>和<code>end</code>也是成员函数，下面<a href="vector.html#vector-begin">8.3.12</a>也有对应的例子</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&quot;test.cpp&quot;</span>)
-
-<span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)
- [<span class="dv">1</span>]  <span class="dv">1</span>  <span class="dv">2</span>  <span class="dv">3</span>  <span class="dv">4</span>  <span class="dv">5</span>  <span class="dv">6</span>  <span class="dv">7</span>  <span class="dv">8</span>  <span class="dv">9</span> <span class="dv">10</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&quot;test.cpp&quot;</span>)</a>
+<a class="sourceLine" id="cb38-2" title="2"></a>
+<a class="sourceLine" id="cb38-3" title="3"><span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb38-4" title="4"> [<span class="dv">1</span>]  <span class="dv">1</span>  <span class="dv">2</span>  <span class="dv">3</span>  <span class="dv">4</span>  <span class="dv">5</span>  <span class="dv">6</span>  <span class="dv">7</span>  <span class="dv">8</span>  <span class="dv">9</span> <span class="dv">10</span></a></code></pre></div>
 </div>
 <div id="push-backx" class="section level3">
 <h3><span class="header-section-number">8.3.8</span> push_back( x )</h3>
 <p>在向量对象的最后加入新的标量值 <code>x</code>。</p>
 <p>在<code>test.cpp</code>文件中键入以下代码，</p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span>
-<span class="kw">using</span> <span class="kw">namespace</span> Rcpp;
-
-<span class="co">// [[Rcpp::export]]</span>
-NumericVector test(NumericVector v, <span class="dt">double</span> var_PB) {
-  
-  v.push_back(var_PB);
-  <span class="cf">return</span> v;
-}</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&quot;test.cpp&quot;</span>)
-
-<span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>),<span class="dv">6</span>)
-[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb39-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
+<a class="sourceLine" id="cb39-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
+<a class="sourceLine" id="cb39-3" title="3"></a>
+<a class="sourceLine" id="cb39-4" title="4"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb39-5" title="5">NumericVector test(NumericVector v, <span class="dt">double</span> var_PB) {</a>
+<a class="sourceLine" id="cb39-6" title="6">  </a>
+<a class="sourceLine" id="cb39-7" title="7">  v.push_back(var_PB);</a>
+<a class="sourceLine" id="cb39-8" title="8">  <span class="cf">return</span> v;</a>
+<a class="sourceLine" id="cb39-9" title="9">}</a></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&quot;test.cpp&quot;</span>)</a>
+<a class="sourceLine" id="cb40-2" title="2"></a>
+<a class="sourceLine" id="cb40-3" title="3"><span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>),<span class="dv">6</span>)</a>
+<a class="sourceLine" id="cb40-4" title="4">[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span></a></code></pre></div>
 </div>
 <div id="push-back-name" class="section level3">
 <h3><span class="header-section-number">8.3.9</span> push_back( x, name )</h3>
 <p>在向量后加入标量元素<code>x</code>时，指定其元素名称。</p>
 <p>在<code>test.cpp</code>文件中键入以下代码，</p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span>
-<span class="kw">using</span> <span class="kw">namespace</span> Rcpp;
-
-<span class="co">// [[Rcpp::export]]</span>
-NumericVector test(NumericVector v, 
-                   <span class="dt">double</span> var_PB, 
-                   <span class="bu">std::</span>string var_Name) {
-  
-  <span class="co">//v.names() = CharacterVector::create(&quot;a&quot;,&quot;b&quot;,&quot;c&quot;,&quot;d&quot;,&quot;e&quot;);</span>
-  v.push_back(var_PB,var_Name);
-  <span class="cf">return</span> v;
-}</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)
-
-<span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="kw">c</span>(<span class="dt">a =</span> <span class="dv">1</span>,<span class="dt">b =</span> <span class="dv">2</span>,<span class="dt">c =</span> <span class="dv">3</span>,<span class="dt">d =</span> <span class="dv">4</span>,<span class="dt">e =</span> <span class="dv">5</span>),<span class="dv">6</span>,<span class="st">&quot;f&quot;</span>)
-a b c d e f
-<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb41-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
+<a class="sourceLine" id="cb41-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
+<a class="sourceLine" id="cb41-3" title="3"></a>
+<a class="sourceLine" id="cb41-4" title="4"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb41-5" title="5">NumericVector test(NumericVector v, </a>
+<a class="sourceLine" id="cb41-6" title="6">                   <span class="dt">double</span> var_PB, </a>
+<a class="sourceLine" id="cb41-7" title="7">                   <span class="bu">std::</span>string var_Name) {</a>
+<a class="sourceLine" id="cb41-8" title="8">  </a>
+<a class="sourceLine" id="cb41-9" title="9">  <span class="co">//v.names() = CharacterVector::create(&quot;a&quot;,&quot;b&quot;,&quot;c&quot;,&quot;d&quot;,&quot;e&quot;);</span></a>
+<a class="sourceLine" id="cb41-10" title="10">  v.push_back(var_PB,var_Name);</a>
+<a class="sourceLine" id="cb41-11" title="11">  <span class="cf">return</span> v;</a>
+<a class="sourceLine" id="cb41-12" title="12">}</a></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)</a>
+<a class="sourceLine" id="cb42-2" title="2"></a>
+<a class="sourceLine" id="cb42-3" title="3"><span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="kw">c</span>(<span class="dt">a =</span> <span class="dv">1</span>,<span class="dt">b =</span> <span class="dv">2</span>,<span class="dt">c =</span> <span class="dv">3</span>,<span class="dt">d =</span> <span class="dv">4</span>,<span class="dt">e =</span> <span class="dv">5</span>),<span class="dv">6</span>,<span class="st">&quot;f&quot;</span>)</a>
+<a class="sourceLine" id="cb42-4" title="4">a b c d e f</a>
+<a class="sourceLine" id="cb42-5" title="5"><span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span></a></code></pre></div>
 </div>
 <div id="push-front-x" class="section level3">
 <h3><span class="header-section-number">8.3.10</span> push_front( x )</h3>
 <p>在向量前面加入一个标量<code>x</code>。</p>
 <p>在<code>test.cpp</code>文件中键入以下代码，</p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span>
-<span class="kw">using</span> <span class="kw">namespace</span> Rcpp;
-
-<span class="co">// [[Rcpp::export]]</span>
-NumericVector test(NumericVector v, 
-                   <span class="dt">double</span> var_f) {
-  v.push_front(var_f);
-  <span class="cf">return</span> v;
-}</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)
-
-<span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>),<span class="dv">6</span>)
-<span class="dv">6</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> </code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb43-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
+<a class="sourceLine" id="cb43-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
+<a class="sourceLine" id="cb43-3" title="3"></a>
+<a class="sourceLine" id="cb43-4" title="4"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb43-5" title="5">NumericVector test(NumericVector v, </a>
+<a class="sourceLine" id="cb43-6" title="6">                   <span class="dt">double</span> var_f) {</a>
+<a class="sourceLine" id="cb43-7" title="7">  v.push_front(var_f);</a>
+<a class="sourceLine" id="cb43-8" title="8">  <span class="cf">return</span> v;</a>
+<a class="sourceLine" id="cb43-9" title="9">}</a></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)</a>
+<a class="sourceLine" id="cb44-2" title="2"></a>
+<a class="sourceLine" id="cb44-3" title="3"><span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>),<span class="dv">6</span>)</a>
+<a class="sourceLine" id="cb44-4" title="4"><span class="dv">6</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> </a></code></pre></div>
 </div>
 <div id="push-front-name" class="section level3">
 <h3><span class="header-section-number">8.3.11</span> push_front( x, name )</h3>
 <p>在向量前加入标量元素<code>x</code>时，指定其元素名称。</p>
 <p>在<code>test.cpp</code>文件中键入以下代码，</p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span>
-<span class="kw">using</span> <span class="kw">namespace</span> Rcpp;
-
-<span class="co">// [[Rcpp::export]]</span>
-NumericVector test(NumericVector v, 
-                   <span class="dt">double</span> var_f, 
-                   <span class="bu">std::</span>string var_Name) {
-  
-  <span class="co">//v.names() = CharacterVector::create(&quot;a&quot;,&quot;b&quot;,&quot;c&quot;,&quot;d&quot;,&quot;e&quot;);</span>
-  v.push_front(var_f,var_Name);
-  <span class="cf">return</span> v;
-}</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)
-
-<span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="kw">c</span>(<span class="dt">a =</span> <span class="dv">1</span>,<span class="dt">b =</span> <span class="dv">2</span>,<span class="dt">c =</span> <span class="dv">3</span>,<span class="dt">d =</span> <span class="dv">4</span>,<span class="dt">e =</span> <span class="dv">5</span>),<span class="dv">6</span>,<span class="st">&quot;f&quot;</span>)
-f a b c d e 
-<span class="dv">6</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> </code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb45-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
+<a class="sourceLine" id="cb45-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
+<a class="sourceLine" id="cb45-3" title="3"></a>
+<a class="sourceLine" id="cb45-4" title="4"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb45-5" title="5">NumericVector test(NumericVector v, </a>
+<a class="sourceLine" id="cb45-6" title="6">                   <span class="dt">double</span> var_f, </a>
+<a class="sourceLine" id="cb45-7" title="7">                   <span class="bu">std::</span>string var_Name) {</a>
+<a class="sourceLine" id="cb45-8" title="8">  </a>
+<a class="sourceLine" id="cb45-9" title="9">  <span class="co">//v.names() = CharacterVector::create(&quot;a&quot;,&quot;b&quot;,&quot;c&quot;,&quot;d&quot;,&quot;e&quot;);</span></a>
+<a class="sourceLine" id="cb45-10" title="10">  v.push_front(var_f,var_Name);</a>
+<a class="sourceLine" id="cb45-11" title="11">  <span class="cf">return</span> v;</a>
+<a class="sourceLine" id="cb45-12" title="12">}</a></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)</a>
+<a class="sourceLine" id="cb46-2" title="2"></a>
+<a class="sourceLine" id="cb46-3" title="3"><span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="kw">c</span>(<span class="dt">a =</span> <span class="dv">1</span>,<span class="dt">b =</span> <span class="dv">2</span>,<span class="dt">c =</span> <span class="dv">3</span>,<span class="dt">d =</span> <span class="dv">4</span>,<span class="dt">e =</span> <span class="dv">5</span>),<span class="dv">6</span>,<span class="st">&quot;f&quot;</span>)</a>
+<a class="sourceLine" id="cb46-4" title="4">f a b c d e </a>
+<a class="sourceLine" id="cb46-5" title="5"><span class="dv">6</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> </a></code></pre></div>
 </div>
 <div id="vector-begin" class="section level3">
 <h3><span class="header-section-number">8.3.12</span> begin()</h3>
@@ -522,23 +572,23 @@ f a b c d e
 <h3><span class="header-section-number">8.3.13</span> end()</h3>
 <p>返回一个指向向量最后一个元素的迭代器。 (<strong>one past the last element of this vector</strong>).</p>
 <p>以求和函数说明<code>begin()</code>和<code>end()</code>的作用。</p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span>
-<span class="kw">using</span> <span class="kw">namespace</span> Rcpp;
-
-<span class="co">// [[Rcpp::export]]</span>
-<span class="dt">double</span> test(NumericVector v) {
-  
-  <span class="dt">double</span> mysum = <span class="dv">0</span>;
-  NumericVector::iterator it;
-  <span class="cf">for</span>(it = v.begin();it!=v.end();it++){
-    mysum += *it;
-  }
-  <span class="cf">return</span> mysum;
-}</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)
-
-<span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)
-[<span class="dv">1</span>] <span class="dv">55</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb47-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
+<a class="sourceLine" id="cb47-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
+<a class="sourceLine" id="cb47-3" title="3"></a>
+<a class="sourceLine" id="cb47-4" title="4"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb47-5" title="5"><span class="dt">double</span> test(NumericVector v) {</a>
+<a class="sourceLine" id="cb47-6" title="6">  </a>
+<a class="sourceLine" id="cb47-7" title="7">  <span class="dt">double</span> mysum = <span class="dv">0</span>;</a>
+<a class="sourceLine" id="cb47-8" title="8">  NumericVector::iterator it;</a>
+<a class="sourceLine" id="cb47-9" title="9">  <span class="cf">for</span>(it = v.begin();it!=v.end();it++){</a>
+<a class="sourceLine" id="cb47-10" title="10">    mysum += *it;</a>
+<a class="sourceLine" id="cb47-11" title="11">  }</a>
+<a class="sourceLine" id="cb47-12" title="12">  <span class="cf">return</span> mysum;</a>
+<a class="sourceLine" id="cb47-13" title="13">}</a></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)</a>
+<a class="sourceLine" id="cb48-2" title="2"></a>
+<a class="sourceLine" id="cb48-3" title="3"><span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb48-4" title="4">[<span class="dv">1</span>] <span class="dv">55</span></a></code></pre></div>
 <blockquote>
 <p>在循环体内，我们用*it获取向量v中的元素，在指明循环范围的时候，也并不是我们熟悉的 int i = 0; i &lt; n; i++</p>
 </blockquote>
@@ -555,173 +605,173 @@ f a b c d e
 <h3><span class="header-section-number">8.3.15</span> cend()</h3>
 <p>返回一个指向向量最后一个元素的具有const属性的迭代器。 (<strong>one past the last element of this vector</strong>).</p>
 <p>以求和函数说明<code>cbegin()</code>和<code>cend()</code>的作用。<strong>下面的例子只在声明迭代器it的时候，将iterator改为const_iterator</strong>，因为<code>cbegin()</code>和<code>cend()</code>得到是const_iterator.</p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span>
-<span class="kw">using</span> <span class="kw">namespace</span> Rcpp;
-
-<span class="co">// [[Rcpp::export]]</span>
-<span class="dt">double</span> test(NumericVector v) {
-  
-  <span class="dt">double</span> mysum = <span class="dv">0</span>;
-  NumericVector::const_iterator it;
-  <span class="cf">for</span>(it = v.begin();it!=v.end();it++){
-    mysum += *it;
-  }
-  <span class="cf">return</span> mysum;
-}</code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb49-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
+<a class="sourceLine" id="cb49-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
+<a class="sourceLine" id="cb49-3" title="3"></a>
+<a class="sourceLine" id="cb49-4" title="4"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb49-5" title="5"><span class="dt">double</span> test(NumericVector v) {</a>
+<a class="sourceLine" id="cb49-6" title="6">  </a>
+<a class="sourceLine" id="cb49-7" title="7">  <span class="dt">double</span> mysum = <span class="dv">0</span>;</a>
+<a class="sourceLine" id="cb49-8" title="8">  NumericVector::const_iterator it;</a>
+<a class="sourceLine" id="cb49-9" title="9">  <span class="cf">for</span>(it = v.begin();it!=v.end();it++){</a>
+<a class="sourceLine" id="cb49-10" title="10">    mysum += *it;</a>
+<a class="sourceLine" id="cb49-11" title="11">  }</a>
+<a class="sourceLine" id="cb49-12" title="12">  <span class="cf">return</span> mysum;</a>
+<a class="sourceLine" id="cb49-13" title="13">}</a></code></pre></div>
 <blockquote>
 <p>当然，对于c++不熟悉的用户，完全可以忽视<code>const_iterator</code>。不声明it，而是采用auto，如下。</p>
 </blockquote>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span>
-<span class="kw">using</span> <span class="kw">namespace</span> Rcpp;
-
-<span class="co">// [[Rcpp::plugins(cpp11)]]</span>
-<span class="co">// [[Rcpp::export]]</span>
-<span class="dt">double</span> test(NumericVector v) {
-  
-  <span class="dt">double</span> mysum = <span class="dv">0</span>;
-  <span class="cf">for</span>(<span class="kw">auto</span> it = v.cbegin();it!=v.cend();it++){
-    mysum += *it;
-    
-  }
-  <span class="cf">return</span> mysum;
-}</code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb50-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
+<a class="sourceLine" id="cb50-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
+<a class="sourceLine" id="cb50-3" title="3"></a>
+<a class="sourceLine" id="cb50-4" title="4"><span class="co">// [[Rcpp::plugins(cpp11)]]</span></a>
+<a class="sourceLine" id="cb50-5" title="5"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb50-6" title="6"><span class="dt">double</span> test(NumericVector v) {</a>
+<a class="sourceLine" id="cb50-7" title="7">  </a>
+<a class="sourceLine" id="cb50-8" title="8">  <span class="dt">double</span> mysum = <span class="dv">0</span>;</a>
+<a class="sourceLine" id="cb50-9" title="9">  <span class="cf">for</span>(<span class="kw">auto</span> it = v.cbegin();it!=v.cend();it++){</a>
+<a class="sourceLine" id="cb50-10" title="10">    mysum += *it;</a>
+<a class="sourceLine" id="cb50-11" title="11">    </a>
+<a class="sourceLine" id="cb50-12" title="12">  }</a>
+<a class="sourceLine" id="cb50-13" title="13">  <span class="cf">return</span> mysum;</a>
+<a class="sourceLine" id="cb50-14" title="14">}</a></code></pre></div>
 <p>上面的这段代码，在循环体中，使用auto，来自动判别it的类型。对于不熟悉C++的用户而言（也包括我），是十分便捷的。但需要注意的是，一定要加上<code>// [[Rcpp::plugins(cpp11)]]</code>，表明你希望使用c++11的新特性，否则程序会报错。</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)
-
-<span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)
-[<span class="dv">1</span>] <span class="dv">55</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)</a>
+<a class="sourceLine" id="cb51-2" title="2"></a>
+<a class="sourceLine" id="cb51-3" title="3"><span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb51-4" title="4">[<span class="dv">1</span>] <span class="dv">55</span></a></code></pre></div>
 </div>
 <div id="inserti" class="section level3">
 <h3><span class="header-section-number">8.3.16</span> insert( i, x )</h3>
 <p>在数值索引<code>i</code>指定的位置插入标量<code>x</code>。返回一个指向插入元素的迭代器。</p>
 <p>test.cpp文件如下：</p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span>
-<span class="kw">using</span> <span class="kw">namespace</span> Rcpp;
-
-<span class="co">// [[Rcpp::export]]</span>
-NumericVector test(NumericVector v) {
-  v.insert(<span class="dv">1</span>,<span class="dv">6</span>);
-  <span class="cf">return</span> v;
-}</code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb52-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
+<a class="sourceLine" id="cb52-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
+<a class="sourceLine" id="cb52-3" title="3"></a>
+<a class="sourceLine" id="cb52-4" title="4"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb52-5" title="5">NumericVector test(NumericVector v) {</a>
+<a class="sourceLine" id="cb52-6" title="6">  v.insert(<span class="dv">1</span>,<span class="dv">6</span>);</a>
+<a class="sourceLine" id="cb52-7" title="7">  <span class="cf">return</span> v;</a>
+<a class="sourceLine" id="cb52-8" title="8">}</a></code></pre></div>
 <p>R运行结果如下:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&quot;test.cpp&quot;</span>)
-
-<span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="dv">2</span><span class="op">:</span><span class="dv">5</span>)
-[<span class="dv">1</span>] <span class="dv">2</span> <span class="dv">6</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&quot;test.cpp&quot;</span>)</a>
+<a class="sourceLine" id="cb53-2" title="2"></a>
+<a class="sourceLine" id="cb53-3" title="3"><span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="dv">2</span><span class="op">:</span><span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb53-4" title="4">[<span class="dv">1</span>] <span class="dv">2</span> <span class="dv">6</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span></a></code></pre></div>
 </div>
 <div id="insertit" class="section level3">
 <h3><span class="header-section-number">8.3.17</span> insert( it, x )</h3>
 <p>在迭代器<code>it</code>指定的位置插入标量<code>x</code>。返回迭代器指向的元素。</p>
 <p>test.cpp文件如下：</p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span>
-<span class="kw">using</span> <span class="kw">namespace</span> Rcpp;
-
-<span class="co">// [[Rcpp::export]]</span>
-NumericVector test(NumericVector v) {
-  v.insert(v.begin()<span class="dv">+1</span>,<span class="dv">6</span>);
-  <span class="cf">return</span> v;
-}</code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb54-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
+<a class="sourceLine" id="cb54-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
+<a class="sourceLine" id="cb54-3" title="3"></a>
+<a class="sourceLine" id="cb54-4" title="4"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb54-5" title="5">NumericVector test(NumericVector v) {</a>
+<a class="sourceLine" id="cb54-6" title="6">  v.insert(v.begin()+<span class="dv">1</span>,<span class="dv">6</span>);</a>
+<a class="sourceLine" id="cb54-7" title="7">  <span class="cf">return</span> v;</a>
+<a class="sourceLine" id="cb54-8" title="8">}</a></code></pre></div>
 <p>R运行结果如下:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&quot;test.cpp&quot;</span>)
-
-<span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="dv">2</span><span class="op">:</span><span class="dv">5</span>)
-[<span class="dv">1</span>] <span class="dv">2</span> <span class="dv">6</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&quot;test.cpp&quot;</span>)</a>
+<a class="sourceLine" id="cb55-2" title="2"></a>
+<a class="sourceLine" id="cb55-3" title="3"><span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="dv">2</span><span class="op">:</span><span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb55-4" title="4">[<span class="dv">1</span>] <span class="dv">2</span> <span class="dv">6</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span></a></code></pre></div>
 </div>
 <div id="vector-erasei" class="section level3">
 <h3><span class="header-section-number">8.3.18</span> erase(i)</h3>
 <p>擦除数值索引<code>i</code>指定的标量元素<code>x</code>。返回指向擦除元素之后一个元素的迭代器。</p>
 <p>test.cpp文件如下：</p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span>
-<span class="kw">using</span> <span class="kw">namespace</span> Rcpp;
-
-<span class="co">// [[Rcpp::export]]</span>
-<span class="dt">double</span> test(NumericVector v) {
-  NumericVector::iterator it = v.erase(<span class="dv">0</span>);
-  <span class="cf">return</span> *it;
-}</code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb56-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
+<a class="sourceLine" id="cb56-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
+<a class="sourceLine" id="cb56-3" title="3"></a>
+<a class="sourceLine" id="cb56-4" title="4"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb56-5" title="5"><span class="dt">double</span> test(NumericVector v) {</a>
+<a class="sourceLine" id="cb56-6" title="6">  NumericVector::iterator it = v.erase(<span class="dv">0</span>);</a>
+<a class="sourceLine" id="cb56-7" title="7">  <span class="cf">return</span> *it;</a>
+<a class="sourceLine" id="cb56-8" title="8">}</a></code></pre></div>
 <p>R运行结果如下:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&quot;test.cpp&quot;</span>)
-
-<span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)
-[<span class="dv">1</span>] <span class="dv">2</span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&quot;test.cpp&quot;</span>)</a>
+<a class="sourceLine" id="cb57-2" title="2"></a>
+<a class="sourceLine" id="cb57-3" title="3"><span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb57-4" title="4">[<span class="dv">1</span>] <span class="dv">2</span></a></code></pre></div>
 </div>
 <div id="vector-eraseit" class="section level3">
 <h3><span class="header-section-number">8.3.19</span> erase(it)</h3>
 <p>擦除迭代器<code>it</code>指向的元素。返回指向擦除元素之后一个元素的迭代器。</p>
 <p>test.cpp文件如下：</p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span>
-<span class="kw">using</span> <span class="kw">namespace</span> Rcpp;
-
-<span class="co">// [[Rcpp::export]]</span>
-<span class="dt">double</span> test(NumericVector v) {
-  NumericVector::iterator it = v.erase(v.begin());
-  <span class="cf">return</span> *it;
-}</code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb58-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
+<a class="sourceLine" id="cb58-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
+<a class="sourceLine" id="cb58-3" title="3"></a>
+<a class="sourceLine" id="cb58-4" title="4"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb58-5" title="5"><span class="dt">double</span> test(NumericVector v) {</a>
+<a class="sourceLine" id="cb58-6" title="6">  NumericVector::iterator it = v.erase(v.begin());</a>
+<a class="sourceLine" id="cb58-7" title="7">  <span class="cf">return</span> *it;</a>
+<a class="sourceLine" id="cb58-8" title="8">}</a></code></pre></div>
 <p>R运行结果如下:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&quot;test.cpp&quot;</span>)
-
-<span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)
-[<span class="dv">1</span>] <span class="dv">2</span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&quot;test.cpp&quot;</span>)</a>
+<a class="sourceLine" id="cb59-2" title="2"></a>
+<a class="sourceLine" id="cb59-3" title="3"><span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb59-4" title="4">[<span class="dv">1</span>] <span class="dv">2</span></a></code></pre></div>
 </div>
 <div id="erase-first-lasti" class="section level3">
 <h3><span class="header-section-number">8.3.20</span> erase( first_i, last_i )</h3>
 <p>擦除数值索引<code>first_i</code>至<code>last_i - 1</code>之间的所有元素。返回指向擦除元素之后一个元素的迭代器。</p>
 <p>test.cpp文件如下：</p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span>
-<span class="kw">using</span> <span class="kw">namespace</span> Rcpp;
-
-<span class="co">// [[Rcpp::export]]</span>
-<span class="dt">double</span> test(NumericVector v) {
-  NumericVector::iterator it = v.erase(<span class="dv">0</span>,<span class="dv">3</span>);
-  <span class="cf">return</span> *it;
-}</code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb60-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
+<a class="sourceLine" id="cb60-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
+<a class="sourceLine" id="cb60-3" title="3"></a>
+<a class="sourceLine" id="cb60-4" title="4"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb60-5" title="5"><span class="dt">double</span> test(NumericVector v) {</a>
+<a class="sourceLine" id="cb60-6" title="6">  NumericVector::iterator it = v.erase(<span class="dv">0</span>,<span class="dv">3</span>);</a>
+<a class="sourceLine" id="cb60-7" title="7">  <span class="cf">return</span> *it;</a>
+<a class="sourceLine" id="cb60-8" title="8">}</a></code></pre></div>
 <p>R运行结果如下:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&quot;test.cpp&quot;</span>)
-
-<span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)
-[<span class="dv">1</span>] <span class="dv">4</span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&quot;test.cpp&quot;</span>)</a>
+<a class="sourceLine" id="cb61-2" title="2"></a>
+<a class="sourceLine" id="cb61-3" title="3"><span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb61-4" title="4">[<span class="dv">1</span>] <span class="dv">4</span></a></code></pre></div>
 <p>由于擦除的是索引0和3-1，即，第1个元素至第3个元素被擦除，返回的是对应原本第四个元素的迭代器，*it为4，也印证了结果。</p>
 </div>
 <div id="erase-first-lastit" class="section level3">
 <h3><span class="header-section-number">8.3.21</span> erase( first_it, last_it )</h3>
 <p>擦除迭代器<code>first_it</code>至<code>last_it - 1</code>之间的所有元素。返回指向擦除元素之后一个元素的迭代器。</p>
 <p>test.cpp文件如下：</p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span>
-<span class="kw">using</span> <span class="kw">namespace</span> Rcpp;
-
-<span class="co">// [[Rcpp::export]]</span>
-<span class="dt">double</span> test(NumericVector v) {
-  NumericVector::iterator it = v.erase(v.begin(),v.end());
-  <span class="cf">return</span> *it;
-}</code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb62-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
+<a class="sourceLine" id="cb62-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
+<a class="sourceLine" id="cb62-3" title="3"></a>
+<a class="sourceLine" id="cb62-4" title="4"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb62-5" title="5"><span class="dt">double</span> test(NumericVector v) {</a>
+<a class="sourceLine" id="cb62-6" title="6">  NumericVector::iterator it = v.erase(v.begin(),v.end());</a>
+<a class="sourceLine" id="cb62-7" title="7">  <span class="cf">return</span> *it;</a>
+<a class="sourceLine" id="cb62-8" title="8">}</a></code></pre></div>
 <p>R运行结果如下:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&quot;test.cpp&quot;</span>)
-
-<span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)
-[<span class="dv">1</span>] <span class="dv">5</span></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&quot;test.cpp&quot;</span>)</a>
+<a class="sourceLine" id="cb63-2" title="2"></a>
+<a class="sourceLine" id="cb63-3" title="3"><span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb63-4" title="4">[<span class="dv">1</span>] <span class="dv">5</span></a></code></pre></div>
 </div>
 <div id="containsEN" class="section level3">
 <h3><span class="header-section-number">8.3.22</span> containsElementNamed(name)</h3>
 <p>如果向量包含有某一个元素，其名称与字符串name相同，那么返回<code>true</code>。</p>
 <p>test.cpp文件如下：</p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span>
-<span class="kw">using</span> <span class="kw">namespace</span> Rcpp;
-
-<span class="co">// [[Rcpp::export]]</span>
-<span class="dt">bool</span> test(NumericVector v) {
-    <span class="cf">if</span>(v.containsElementNamed(<span class="st">&quot;b&quot;</span>)){
-        Rcout &lt;&lt;<span class="st">&quot;name is included&quot;</span> &lt;&lt; <span class="st">&#39;</span><span class="sc">\n</span><span class="st">&#39;</span>;
-    }<span class="cf">else</span>{
-        Rcout &lt;&lt;<span class="st">&quot;name is not included&quot;</span> &lt;&lt; <span class="st">&#39;</span><span class="sc">\n</span><span class="st">&#39;</span>;
-    }
-  <span class="cf">return</span> v.containsElementNamed(<span class="st">&quot;b&quot;</span>);
-}</code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb64-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
+<a class="sourceLine" id="cb64-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
+<a class="sourceLine" id="cb64-3" title="3"></a>
+<a class="sourceLine" id="cb64-4" title="4"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb64-5" title="5"><span class="dt">bool</span> test(NumericVector v) {</a>
+<a class="sourceLine" id="cb64-6" title="6">    <span class="cf">if</span>(v.containsElementNamed(<span class="st">&quot;b&quot;</span>)){</a>
+<a class="sourceLine" id="cb64-7" title="7">        Rcout &lt;&lt;<span class="st">&quot;name is included&quot;</span> &lt;&lt; <span class="ch">&#39;</span><span class="sc">\n</span><span class="ch">&#39;</span>;</a>
+<a class="sourceLine" id="cb64-8" title="8">    }<span class="cf">else</span>{</a>
+<a class="sourceLine" id="cb64-9" title="9">        Rcout &lt;&lt;<span class="st">&quot;name is not included&quot;</span> &lt;&lt; <span class="ch">&#39;</span><span class="sc">\n</span><span class="ch">&#39;</span>;</a>
+<a class="sourceLine" id="cb64-10" title="10">    }</a>
+<a class="sourceLine" id="cb64-11" title="11">  <span class="cf">return</span> v.containsElementNamed(<span class="st">&quot;b&quot;</span>);</a>
+<a class="sourceLine" id="cb64-12" title="12">}</a></code></pre></div>
 <p>R运行结果如下:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&quot;test.cpp&quot;</span>)
-
-<span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="kw">c</span>(<span class="dt">a =</span> <span class="dv">1</span>, <span class="dt">b =</span> <span class="dv">2</span>, <span class="dt">c =</span> <span class="dv">3</span>))
-name is included
-[<span class="dv">1</span>] <span class="ot">TRUE</span></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&quot;test.cpp&quot;</span>)</a>
+<a class="sourceLine" id="cb65-2" title="2"></a>
+<a class="sourceLine" id="cb65-3" title="3"><span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="kw">c</span>(<span class="dt">a =</span> <span class="dv">1</span>, <span class="dt">b =</span> <span class="dv">2</span>, <span class="dt">c =</span> <span class="dv">3</span>))</a>
+<a class="sourceLine" id="cb65-4" title="4">name is included</a>
+<a class="sourceLine" id="cb65-5" title="5">[<span class="dv">1</span>] <span class="ot">TRUE</span></a></code></pre></div>
 </div>
 </div>
 <div id="Static-member-functions" class="section level2">
@@ -731,97 +781,97 @@ name is included
 <h3><span class="header-section-number">8.4.1</span> get_na()</h3>
 <p>返回<code>Vector</code>类中的<code>NA</code>值。</p>
 <p>test.cpp文件如下：</p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span>
-<span class="kw">using</span> <span class="kw">namespace</span> Rcpp;
-
-<span class="co">// [[Rcpp::export]]</span>
-NumericVector test(NumericVector v) {
-  v.fill(NumericVector::get_na());
-  <span class="cf">return</span> v;
-}</code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb66-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
+<a class="sourceLine" id="cb66-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
+<a class="sourceLine" id="cb66-3" title="3"></a>
+<a class="sourceLine" id="cb66-4" title="4"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb66-5" title="5">NumericVector test(NumericVector v) {</a>
+<a class="sourceLine" id="cb66-6" title="6">  v.fill(NumericVector::get_na());</a>
+<a class="sourceLine" id="cb66-7" title="7">  <span class="cf">return</span> v;</a>
+<a class="sourceLine" id="cb66-8" title="8">}</a></code></pre></div>
 <p>R运行结果如下:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&quot;test.cpp&quot;</span>)
-
-<span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)
-[<span class="dv">1</span>] <span class="ot">NA</span> <span class="ot">NA</span> <span class="ot">NA</span> <span class="ot">NA</span> <span class="ot">NA</span></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&quot;test.cpp&quot;</span>)</a>
+<a class="sourceLine" id="cb67-2" title="2"></a>
+<a class="sourceLine" id="cb67-3" title="3"><span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb67-4" title="4">[<span class="dv">1</span>] <span class="ot">NA</span> <span class="ot">NA</span> <span class="ot">NA</span> <span class="ot">NA</span> <span class="ot">NA</span></a></code></pre></div>
 <p>该例子有参考stackoverflow上的答案，详情点击<a href="https://stackoverflow.com/questions/23748572/initializing-a-matrix-to-na-in-rcpp">传送门</a>。</p>
 </div>
 <div id="is_na" class="section level3">
 <h3><span class="header-section-number">8.4.2</span> is_na(x)</h3>
 <p>如果<code>x</code>为<code>NA</code>，则返回<code>true</code>。</p>
 <p>test.cpp文件如下：</p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span>
-<span class="kw">using</span> <span class="kw">namespace</span> Rcpp;
-
-<span class="co">// [[Rcpp::export]]</span>
-<span class="dt">bool</span> test(NumericVector v,<span class="dt">int</span> id) {
-  <span class="cf">return</span> NumericVector::is_na(v(id));
-}</code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb68-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
+<a class="sourceLine" id="cb68-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
+<a class="sourceLine" id="cb68-3" title="3"></a>
+<a class="sourceLine" id="cb68-4" title="4"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb68-5" title="5"><span class="dt">bool</span> test(NumericVector v,<span class="dt">int</span> id) {</a>
+<a class="sourceLine" id="cb68-6" title="6">  <span class="cf">return</span> NumericVector::is_na(v(id));</a>
+<a class="sourceLine" id="cb68-7" title="7">}</a></code></pre></div>
 <p>R运行结果如下:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&quot;test.cpp&quot;</span>)
-
-<span class="op">&gt;</span><span class="st">   </span><span class="kw">test</span>(<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>,<span class="ot">NA</span>,<span class="dv">5</span>),<span class="dv">3</span>)
-[<span class="dv">1</span>] <span class="ot">TRUE</span></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&quot;test.cpp&quot;</span>)</a>
+<a class="sourceLine" id="cb69-2" title="2"></a>
+<a class="sourceLine" id="cb69-3" title="3"><span class="op">&gt;</span><span class="st">   </span><span class="kw">test</span>(<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>,<span class="ot">NA</span>,<span class="dv">5</span>),<span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb69-4" title="4">[<span class="dv">1</span>] <span class="ot">TRUE</span></a></code></pre></div>
 </div>
 <div id="create" class="section level3">
 <h3><span class="header-section-number">8.4.3</span> create( x1, x2, …)</h3>
 <p>创建一个<code>Vector</code>对象，其包含的元素由标量<code>x1</code>，<code>x2</code>指定。参数最大个数为20。</p>
 <p>可以命名元素或不命名，例子如下:</p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span>
-<span class="kw">using</span> <span class="kw">namespace</span> Rcpp;
-
-<span class="co">// [[Rcpp::export]]</span>
-NumericVector test() {
-  
-  NumericVector v = NumericVector::create(_[<span class="st">&quot;a&quot;</span>] = <span class="dv">1</span>,_[<span class="st">&quot;b&quot;</span>] = <span class="dv">2</span>,_[<span class="st">&quot;c&quot;</span>] = <span class="dv">3</span>,_[<span class="st">&quot;d&quot;</span>] = <span class="dv">4</span>);
-    <span class="co">//NumericVector v = NumericVector::create(1,2,3,4);</span>
-  <span class="cf">return</span> v;
-}</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&quot;test.cpp&quot;</span>)
-
-<span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>()
-a b c d 
-<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> 
-<span class="op">&gt;</span><span class="st"> </span></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb70-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
+<a class="sourceLine" id="cb70-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
+<a class="sourceLine" id="cb70-3" title="3"></a>
+<a class="sourceLine" id="cb70-4" title="4"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb70-5" title="5">NumericVector test() {</a>
+<a class="sourceLine" id="cb70-6" title="6">  </a>
+<a class="sourceLine" id="cb70-7" title="7">  NumericVector v = NumericVector::create(_[<span class="st">&quot;a&quot;</span>] = <span class="dv">1</span>,_[<span class="st">&quot;b&quot;</span>] = <span class="dv">2</span>,_[<span class="st">&quot;c&quot;</span>] = <span class="dv">3</span>,_[<span class="st">&quot;d&quot;</span>] = <span class="dv">4</span>);</a>
+<a class="sourceLine" id="cb70-8" title="8">    <span class="co">//NumericVector v = NumericVector::create(1,2,3,4);</span></a>
+<a class="sourceLine" id="cb70-9" title="9">  <span class="cf">return</span> v;</a>
+<a class="sourceLine" id="cb70-10" title="10">}</a></code></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&quot;test.cpp&quot;</span>)</a>
+<a class="sourceLine" id="cb71-2" title="2"></a>
+<a class="sourceLine" id="cb71-3" title="3"><span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>()</a>
+<a class="sourceLine" id="cb71-4" title="4">a b c d </a>
+<a class="sourceLine" id="cb71-5" title="5"><span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> </a>
+<a class="sourceLine" id="cb71-6" title="6"><span class="op">&gt;</span><span class="st"> </span></a></code></pre></div>
 </div>
 <div id="import" class="section level3">
 <h3><span class="header-section-number">8.4.4</span> import( first_it , last_it )</h3>
 <p>创建一个<code>Vector</code>对象，其元素由迭代器<code>first_it</code> 至 <code>last_it - 1</code>指定。</p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span>
-<span class="kw">using</span> <span class="kw">namespace</span> Rcpp;
-
-<span class="co">// [[Rcpp::export]]</span>
-NumericVector test(NumericVector v) {
-    NumericVector v1 = NumericVector::import(v.begin(),v.end());
-  <span class="cf">return</span> v1;
-}</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&quot;test.cpp&quot;</span>)
-
-<span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)
-[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span></code></pre></div>
+<div class="sourceCode" id="cb72"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb72-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
+<a class="sourceLine" id="cb72-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
+<a class="sourceLine" id="cb72-3" title="3"></a>
+<a class="sourceLine" id="cb72-4" title="4"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb72-5" title="5">NumericVector test(NumericVector v) {</a>
+<a class="sourceLine" id="cb72-6" title="6">    NumericVector v1 = NumericVector::import(v.begin(),v.end());</a>
+<a class="sourceLine" id="cb72-7" title="7">  <span class="cf">return</span> v1;</a>
+<a class="sourceLine" id="cb72-8" title="8">}</a></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&quot;test.cpp&quot;</span>)</a>
+<a class="sourceLine" id="cb73-2" title="2"></a>
+<a class="sourceLine" id="cb73-3" title="3"><span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb73-4" title="4">[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span></a></code></pre></div>
 </div>
 <div id="import_transform" class="section level3">
 <h3><span class="header-section-number">8.4.5</span> import_transform( first_it, last_it, func)</h3>
 <p>在<code>import( first_it , last_it )</code>的基础上，对于每一个迭代器范围内的元素，进行<code>func</code>函数的操作。类似于<code>apply()</code>函数族。</p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span>
-<span class="kw">using</span> <span class="kw">namespace</span> Rcpp;
-
-<span class="co">//构建mypow2函数，求取元素平方</span>
-
-<span class="co">// [[Rcpp::export]]</span>
-<span class="dt">double</span> mypow2(<span class="dt">double</span> x) {
-  <span class="cf">return</span> x*x;
-}
-
-<span class="co">// [[Rcpp::export]]</span>
-NumericVector test(NumericVector v) {
-    NumericVector v1 = NumericVector::import_transform(v.begin(),v.end(),mypow2);
-  <span class="cf">return</span> v1;
-}</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&quot;test.cpp&quot;</span>)
-
-<span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)
-[<span class="dv">1</span>]  <span class="dv">1</span>  <span class="dv">4</span>  <span class="dv">9</span> <span class="dv">16</span> <span class="dv">25</span></code></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb74-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
+<a class="sourceLine" id="cb74-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
+<a class="sourceLine" id="cb74-3" title="3"></a>
+<a class="sourceLine" id="cb74-4" title="4"><span class="co">//构建mypow2函数，求取元素平方</span></a>
+<a class="sourceLine" id="cb74-5" title="5"></a>
+<a class="sourceLine" id="cb74-6" title="6"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb74-7" title="7"><span class="dt">double</span> mypow2(<span class="dt">double</span> x) {</a>
+<a class="sourceLine" id="cb74-8" title="8">  <span class="cf">return</span> x*x;</a>
+<a class="sourceLine" id="cb74-9" title="9">}</a>
+<a class="sourceLine" id="cb74-10" title="10"></a>
+<a class="sourceLine" id="cb74-11" title="11"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb74-12" title="12">NumericVector test(NumericVector v) {</a>
+<a class="sourceLine" id="cb74-13" title="13">    NumericVector v1 = NumericVector::import_transform(v.begin(),v.end(),mypow2);</a>
+<a class="sourceLine" id="cb74-14" title="14">  <span class="cf">return</span> v1;</a>
+<a class="sourceLine" id="cb74-15" title="15">}</a></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb75-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&quot;test.cpp&quot;</span>)</a>
+<a class="sourceLine" id="cb75-2" title="2"></a>
+<a class="sourceLine" id="cb75-3" title="3"><span class="op">&gt;</span><span class="st"> </span><span class="kw">test</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb75-4" title="4">[<span class="dv">1</span>]  <span class="dv">1</span>  <span class="dv">4</span>  <span class="dv">9</span> <span class="dv">16</span> <span class="dv">25</span></a></code></pre></div>
 
 </div>
 </div>

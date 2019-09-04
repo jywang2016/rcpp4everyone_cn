@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>参考文献 | 老少咸宜Rcpp</title>
+  <title>翻译的初衷 | 老少咸宜Rcpp</title>
   <meta name="description" content="R用户入门Rcpp" />
   <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="参考文献 | 老少咸宜Rcpp" />
+  <meta property="og:title" content="翻译的初衷 | 老少咸宜Rcpp" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="jywang2016/rcpp4everyone_cn" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="参考文献 | 老少咸宜Rcpp" />
+  <meta name="twitter:title" content="翻译的初衷 | 老少咸宜Rcpp" />
   
   <meta name="twitter:description" content="R用户入门Rcpp" />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="DataFrame.html">
-
+<link rel="prev" href="section-1.html">
+<link rel="next" href="author.html">
 <script src="libs/jquery/jquery.min.js"></script>
 <link href="libs/gitbook/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
@@ -289,25 +289,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="references" class="section level1 unnumbered">
-<h1>参考文献</h1>
+<div id="section-2" class="section level1 unnumbered">
+<h1>翻译的初衷</h1>
+<p>由于研究需要，我在尝试使用C++来实现一些数值算法，求解优化问题。在倒腾Rmarkdown主题美化的时候，关注了<a href="https://github.com/yixuan/prettydoc">prettydoc</a>。巧的是，在作者yihuan(后面发现也是给<code>Rcpp:R与C++的无缝整合</code>写序的大佬)的<a href="https://github.com/yixuan">github</a>上，看到了很多相关的工作，比如优化和数值积分，<code>Readme</code>上我看到的都是<code>fast</code>和<code>c++</code>俩词。因此，开始学习<a href="RcppCore/Rcpp">Rcpp</a>。</p>
+<p><code>Rcpp:R与C++的无缝整合</code>是我见到的第一份完备的Rcpp资料。拿到中文书籍的那一刻，爱不释手，然而读了一遍，大半内容我都是云里雾里。因此只能搁置。于是，算法只能用R写，速度慢也只能认了。后来在一些嵌入式系统上写了一段时间c，回头再看书，内容渐渐明了起来。我这才意识到，此前是我没有达到看书的门槛。</p>
+<p>Hadley Wickham在<a href="https://adv-r.hadley.nz/">Advanced R</a>中的前言谈到，很多R用户并不是程序员，且R用户追求的是解决问题，而不在意该过程。相信同我一样，很多R用户，其他语言背景（尤其是C/C++）很薄弱。这也意味着，以C++的角度来学Rcpp，会阻挡一部分的R用户迈入Rcpp。</p>
+<p><a href="rcpp4everyone_en">Rcpp for everyone</a>一书对这个问题给出了自己的答案。<strong>This document focuses on providing necessary information to users who are not familiar with C++. Therefore, in some cases, I explain usage of Rcpp conceptually rather than describing accurately from the viewpoint of C++, so that I hope readers can easily understand it.</strong> 与其设想的描述方式一致，本书的内容偏重于从Rcpp的角度来讲问题，较少涉及到C++的知识。这在保证用户理解的情况下，又能让用户以一种R语言的风格，来写Rcpp代码。在我看来，这可能是对C/C++了解不多的R用户，最简明的Rcpp入门教材。</p>
+<p>最后，<code>Rcpp for everyone ==&gt;&gt; Advanced R Rcpp部分 ==&gt;&gt; Rcpp:R与C++的无缝整合</code>应该是我目前能发现的最平滑的Rcpp学习路线。希望本书的中文翻译能对更近一步地降低Rcpp的学习门槛，对大家的学习科研有所帮助。</p>
 
-<div id="refs" class="references">
-<div>
-<p>Xie, Yihui. 2015. <em>Dynamic Documents with R and Knitr</em>. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC. <a href="http://yihui.name/knitr/">http://yihui.name/knitr/</a>.</p>
-</div>
-<div>
-<p>———. 2019. <em>Bookdown: Authoring Books and Technical Documents with R Markdown</em>. <a href="https://CRAN.R-project.org/package=bookdown">https://CRAN.R-project.org/package=bookdown</a>.</p>
-</div>
-</div>
+<p class="flushright">
+jywang<br />
+二零一九年八月
+</p>
+
+
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="DataFrame.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="section-1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="author.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook/js/app.min.js"></script>

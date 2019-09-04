@@ -24,7 +24,7 @@
 <meta name="author" content="Masaki E. Tsuda 著 jywang 译" />
 
 
-<meta name="date" content="2019-08-19" />
+<meta name="date" content="2019-09-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -50,41 +50,66 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="css\style.css" type="text/css" />
@@ -104,8 +129,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>欢迎</a></li>
-<li class="chapter" data-level="" data-path="e69cace4b9a6e7bc96e8af91e78eafe5a283.html"><a href="e69cace4b9a6e7bc96e8af91e78eafe5a283.html"><i class="fa fa-check"></i>本书编译环境</a></li>
-<li class="chapter" data-level="" data-path="e7bfbbe8af91e79a84e5889de8a1b7.html"><a href="e7bfbbe8af91e79a84e5889de8a1b7.html"><i class="fa fa-check"></i>翻译的初衷</a></li>
+<li class="chapter" data-level="" data-path="section-1.html"><a href="section-1.html"><i class="fa fa-check"></i>本书编译环境</a></li>
+<li class="chapter" data-level="" data-path="section-2.html"><a href="section-2.html"><i class="fa fa-check"></i>翻译的初衷</a></li>
 <li class="chapter" data-level="" data-path="author.html"><a href="author.html"><i class="fa fa-check"></i>作者简介</a></li>
 <li class="chapter" data-level="1" data-path="situations.html"><a href="situations.html"><i class="fa fa-check"></i><b>1</b> 适用Rcpp的情况</a></li>
 <li class="chapter" data-level="2" data-path="install.html"><a href="install.html"><i class="fa fa-check"></i><b>2</b> 安装</a><ul>
@@ -113,7 +138,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2.1.1" data-path="install.html"><a href="install.html#cppcwindows"><i class="fa fa-check"></i><b>2.1.1</b> Windows</a></li>
 <li class="chapter" data-level="2.1.2" data-path="install.html"><a href="install.html#cppmac"><i class="fa fa-check"></i><b>2.1.2</b> Mac</a></li>
 <li class="chapter" data-level="2.1.3" data-path="install.html"><a href="install.html#cpplinux"><i class="fa fa-check"></i><b>2.1.3</b> Linux</a></li>
-<li class="chapter" data-level="2.1.4" data-path="install.html"><a href="install.html#section-2.1.4"><i class="fa fa-check"></i><b>2.1.4</b> 使用其他编译器</a></li>
+<li class="chapter" data-level="2.1.4" data-path="install.html"><a href="install.html#section-3"><i class="fa fa-check"></i><b>2.1.4</b> 使用其他编译器</a></li>
 </ul></li>
 <li class="chapter" data-level="2.2" data-path="install.html"><a href="install.html#Rcppinstallation"><i class="fa fa-check"></i><b>2.2</b> 安装Rcpp</a></li>
 </ul></li>
@@ -157,7 +182,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.3.4" data-path="vector.html"><a href="vector.html#offseti"><i class="fa fa-check"></i><b>8.3.4</b> offset( i )</a></li>
 <li class="chapter" data-level="8.3.5" data-path="vector.html"><a href="vector.html#fillx"><i class="fa fa-check"></i><b>8.3.5</b> fill( x )</a></li>
 <li class="chapter" data-level="8.3.6" data-path="vector.html"><a href="vector.html#sort"><i class="fa fa-check"></i><b>8.3.6</b> sort()</a></li>
-<li class="chapter" data-level="8.3.7" data-path="vector.html"><a href="vector.html#assign-first_it-last_it"><i class="fa fa-check"></i><b>8.3.7</b> assign( first_it, last_it )</a></li>
+<li class="chapter" data-level="8.3.7" data-path="vector.html"><a href="vector.html#vector-assign"><i class="fa fa-check"></i><b>8.3.7</b> assign( first_it, last_it )</a></li>
 <li class="chapter" data-level="8.3.8" data-path="vector.html"><a href="vector.html#push-backx"><i class="fa fa-check"></i><b>8.3.8</b> push_back( x )</a></li>
 <li class="chapter" data-level="8.3.9" data-path="vector.html"><a href="vector.html#push-back-name"><i class="fa fa-check"></i><b>8.3.9</b> push_back( x, name )</a></li>
 <li class="chapter" data-level="8.3.10" data-path="vector.html"><a href="vector.html#push-front-x"><i class="fa fa-check"></i><b>8.3.10</b> push_front( x )</a></li>
@@ -219,6 +244,30 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="11.4" data-path="Logical-operations.html"><a href="Logical-operations.html#Evaluation-LogicalVector"><i class="fa fa-check"></i><b>11.4</b> LogicalVector元素的估值</a></li>
 </ul></li>
+<li class="chapter" data-level="12" data-path="DataFrame.html"><a href="DataFrame.html"><i class="fa fa-check"></i><b>12</b> 数据框</a><ul>
+<li class="chapter" data-level="12.1" data-path="DataFrame.html"><a href="DataFrame.html#Creating-DF"><i class="fa fa-check"></i><b>12.1</b> 创建数据框对象</a></li>
+<li class="chapter" data-level="12.2" data-path="DataFrame.html"><a href="DataFrame.html#Accessing-DataFrame-elements"><i class="fa fa-check"></i><b>12.2</b> 访问数据框元素</a></li>
+<li class="chapter" data-level="12.3" data-path="DataFrame.html"><a href="DataFrame.html#DF-Member-functions"><i class="fa fa-check"></i><b>12.3</b> 成员函数</a><ul>
+<li class="chapter" data-level="12.3.1" data-path="DataFrame.html"><a href="DataFrame.html#DF-length"><i class="fa fa-check"></i><b>12.3.1</b> length() size()</a></li>
+<li class="chapter" data-level="12.3.2" data-path="DataFrame.html"><a href="DataFrame.html#DF-nrows"><i class="fa fa-check"></i><b>12.3.2</b> nrows()</a></li>
+<li class="chapter" data-level="12.3.3" data-path="DataFrame.html"><a href="DataFrame.html#DF-names"><i class="fa fa-check"></i><b>12.3.3</b> names()</a></li>
+<li class="chapter" data-level="12.3.4" data-path="DataFrame.html"><a href="DataFrame.html#DF-offset-findName"><i class="fa fa-check"></i><b>12.3.4</b> offset(name) findName(name)</a></li>
+<li class="chapter" data-level="12.3.5" data-path="DataFrame.html"><a href="DataFrame.html#DF-fill"><i class="fa fa-check"></i><b>12.3.5</b> fill(v)</a></li>
+<li class="chapter" data-level="12.3.6" data-path="DataFrame.html"><a href="DataFrame.html#DF-assign"><i class="fa fa-check"></i><b>12.3.6</b> assign( first_it, last_it)</a></li>
+<li class="chapter" data-level="12.3.7" data-path="DataFrame.html"><a href="DataFrame.html#DF-push-back"><i class="fa fa-check"></i><b>12.3.7</b> push_back(v)</a></li>
+<li class="chapter" data-level="12.3.8" data-path="DataFrame.html"><a href="DataFrame.html#DF-push-back-name"><i class="fa fa-check"></i><b>12.3.8</b> push_back( v, name )</a></li>
+<li class="chapter" data-level="12.3.9" data-path="DataFrame.html"><a href="DataFrame.html#DF-push-front"><i class="fa fa-check"></i><b>12.3.9</b> push_front(x)</a></li>
+<li class="chapter" data-level="12.3.10" data-path="DataFrame.html"><a href="DataFrame.html#DF-push-front-name"><i class="fa fa-check"></i><b>12.3.10</b> push_front( x, name )</a></li>
+<li class="chapter" data-level="12.3.11" data-path="DataFrame.html"><a href="DataFrame.html#DF-begin"><i class="fa fa-check"></i><b>12.3.11</b> begin()</a></li>
+<li class="chapter" data-level="12.3.12" data-path="DataFrame.html"><a href="DataFrame.html#DF-end"><i class="fa fa-check"></i><b>12.3.12</b> end()</a></li>
+<li class="chapter" data-level="12.3.13" data-path="DataFrame.html"><a href="DataFrame.html#DF-insert"><i class="fa fa-check"></i><b>12.3.13</b> insert( it, v )</a></li>
+<li class="chapter" data-level="12.3.14" data-path="DataFrame.html"><a href="DataFrame.html#DF-erase"><i class="fa fa-check"></i><b>12.3.14</b> erase(i)</a></li>
+<li class="chapter" data-level="12.3.15" data-path="DataFrame.html"><a href="DataFrame.html#DF-erase-it"><i class="fa fa-check"></i><b>12.3.15</b> erase(it)</a></li>
+<li class="chapter" data-level="12.3.16" data-path="DataFrame.html"><a href="DataFrame.html#DF-erase-first-last-it"><i class="fa fa-check"></i><b>12.3.16</b> erase(first_it, last_it)</a></li>
+<li class="chapter" data-level="12.3.17" data-path="DataFrame.html"><a href="DataFrame.html#DF-containsElementNamed-name"><i class="fa fa-check"></i><b>12.3.17</b> containsElementNamed(name)</a></li>
+<li class="chapter" data-level="12.3.18" data-path="DataFrame.html"><a href="DataFrame.html#DF-inherits"><i class="fa fa-check"></i><b>12.3.18</b> inherits(str)</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>参考文献</a></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="blank">Powered by bookdown</a></li>
@@ -247,42 +296,42 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="enable" class="section level2">
 <h2><span class="header-section-number">5.1</span> 开启C++11</h2>
 <p>为了开启C++11，在你的Rcpp代码中任意一处加入下面的代码。</p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">// [[Rcpp::plugins(&quot;cpp11&quot;)]]</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb12-1" title="1"><span class="co">// [[Rcpp::plugins(&quot;cpp11&quot;)]]</span></a></code></pre></div>
 </div>
 <div id="recommend" class="section level2">
 <h2><span class="header-section-number">5.2</span> 推荐的 C++11 特性</h2>
 <div id="initializer" class="section level3">
 <h3><span class="header-section-number">5.2.1</span> 初始化</h3>
 <p>使用 <code>{}</code>来初始化变量.</p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">// 初始化向量</span>
-<span class="co">// 下面三行代码等同于R中的 c (1, 2, 3).</span>
-NumericVector v1 = NumericVector::create(<span class="fl">1.0</span>, <span class="fl">2.0</span>, <span class="fl">3.0</span>);
-NumericVector v2 = {<span class="fl">1.0</span>, <span class="fl">2.0</span>, <span class="fl">3.0</span>};
-NumericVector v3   {<span class="fl">1.0</span>, <span class="fl">2.0</span>, <span class="fl">3.0</span>}; <span class="co">// 你可以忽略 &quot;=&quot;.</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb13-1" title="1"><span class="co">// 初始化向量</span></a>
+<a class="sourceLine" id="cb13-2" title="2"><span class="co">// 下面三行代码等同于R中的 c (1, 2, 3).</span></a>
+<a class="sourceLine" id="cb13-3" title="3">NumericVector v1 = NumericVector::create(<span class="fl">1.0</span>, <span class="fl">2.0</span>, <span class="fl">3.0</span>);</a>
+<a class="sourceLine" id="cb13-4" title="4">NumericVector v2 = {<span class="fl">1.0</span>, <span class="fl">2.0</span>, <span class="fl">3.0</span>};</a>
+<a class="sourceLine" id="cb13-5" title="5">NumericVector v3   {<span class="fl">1.0</span>, <span class="fl">2.0</span>, <span class="fl">3.0</span>}; <span class="co">// 你可以忽略 &quot;=&quot;.</span></a></code></pre></div>
 </div>
 <div id="auto" class="section level3">
 <h3><span class="header-section-number">5.2.2</span> auto</h3>
 <p>使用<code>auto</code>关键字，根据赋值，来推断变量的类型</p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">// 变量 &quot;i&quot; 会是 int 型</span>
-<span class="kw">auto</span>  i  = <span class="dv">4</span>;
-NumericVector v;
-<span class="co">// 变量 &quot;it&quot; 会是 NumericVector::iterator </span>
-<span class="kw">auto</span> it = v.begin();</code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb14-1" title="1"><span class="co">// 变量 &quot;i&quot; 会是 int 型</span></a>
+<a class="sourceLine" id="cb14-2" title="2"><span class="kw">auto</span>  i  = <span class="dv">4</span>;</a>
+<a class="sourceLine" id="cb14-3" title="3">NumericVector v;</a>
+<a class="sourceLine" id="cb14-4" title="4"><span class="co">// 变量 &quot;it&quot; 会是 NumericVector::iterator </span></a>
+<a class="sourceLine" id="cb14-5" title="5"><span class="kw">auto</span> it = v.begin();</a></code></pre></div>
 </div>
 <div id="decltype" class="section level3">
 <h3><span class="header-section-number">5.2.3</span> decltype</h3>
 <p>通过使用 <code>decltype</code>，你能声明变量的类型与已存在的变量相同.</p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="dt">int</span> i;
-<span class="kw">decltype</span>(i) x; <span class="co">// 变量 &quot;x&quot; 会是 int 型</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb15-1" title="1"><span class="dt">int</span> i;</a>
+<a class="sourceLine" id="cb15-2" title="2"><span class="kw">decltype</span>(i) x; <span class="co">// 变量 &quot;x&quot; 会是 int 型</span></a></code></pre></div>
 </div>
 <div id="rangefor" class="section level3">
 <h3><span class="header-section-number">5.2.4</span> 基于范围的for循环</h3>
 <p>能用一种比较R风格的方式来写for循环。</p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp">IntegerVector v{<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>};
-<span class="dt">int</span> sum=<span class="dv">0</span>;
-<span class="cf">for</span>(<span class="kw">auto</span>&amp; x : v) {
-  sum += x;
-}</code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb16-1" title="1">IntegerVector v{<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>};</a>
+<a class="sourceLine" id="cb16-2" title="2"><span class="dt">int</span> sum=<span class="dv">0</span>;</a>
+<a class="sourceLine" id="cb16-3" title="3"><span class="cf">for</span>(<span class="kw">auto</span>&amp; x : v) {</a>
+<a class="sourceLine" id="cb16-4" title="4">  sum += x;</a>
+<a class="sourceLine" id="cb16-5" title="5">}</a></code></pre></div>
 </div>
 <div id="Lambda" class="section level3">
 <h3><span class="header-section-number">5.2.5</span> Lambda 表达式</h3>
@@ -299,25 +348,26 @@ NumericVector v;
 <p>在<code>{}</code>中，写想做的操作.</p>
 <p><strong>lambda 表达式的返回类型</strong></p>
 <p>函数对象的返回类型会被自动地设定为<code>{}</code>操作中返回值的类型。如果你希望显式定义返回类型，可以按照<code>[]()-&gt;int{}</code>的方式。</p>
-<p><strong>例子</strong> 下面的例子展示了如何使用lambda表达式。可以按照R的风格来写某些类型的C++代码。</p>
+<p><strong>例子</strong>
+下面的例子展示了如何使用lambda表达式。可以按照R的风格来写某些类型的C++代码。</p>
 <p><em>R 例子</em></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">v &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>)
-A &lt;-<span class="st"> </span><span class="fl">2.0</span>
-res &lt;-
-<span class="st">  </span><span class="kw">sapply</span>(v, <span class="cf">function</span>(x){A<span class="op">*</span>x})</code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1">v &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb17-2" title="2">A &lt;-<span class="st"> </span><span class="fl">2.0</span></a>
+<a class="sourceLine" id="cb17-3" title="3">res &lt;-</a>
+<a class="sourceLine" id="cb17-4" title="4"><span class="st">  </span><span class="kw">sapply</span>(v, <span class="cf">function</span>(x){A<span class="op">*</span>x})</a></code></pre></div>
 <blockquote>
 <p>译者：上面的sapply函数，将function(x){A*x}作用于v中的每个元素。这是很典型的向量化编程，可以看apply函数族来对此有更深的了解。</p>
 </blockquote>
 <p><em>Rcpp 例子</em></p>
-<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span class="co">// [[Rcpp::plugins(&quot;cpp11&quot;)]] </span>
-<span class="co">// [[Rcpp::export]]</span>
-NumericVector rcpp_lambda_1(){
-  NumericVector v = {<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>};
-  <span class="dt">double</span> A = <span class="fl">2.0</span>;
-  NumericVector res =
-    sapply(v, [&amp;](<span class="dt">double</span> x){<span class="cf">return</span> A*x;});
-  <span class="cf">return</span> res;
-}</code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb18-1" title="1"><span class="co">// [[Rcpp::plugins(&quot;cpp11&quot;)]] </span></a>
+<a class="sourceLine" id="cb18-2" title="2"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb18-3" title="3">NumericVector rcpp_lambda_1(){</a>
+<a class="sourceLine" id="cb18-4" title="4">  NumericVector v = {<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>};</a>
+<a class="sourceLine" id="cb18-5" title="5">  <span class="dt">double</span> A = <span class="fl">2.0</span>;</a>
+<a class="sourceLine" id="cb18-6" title="6">  NumericVector res =</a>
+<a class="sourceLine" id="cb18-7" title="7">    sapply(v, [&amp;](<span class="dt">double</span> x){<span class="cf">return</span> A*x;});</a>
+<a class="sourceLine" id="cb18-8" title="8">  <span class="cf">return</span> res;</a>
+<a class="sourceLine" id="cb18-9" title="9">}</a></code></pre></div>
 <blockquote>
 <p>译者：上面代码中也使用sapply函数，将R中的function(x)(A*x) 用lambda表达式的方式替代。而sapply，则是吃到了Rcpp给我们提供的语法糖(sugar)。如果要对语法糖有更深的了解，可以阅读Rcpp:R与C++的无缝整合中的相关章节。</p>
 </blockquote>

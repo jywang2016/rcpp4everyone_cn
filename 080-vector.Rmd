@@ -231,7 +231,7 @@ NumericVector test(NumericVector v) {
 [1] 4 5 6 7 8
 ```
 
-### assign( first_it, last_it )
+### assign( first_it, last_it ){#vector-assign}
 
 assign values specified by the iterator `first_it` and `last_it` to this vector object.
 将迭代器`first_it`至`lates_it`所指向的元素赋给向量对象。
