@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>第 12 章 数据框 | 老少咸宜Rcpp</title>
+  <title>第 13 章 List | 老少咸宜Rcpp</title>
   <meta name="description" content="R用户入门Rcpp" />
   <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="第 12 章 数据框 | 老少咸宜Rcpp" />
+  <meta property="og:title" content="第 13 章 List | 老少咸宜Rcpp" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="jywang2016/rcpp4everyone_cn" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="第 12 章 数据框 | 老少咸宜Rcpp" />
+  <meta name="twitter:title" content="第 13 章 List | 老少咸宜Rcpp" />
   
   <meta name="twitter:description" content="R用户入门Rcpp" />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="Logical-operations.html">
-<link rel="next" href="List.html">
+<link rel="prev" href="DataFrame.html">
+<link rel="next" href="references.html">
 <script src="libs/jquery/jquery.min.js"></script>
 <link href="libs/gitbook/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
@@ -294,217 +294,64 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="DataFrame" class="section level1">
-<h1><span class="header-section-number">第 12 章</span> 数据框</h1>
-<p>本章主要讲述如何创建一个<code>DataFrame</code>对象，以及如何访问其元素，及其成员函数。在<code>Rcpp</code>中，<code>DataFrame</code>是按照一种向量的方式实施的。换言之，<code>Vector</code>是一种元素为标量的向量，而<code>DataFrame</code>是元素为具有相同长度的<code>Vector</code>的向量。因此，<code>Vector</code>和<code>DataFrame</code>在创建对象，访问元素和成员函数上，有很多相同的方法。</p>
-<div id="Creating-DF" class="section level2">
-<h2><span class="header-section-number">12.1</span> 创建数据框对象</h2>
-<p><code>DataFrame::create()</code>被用于创建<code>DataFrame</code>对象。使用<code>Named()</code> 或 <code>_[]</code>可以为数据框对象指定列名。</p>
-<div class="sourceCode" id="cb112"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb112-1" title="1"><span class="co">// 由 Vector v1, v2创建数据框</span></a>
-<a class="sourceLine" id="cb112-2" title="2">DataFrame df = DataFrame::create(v1, v2);</a>
-<a class="sourceLine" id="cb112-3" title="3"><span class="co">// 指定列名</span></a>
-<a class="sourceLine" id="cb112-4" title="4">DataFrame df = DataFrame::create( Named(<span class="st">&quot;V1&quot;</span>) = v1 , _[<span class="st">&quot;V2&quot;</span>] = v2 );</a></code></pre></div>
-<p>当用户使用<code>DataFrame::create()</code>来创建<code>DataFrame</code>时，原始的<code>Vector</code>元素不会被复制到数据框的列中，该列实际上是对原始<code>Vector</code>的“引用”(“reference”)。因此，改变原始<code>Vector</code>的值，也会改变数据框对应列的值。为了避免上述情况，在创建<code>DataFrame</code>的列时，我们可以使用<code>clone()</code>函数来复制<code>Vector</code>元素的值。</p>
-<p>通过下面的代码示例，可以看到使用<code>clone()</code>和不使用之间的区别。数据框<code>df</code>的两列<code>v1</code>和<code>v2</code>，分别是对<code>Vector</code> v的引用，以及复制。可以看到，如果改变<code>Vector</code> v，那么 v1会被改变，但是v2不受影响。</p>
-<div class="sourceCode" id="cb113"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb113-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
-<a class="sourceLine" id="cb113-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
-<a class="sourceLine" id="cb113-3" title="3"></a>
-<a class="sourceLine" id="cb113-4" title="4"><span class="co">// [[Rcpp::plugins(cpp11)]]</span></a>
-<a class="sourceLine" id="cb113-5" title="5"></a>
-<a class="sourceLine" id="cb113-6" title="6"><span class="co">// [[Rcpp::export]]</span></a>
-<a class="sourceLine" id="cb113-7" title="7">DataFrame rcpp_df(){</a>
-<a class="sourceLine" id="cb113-8" title="8">  <span class="co">// 创建向量v</span></a>
-<a class="sourceLine" id="cb113-9" title="9">  NumericVector v = {<span class="dv">1</span>,<span class="dv">2</span>};</a>
-<a class="sourceLine" id="cb113-10" title="10">  <span class="co">// 创建数据框df</span></a>
-<a class="sourceLine" id="cb113-11" title="11">  DataFrame df = DataFrame::create( Named(<span class="st">&quot;V1&quot;</span>) = v,         <span class="co">// simple assign</span></a>
-<a class="sourceLine" id="cb113-12" title="12">                                    Named(<span class="st">&quot;V2&quot;</span>) = clone(v)); <span class="co">// using clone()</span></a>
-<a class="sourceLine" id="cb113-13" title="13">  <span class="co">// 改变向量v</span></a>
-<a class="sourceLine" id="cb113-14" title="14">  v = v * <span class="dv">2</span>;</a>
-<a class="sourceLine" id="cb113-15" title="15">  <span class="cf">return</span> df;</a>
-<a class="sourceLine" id="cb113-16" title="16">}</a></code></pre></div>
+<div id="List" class="section level1">
+<h1><span class="header-section-number">第 13 章</span> List</h1>
+<p>本章将会讲述，如何创建<code>List</code>对象，如何访问其元素及其成员函数。在Rcpp中，<code>List</code>也是按照向量的方式实现的。换言之，<code>Vector</code>是元素为标量的向量，而<code>List</code>是元素可以为任意数据类型的向量。因此，<code>Vector</code>和<code>List</code>在创建对象，访问元素和成员函数上，有很多共同的方法。</p>
+<p>由于在<a href="DataFrame.html#DataFrame">12</a>章节中，描述的大量关于<code>Datafrmae</code>的内容，也适用于<code>List</code>，所以还请读者阅读该章节。</p>
+<div id="Creating-List-object" class="section level2">
+<h2><span class="header-section-number">13.1</span> 创建一个list对象</h2>
+<p>我们可以使用<code>List::create()</code>函数来创建一个<code>List</code>对象。此外，可以使用 <code>Named()</code> 函数或者是<code>_[]</code>来指定元素名称。</p>
+<div class="sourceCode" id="cb123"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb123-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
+<a class="sourceLine" id="cb123-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
+<a class="sourceLine" id="cb123-3" title="3"></a>
+<a class="sourceLine" id="cb123-4" title="4"><span class="co">// [[Rcpp::plugins(cpp11)]]</span></a>
+<a class="sourceLine" id="cb123-5" title="5"></a>
+<a class="sourceLine" id="cb123-6" title="6"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb123-7" title="7">List rcpp_list(){</a>
+<a class="sourceLine" id="cb123-8" title="8">  CharacterVector v1 = {<span class="st">&quot;Beavis&quot;</span>,<span class="st">&quot;Butt-head&quot;</span>};</a>
+<a class="sourceLine" id="cb123-9" title="9">  NumericVector v2 = {<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>};</a>
+<a class="sourceLine" id="cb123-10" title="10">  List L = List::create(_[<span class="st">&quot;name&quot;</span>] = v1,</a>
+<a class="sourceLine" id="cb123-11" title="11">                        _[<span class="st">&quot;value&quot;</span>] = v2);</a>
+<a class="sourceLine" id="cb123-12" title="12">  <span class="cf">return</span> L;</a>
+<a class="sourceLine" id="cb123-13" title="13">}</a></code></pre></div>
 <p>执行结果如下:</p>
-<pre><code>&gt; rcpp_df()
-  V1 V2
-1  2  1
-2  4  2</code></pre>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb124-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)</a>
+<a class="sourceLine" id="cb124-2" title="2"></a>
+<a class="sourceLine" id="cb124-3" title="3"><span class="op">&gt;</span><span class="st"> </span><span class="kw">rcpp_list</span>()</a>
+<a class="sourceLine" id="cb124-4" title="4"><span class="op">$</span>name</a>
+<a class="sourceLine" id="cb124-5" title="5">[<span class="dv">1</span>] <span class="st">&quot;beavis&quot;</span>    <span class="st">&quot;butt-head&quot;</span></a>
+<a class="sourceLine" id="cb124-6" title="6"></a>
+<a class="sourceLine" id="cb124-7" title="7"><span class="op">$</span>value</a>
+<a class="sourceLine" id="cb124-8" title="8">[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span></a></code></pre></div>
 </div>
-<div id="Accessing-DataFrame-elements" class="section level2">
-<h2><span class="header-section-number">12.2</span> 访问数据框元素</h2>
-<p>当我们想访问<code>DataFrame</code>的某一列时，这一列会被暂时地赋值到<code>Vector</code>对象上，然后通过该对象来访问。与<code>Vector</code>类似，<code>DataFrame</code>的列可以通过一个数值向量(某个列数)，一个字符串向量(某个列名)，或一个逻辑向量来指定。</p>
-<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb115-1" title="1">NumericVector v1 =<span class="st"> </span>df[<span class="dv">0</span>];</a>
-<a class="sourceLine" id="cb115-2" title="2">NumericVector v2 =<span class="st"> </span>df[<span class="st">&quot;V2&quot;</span>];</a></code></pre></div>
-<p>和<code>DataFrame</code> 的创建类似, 通过上面的方法，给一个<code>DataFrame</code> 列赋到<code>Vector</code> 不会把这个值赋值到 <code>Vector</code> 对象上, 但是会是一个对列的“reference”（引用）. 因此，当你改变<code>Vector</code> 对象的值时,该列的值也会被相应地改变。</p>
-<p>如果你希望，通过拷贝列值的方式来创建<code>Vector</code>，使用<code>clone()</code>函数，这样原始的<code>DataFrmae</code>列的值不会随着这个<code>Vector</code>的改变而改变。</p>
-<pre><code>NumericVector v1 = df[0]; // v1 成为&quot;reference&quot; df 0列的引用
-v1 = v1 * 2;              // 改变v1的值，也会导致df[0]的值改变
-NumericVector v2 = clone(df[0]); // 将df[0]的值复制给v2
-v2 = v2*2;                       // 改变v2的值，不会导致df[0]的值改变</code></pre>
+<div id="Accessing-List-elements" class="section level2">
+<h2><span class="header-section-number">13.2</span> 访问列表元素</h2>
+<p>当访问<code>List</code>中一个特定的元素时，我们将其赋值到其他对象，而后访问该对象。</p>
+<p><code>List</code>的元素可以通过数值索引，元素名称以及逻辑向量来指定。</p>
+<div class="sourceCode" id="cb125"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb125-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
+<a class="sourceLine" id="cb125-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
+<a class="sourceLine" id="cb125-3" title="3"></a>
+<a class="sourceLine" id="cb125-4" title="4"><span class="co">// [[Rcpp::plugins(cpp11)]]</span></a>
+<a class="sourceLine" id="cb125-5" title="5"></a>
+<a class="sourceLine" id="cb125-6" title="6"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb125-7" title="7">CharacterVector rcpp_list(List mylist){</a>
+<a class="sourceLine" id="cb125-8" title="8">  <span class="co">//CharacterVector v1 = mylist[0];</span></a>
+<a class="sourceLine" id="cb125-9" title="9">  CharacterVector v1 = mylist[<span class="st">&quot;name&quot;</span>];</a>
+<a class="sourceLine" id="cb125-10" title="10">  <span class="cf">return</span> v1;</a>
+<a class="sourceLine" id="cb125-11" title="11">}</a></code></pre></div>
+<p>执行结果：</p>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb126-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)</a>
+<a class="sourceLine" id="cb126-2" title="2"></a>
+<a class="sourceLine" id="cb126-3" title="3"><span class="op">&gt;</span><span class="st"> </span>mylist &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">name =</span> <span class="kw">c</span>(<span class="st">&quot;Beavis&quot;</span>,<span class="st">&quot;Butt-head&quot;</span>),</a>
+<a class="sourceLine" id="cb126-4" title="4"><span class="op">+</span><span class="st">                </span><span class="dt">value =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>))</a>
+<a class="sourceLine" id="cb126-5" title="5"></a>
+<a class="sourceLine" id="cb126-6" title="6"><span class="op">&gt;</span><span class="st"> </span><span class="kw">rcpp_list</span>(mylist)</a>
+<a class="sourceLine" id="cb126-7" title="7">[<span class="dv">1</span>] <span class="st">&quot;Beavis&quot;</span>    <span class="st">&quot;Butt-head&quot;</span></a></code></pre></div>
 </div>
-<div id="DF-Member-functions" class="section level2">
-<h2><span class="header-section-number">12.3</span> 成员函数</h2>
-<p>在Rcpp中，<code>DataFrmae</code>是利用某些种类的向量来实现的。换言之，<code>Vector</code>是元素为标量的向量，而<code>DataFrame</code>是元素为<code>Vector</code>的向量。因此，<code>DataFrame</code>和<code>Vector</code>有着很多共同的成员函数。</p>
-<div id="DF-length" class="section level3">
-<h3><span class="header-section-number">12.3.1</span> length() size()</h3>
-<p>返回列数。</p>
-</div>
-<div id="DF-nrows" class="section level3">
-<h3><span class="header-section-number">12.3.2</span> nrows()</h3>
-<p>返回行数。</p>
-</div>
-<div id="DF-names" class="section level3">
-<h3><span class="header-section-number">12.3.3</span> names()</h3>
-<p>以字符向量的方式返回列名。</p>
-</div>
-<div id="DF-offset-findName" class="section level3">
-<h3><span class="header-section-number">12.3.4</span> offset(name) findName(name)</h3>
-<p>返回用“name”字符串指定列名的数值索引。</p>
-</div>
-<div id="DF-fill" class="section level3">
-<h3><span class="header-section-number">12.3.5</span> fill(v)</h3>
-<p>使用<code>Vector</code> v来填充<code>DataFrame</code>的所有列。</p>
-<blockquote>
-<p>需要注意的是，如果v的长度不等于数据框的列长度，那么会有warning</p>
-</blockquote>
-<div class="sourceCode" id="cb117"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb117-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
-<a class="sourceLine" id="cb117-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
-<a class="sourceLine" id="cb117-3" title="3"></a>
-<a class="sourceLine" id="cb117-4" title="4"><span class="co">// [[Rcpp::plugins(cpp11)]]</span></a>
-<a class="sourceLine" id="cb117-5" title="5"></a>
-<a class="sourceLine" id="cb117-6" title="6"><span class="co">// [[Rcpp::export]]</span></a>
-<a class="sourceLine" id="cb117-7" title="7">DataFrame rcpp_df(NumericVector v){</a>
-<a class="sourceLine" id="cb117-8" title="8">  <span class="co">// 创建向量v</span></a>
-<a class="sourceLine" id="cb117-9" title="9">  NumericVector v1 = {<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>};</a>
-<a class="sourceLine" id="cb117-10" title="10">  <span class="co">// 创建数据框df</span></a>
-<a class="sourceLine" id="cb117-11" title="11">  DataFrame df = DataFrame::create( Named(<span class="st">&quot;V1&quot;</span>) = clone(v1),</a>
-<a class="sourceLine" id="cb117-12" title="12">                                    Named(<span class="st">&quot;V2&quot;</span>) = clone(v1));</a>
-<a class="sourceLine" id="cb117-13" title="13">  </a>
-<a class="sourceLine" id="cb117-14" title="14">  df.fill(v);</a>
-<a class="sourceLine" id="cb117-15" title="15">  <span class="cf">return</span> df;</a>
-<a class="sourceLine" id="cb117-16" title="16">}</a></code></pre></div>
-<p>在R中，执行下面的代码会有不同的结果。</p>
-<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb118-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)</a>
-<a class="sourceLine" id="cb118-2" title="2"></a>
-<a class="sourceLine" id="cb118-3" title="3"><span class="op">&gt;</span><span class="st"> </span><span class="kw">rcpp_df</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>)</a>
-<a class="sourceLine" id="cb118-4" title="4">  V1 V2</a>
-<a class="sourceLine" id="cb118-5" title="5"><span class="dv">1</span>  <span class="dv">1</span>  <span class="dv">1</span></a>
-<a class="sourceLine" id="cb118-6" title="6"><span class="dv">2</span>  <span class="dv">2</span>  <span class="dv">2</span></a>
-<a class="sourceLine" id="cb118-7" title="7"><span class="dv">3</span>  <span class="dv">3</span>  <span class="dv">3</span></a>
-<a class="sourceLine" id="cb118-8" title="8">Warning message<span class="op">:</span></a>
-<a class="sourceLine" id="cb118-9" title="9">In <span class="kw">format.data.frame</span>(<span class="cf">if</span> (omit) x[<span class="kw">seq_len</span>(n0), , <span class="dt">drop =</span> <span class="ot">FALSE</span>] <span class="cf">else</span> x,  <span class="op">:</span></a>
-<a class="sourceLine" id="cb118-10" title="10"><span class="st">  </span>corrupt data frame<span class="op">:</span><span class="st"> </span>columns will be truncated or padded with NAs</a>
-<a class="sourceLine" id="cb118-11" title="11"></a>
-<a class="sourceLine" id="cb118-12" title="12"><span class="op">&gt;</span><span class="st"> </span><span class="kw">rcpp_df</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb118-13" title="13">  V1 V2</a>
-<a class="sourceLine" id="cb118-14" title="14"><span class="dv">1</span>  <span class="dv">1</span>  <span class="dv">1</span></a>
-<a class="sourceLine" id="cb118-15" title="15"><span class="dv">2</span>  <span class="dv">2</span>  <span class="dv">2</span></a>
-<a class="sourceLine" id="cb118-16" title="16"><span class="dv">3</span>  <span class="dv">3</span>  <span class="dv">3</span></a>
-<a class="sourceLine" id="cb118-17" title="17"></a>
-<a class="sourceLine" id="cb118-18" title="18"><span class="op">&gt;</span><span class="st"> </span><span class="kw">rcpp_df</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb118-19" title="19">    V1   V2</a>
-<a class="sourceLine" id="cb118-20" title="20"><span class="dv">1</span>    <span class="dv">1</span>    <span class="dv">1</span></a>
-<a class="sourceLine" id="cb118-21" title="21"><span class="dv">2</span>    <span class="dv">2</span>    <span class="dv">2</span></a>
-<a class="sourceLine" id="cb118-22" title="22"><span class="dv">3</span> <span class="op">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span></a>
-<a class="sourceLine" id="cb118-23" title="23">Warning message<span class="op">:</span></a>
-<a class="sourceLine" id="cb118-24" title="24">In <span class="kw">format.data.frame</span>(<span class="cf">if</span> (omit) x[<span class="kw">seq_len</span>(n0), , <span class="dt">drop =</span> <span class="ot">FALSE</span>] <span class="cf">else</span> x,  <span class="op">:</span></a>
-<a class="sourceLine" id="cb118-25" title="25"><span class="st">  </span>corrupt data frame<span class="op">:</span><span class="st"> </span>columns will be truncated or padded with NAs</a></code></pre></div>
-<p>可以看出，只有在向量v和数据框的行数一致时，不会出现报错。向量过长则会丢弃后面的信息，过短则在每列最后用NA来补全。</p>
-</div>
-<div id="DF-assign" class="section level3">
-<h3><span class="header-section-number">12.3.6</span> assign( first_it, last_it)</h3>
-<p>通过迭代器 first_it 和 last_it 指定的范围来给<code>DataFrmae</code>的列赋值。具体可以参考<code>Vector</code><a href="vector.html#vector-assign">8.3.7</a>章节。</p>
-</div>
-<div id="DF-push-back" class="section level3">
-<h3><span class="header-section-number">12.3.7</span> push_back(v)</h3>
-<p>在<code>DataFrame</code>后加入<code>Vector</code>v.</p>
-</div>
-<div id="DF-push-back-name" class="section level3">
-<h3><span class="header-section-number">12.3.8</span> push_back( v, name )</h3>
-<p>在<code>DataFrame</code>后加入<code>Vector</code>v，其列名为指定的“name”。</p>
-</div>
-<div id="DF-push-front" class="section level3">
-<h3><span class="header-section-number">12.3.9</span> push_front(x)</h3>
-<p>在<code>DataFrame</code>前加入<code>Vector</code>v.</p>
-</div>
-<div id="DF-push-front-name" class="section level3">
-<h3><span class="header-section-number">12.3.10</span> push_front( x, name )</h3>
-<p>在<code>DataFrame</code>前加入<code>Vector</code>v，其列名为指定的“name”。</p>
-</div>
-<div id="DF-begin" class="section level3">
-<h3><span class="header-section-number">12.3.11</span> begin()</h3>
-<p>返回一个指向<code>DataFrame</code>第一列的迭代器。</p>
-</div>
-<div id="DF-end" class="section level3">
-<h3><span class="header-section-number">12.3.12</span> end()</h3>
-<p>返回一个指向<code>DataFrame</code>最后一列的迭代器。</p>
-</div>
-<div id="DF-insert" class="section level3">
-<h3><span class="header-section-number">12.3.13</span> insert( it, v )</h3>
-<p>通过迭代器指定的位置，在<code>DataFrame</code>上加入 <code>Vector</code> v，返回一个指向该元素的迭代器。</p>
-</div>
-<div id="DF-erase" class="section level3">
-<h3><span class="header-section-number">12.3.14</span> erase(i)</h3>
-<p>删除 <code>DataFrame</code>的<code>i</code>列，返回指向该列后一列的迭代器。</p>
-</div>
-<div id="DF-erase-it" class="section level3">
-<h3><span class="header-section-number">12.3.15</span> erase(it)</h3>
-<p>删除 迭代器<code>it</code>所指向的<code>DataFrame</code>的列，返回指向该列后一列的迭代器。</p>
-<p>###erase(first_i, last_i){#DF-erase-first-last-i}</p>
-<p>删除<code>first_i</code>到<code>last_i-1</code>列，返回指向删除列后一列的迭代器。</p>
-</div>
-<div id="DF-erase-first-last-it" class="section level3">
-<h3><span class="header-section-number">12.3.16</span> erase(first_it, last_it)</h3>
-<p>删除<code>first_it</code>到<code>last_it-1</code>迭代器所指向的列，返回指向删除列后一列的迭代器。</p>
-</div>
-<div id="DF-containsElementNamed-name" class="section level3">
-<h3><span class="header-section-number">12.3.17</span> containsElementNamed(name)</h3>
-<p>如果<code>DataFrame</code>包含有列名<code>name</code>所指定的列，那么返回true。</p>
-<div class="sourceCode" id="cb119"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb119-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
-<a class="sourceLine" id="cb119-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
-<a class="sourceLine" id="cb119-3" title="3"></a>
-<a class="sourceLine" id="cb119-4" title="4"><span class="co">// [[Rcpp::plugins(cpp11)]]</span></a>
-<a class="sourceLine" id="cb119-5" title="5"></a>
-<a class="sourceLine" id="cb119-6" title="6"><span class="co">// [[Rcpp::export]]</span></a>
-<a class="sourceLine" id="cb119-7" title="7"><span class="dt">bool</span> rcpp_df(){</a>
-<a class="sourceLine" id="cb119-8" title="8"></a>
-<a class="sourceLine" id="cb119-9" title="9">  IntegerVector v = {<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>};</a>
-<a class="sourceLine" id="cb119-10" title="10">  </a>
-<a class="sourceLine" id="cb119-11" title="11">  <span class="co">// 创建数据框df</span></a>
-<a class="sourceLine" id="cb119-12" title="12">  DataFrame df = DataFrame::create(_[<span class="st">&quot;v1&quot;</span>] = v,</a>
-<a class="sourceLine" id="cb119-13" title="13">                                   _[<span class="st">&quot;v2&quot;</span>] = v); </a>
-<a class="sourceLine" id="cb119-14" title="14">  <span class="cf">return</span> df.containsElementNamed(<span class="st">&quot;v1&quot;</span>);</a>
-<a class="sourceLine" id="cb119-15" title="15">}</a></code></pre></div>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb120-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)</a>
-<a class="sourceLine" id="cb120-2" title="2"></a>
-<a class="sourceLine" id="cb120-3" title="3"><span class="op">&gt;</span><span class="st"> </span><span class="kw">rcpp_df</span>()</a>
-<a class="sourceLine" id="cb120-4" title="4">[<span class="dv">1</span>] <span class="ot">TRUE</span></a></code></pre></div>
-</div>
-<div id="DF-inherits" class="section level3">
-<h3><span class="header-section-number">12.3.18</span> inherits(str)</h3>
-<p>如果对象的属性“class”中包含有字符串<code>str</code>，那么返回true。</p>
-<div class="sourceCode" id="cb121"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb121-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
-<a class="sourceLine" id="cb121-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
-<a class="sourceLine" id="cb121-3" title="3"></a>
-<a class="sourceLine" id="cb121-4" title="4"><span class="co">// [[Rcpp::plugins(cpp11)]]</span></a>
-<a class="sourceLine" id="cb121-5" title="5"></a>
-<a class="sourceLine" id="cb121-6" title="6"><span class="co">// [[Rcpp::export]]</span></a>
-<a class="sourceLine" id="cb121-7" title="7"><span class="dt">bool</span> rcpp_df(){</a>
-<a class="sourceLine" id="cb121-8" title="8"></a>
-<a class="sourceLine" id="cb121-9" title="9">  IntegerVector v = {<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>};</a>
-<a class="sourceLine" id="cb121-10" title="10">  </a>
-<a class="sourceLine" id="cb121-11" title="11">  <span class="co">// 创建数据框df</span></a>
-<a class="sourceLine" id="cb121-12" title="12">  DataFrame df = DataFrame::create(_[<span class="st">&quot;v1&quot;</span>] = v,</a>
-<a class="sourceLine" id="cb121-13" title="13">                                   _[<span class="st">&quot;v2&quot;</span>] = v); </a>
-<a class="sourceLine" id="cb121-14" title="14">  <span class="kw">auto</span> classname = <span class="st">&quot;my_class&quot;</span>;</a>
-<a class="sourceLine" id="cb121-15" title="15">  df.attr(<span class="st">&quot;class&quot;</span>) = classname;</a>
-<a class="sourceLine" id="cb121-16" title="16">  <span class="cf">return</span> df.inherits(classname);</a>
-<a class="sourceLine" id="cb121-17" title="17">}</a>
-<a class="sourceLine" id="cb121-18" title="18"></a></code></pre></div>
-<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb122-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)</a>
-<a class="sourceLine" id="cb122-2" title="2"></a>
-<a class="sourceLine" id="cb122-3" title="3"><span class="op">&gt;</span><span class="st"> </span><span class="kw">rcpp_df</span>()</a>
-<a class="sourceLine" id="cb122-4" title="4">[<span class="dv">1</span>] <span class="ot">TRUE</span></a></code></pre></div>
+<div id="list-Member-functions" class="section level2">
+<h2><span class="header-section-number">13.3</span> 成员函数</h2>
+<p><code>List</code>和<code>Vector</code>有着相同的成员函数。</p>
 
-</div>
 </div>
 </div>
             </section>
@@ -512,8 +359,8 @@ v2 = v2*2;                       // 改变v2的值，不会导致df[0]的值改�
           </div>
         </div>
       </div>
-<a href="Logical-operations.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="List.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="DataFrame.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook/js/app.min.js"></script>

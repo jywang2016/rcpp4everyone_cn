@@ -1,0 +1,76 @@
+# List {#List}
+
+本章将会讲述，如何创建`List`对象，如何访问其元素及其成员函数。在Rcpp中，`List`也是按照向量的方式实现的。换言之，`Vector`是元素为标量的向量，而`List`是元素可以为任意数据类型的向量。因此，`Vector`和`List`在创建对象，访问元素和成员函数上，有很多共同的方法。
+
+由于在\@ref(DataFrame)章节中，描述的大量关于`Datafrmae`的内容，也适用于`List`，所以还请读者阅读该章节。
+
+## 创建一个list对象{#Creating-List-object}
+
+我们可以使用`List::create()`函数来创建一个`List`对象。此外，可以使用 `Named()` 函数或者是`_[] `来指定元素名称。
+
+```c++
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::plugins(cpp11)]]
+
+// [[Rcpp::export]]
+List rcpp_list(){
+  CharacterVector v1 = {"Beavis","Butt-head"};
+  NumericVector v2 = {1,2,3,4};
+  List L = List::create(_["name"] = v1,
+                        _["value"] = v2);
+  return L;
+}
+```
+
+执行结果如下:
+
+```r
+> sourceCpp('test.cpp')
+
+> rcpp_list()
+$name
+[1] "beavis"    "butt-head"
+
+$value
+[1] 1 2 3 4
+```
+
+
+## 访问列表元素{#Accessing-List-elements}
+
+当访问`List`中一个特定的元素时，我们将其赋值到其他对象，而后访问该对象。
+
+`List`的元素可以通过数值索引，元素名称以及逻辑向量来指定。
+
+
+```c++
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::plugins(cpp11)]]
+
+// [[Rcpp::export]]
+CharacterVector rcpp_list(List mylist){
+  //CharacterVector v1 = mylist[0];
+  CharacterVector v1 = mylist["name"];
+  return v1;
+}
+```
+
+执行结果：
+
+```r
+> sourceCpp('test.cpp')
+
+> mylist <- list(name = c("Beavis","Butt-head"),
++                value = c(1,2,3,4))
+
+> rcpp_list(mylist)
+[1] "Beavis"    "Butt-head"
+```
+
+## 成员函数{#list-Member-functions}
+
+`List`和`Vector`有着相同的成员函数。
