@@ -32,8 +32,8 @@ Rcpp for everyone => Advanced R => Seamless R and C++ intergration with Rcpp
 - [x] Vector operations 向量运算
 - [x] Logical operations 逻辑运算
 - [x] DataFrame 数据框
-- [ ] List
-- [ ] S3·S4 class
+- [x] List
+- [x] S3·S4 class
 - [ ] String
 - [ ] Date
 - [ ] Datetime

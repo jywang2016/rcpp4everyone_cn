@@ -1,0 +1,103 @@
+# s3及s4类{#s3-s4-class}
+
+## S3类{#s3-class}
+
+S3类其实是一种`class`属性有值的列表。可以看`List`\@ref(List)章节来了解如何创建S3对象，以及访问其元素。
+
+In the code example below, as an example of handling objects of S3, we show the function that receives the return value of function `lm()` and computes RMSE (Root Mean Square Error) as an index of the prediction accuracy of the model in the learning data.
+
+在下面的代码示例中，作为处理S3对象的例子，我们展示了接收线性拟合函数`lm()`的返回值，并以此计算RMSE(均方根误差)值的函数。RMSE是一种表示模型对学习数据的预测准确率的指标。
+
+```c++
+// 一定要有这一行，否则c98不支持本代码块中写循环的方式
+// [[Rcpp::plugins(cpp11)]]
+
+// 接收 lm() 对象并计算RMSE值
+// [[Rcpp::export]]
+double rcpp_rmse(List lm_model) {
+    // S3是一个List对向，所以参数可以像List那样指定
+    // 如果给定的lm_model并不是一个lm对象，那就报错，停止执行
+    if (! lm_model.inherits("lm")) stop("Input must be a lm() model object.");
+    // 提取lm_model中的残差
+    NumericVector resid  = lm_model["residuals"];
+    // 残差向量的长度
+    R_xlen_t n = resid.length();
+    // 残差的平方和
+    double rmse(0.0);
+    for(double& r : resid){
+        rmse += r*r;
+    }
+    // 残差平方和除以向量长度，然后开方
+    return(sqrt((1.0/n)*rmse));
+}
+```
+
+使用R中自带的数据`mtcars`来拟合车的燃油效率，并计算模型的RMSE。
+
+```R
+> mod <- lm(mpg ~ ., data = mtcars)
+> rcpp_rmse(mod)
+[1] 2.146905
+```
+## S4类 {#S4-class}
+### 访问槽(slot){#Accessing-to-slot}
+
+> slot翻译为槽的依据，来源于Rcpp:R与C++的无缝整合一书。在P65，对S4类的讲述中，将slot译为槽。
+
+使用`slot()`成员函数，可以访问一个S4类对象的槽。此外，使用`hasSlot()`成员函数，可以检查一个对象是否有指定名称的槽。
+
+```c++
+x.slot("slot_name");
+x.hasSlot("slot_name");
+```
+### 创建一个新的S4类对象{#Creating-a-new-S4-class-object}
+
+Rcpp不能单独地**定义**一个新的S4类，但是你可以在R中创建一个S4类的对象。下面的代码定义了如何在R中定义一个S4类Person，然后在Rcpp中创建Person类的对象。我们首先定义了S4类"Person"。这个类在`name`和`birth`槽中记录了一个人的姓名和生日。
+
+```R
+# R代码
+# 在R中定义一个S4类 Person
+setClass (
+  # 类名
+  "Person",
+  # 定义槽类型
+  representation (
+    name = "character",
+    birth = "Date"
+  ),
+  # 初始化槽
+  prototype = list(
+    name = as.character(NULL),
+    birth = as.Date(as.character(NULL))
+  )
+)
+# 在R中创建一个Person类的对象
+person_01 <- new("Person",
+                 name = "Ronald Fisher",
+                 birth = as.Date("1890-02-17"))
+```
+
+下面的代码案例在Rcpp中创建了一个`Person`类，然后给该类的槽赋值。
+
+```cpp
+// [[Rcpp::export]]
+S4 rcpp_s4(){
+    // 创建一个Person类的对象
+    S4 x("Person");
+    // 给槽赋值
+    x.slot("name")  = "Sewall Wright";
+    x.slot("birth") = Date("1889-12-21");
+    return(x);
+}
+```
+执行结果
+
+```r
+> rcpp_s4()
+An object of class "Person"
+Slot "name":
+[1] "Sewall Wright"
+
+Slot "birth":
+[1] "1889-12-21"
+```

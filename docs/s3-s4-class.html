@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>第 2 章 安装 | 老少咸宜Rcpp</title>
+  <title>第 14 章 s3及s4类 | 老少咸宜Rcpp</title>
   <meta name="description" content="R用户入门Rcpp" />
   <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="第 2 章 安装 | 老少咸宜Rcpp" />
+  <meta property="og:title" content="第 14 章 s3及s4类 | 老少咸宜Rcpp" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="jywang2016/rcpp4everyone_cn" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="第 2 章 安装 | 老少咸宜Rcpp" />
+  <meta name="twitter:title" content="第 14 章 s3及s4类 | 老少咸宜Rcpp" />
   
   <meta name="twitter:description" content="R用户入门Rcpp" />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="situations.html">
-<link rel="next" href="basicUsage.html">
+<link rel="prev" href="List.html">
+<link rel="next" href="references.html">
 <script src="libs/jquery/jquery.min.js"></script>
 <link href="libs/gitbook/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
@@ -301,49 +301,93 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="install" class="section level1">
-<h1><span class="header-section-number">第 2 章</span> 安装</h1>
-<p>在使用Rcpp开发之前，你需要安装一个c++的编译器。</p>
-<div id="cppcompiler" class="section level2">
-<h2><span class="header-section-number">2.1</span> 安装C++编译器</h2>
-<div id="cppcwindows" class="section level3">
-<h3><span class="header-section-number">2.1.1</span> Windows</h3>
-<p>安装<code>Rtools</code>。</p>
-<p>参考Rstan的教程可能会有帮助（为Windows安装Rtools）。</p>
+<div id="s3-s4-class" class="section level1">
+<h1><span class="header-section-number">第 14 章</span> s3及s4类</h1>
+<div id="s3-class" class="section level2">
+<h2><span class="header-section-number">14.1</span> S3类</h2>
+<p>S3类其实是一种<code>class</code>属性有值的列表。可以看<code>List</code><a href="List.html#List">13</a>章节来了解如何创建S3对象，以及访问其元素。</p>
+<p>In the code example below, as an example of handling objects of S3, we show the function that receives the return value of function <code>lm()</code> and computes RMSE (Root Mean Square Error) as an index of the prediction accuracy of the model in the learning data.</p>
+<p>在下面的代码示例中，作为处理S3对象的例子，我们展示了接收线性拟合函数<code>lm()</code>的返回值，并以此计算RMSE(均方根误差)值的函数。RMSE是一种表示模型对学习数据的预测准确率的指标。</p>
+<div class="sourceCode" id="cb127"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb127-1" title="1"><span class="co">// 一定要有这一行，否则c98不支持本代码块中写循环的方式</span></a>
+<a class="sourceLine" id="cb127-2" title="2"><span class="co">// [[Rcpp::plugins(cpp11)]]</span></a>
+<a class="sourceLine" id="cb127-3" title="3"></a>
+<a class="sourceLine" id="cb127-4" title="4"><span class="co">// 接收 lm() 对象并计算RMSE值</span></a>
+<a class="sourceLine" id="cb127-5" title="5"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb127-6" title="6"><span class="dt">double</span> rcpp_rmse(List lm_model) {</a>
+<a class="sourceLine" id="cb127-7" title="7">    <span class="co">// S3是一个List对向，所以参数可以像List那样指定</span></a>
+<a class="sourceLine" id="cb127-8" title="8">    <span class="co">// 如果给定的lm_model并不是一个lm对象，那就报错，停止执行</span></a>
+<a class="sourceLine" id="cb127-9" title="9">    <span class="cf">if</span> (! lm_model.inherits(<span class="st">&quot;lm&quot;</span>)) stop(<span class="st">&quot;Input must be a lm() model object.&quot;</span>);</a>
+<a class="sourceLine" id="cb127-10" title="10">    <span class="co">// 提取lm_model中的残差</span></a>
+<a class="sourceLine" id="cb127-11" title="11">    NumericVector resid  = lm_model[<span class="st">&quot;residuals&quot;</span>];</a>
+<a class="sourceLine" id="cb127-12" title="12">    <span class="co">// 残差向量的长度</span></a>
+<a class="sourceLine" id="cb127-13" title="13">    <span class="dt">R_xlen_t</span> n = resid.length();</a>
+<a class="sourceLine" id="cb127-14" title="14">    <span class="co">// 残差的平方和</span></a>
+<a class="sourceLine" id="cb127-15" title="15">    <span class="dt">double</span> rmse(<span class="fl">0.0</span>);</a>
+<a class="sourceLine" id="cb127-16" title="16">    <span class="cf">for</span>(<span class="dt">double</span>&amp; r : resid){</a>
+<a class="sourceLine" id="cb127-17" title="17">        rmse += r*r;</a>
+<a class="sourceLine" id="cb127-18" title="18">    }</a>
+<a class="sourceLine" id="cb127-19" title="19">    <span class="co">// 残差平方和除以向量长度，然后开方</span></a>
+<a class="sourceLine" id="cb127-20" title="20">    <span class="cf">return</span>(sqrt((<span class="fl">1.0</span>/n)*rmse));</a>
+<a class="sourceLine" id="cb127-21" title="21">}</a></code></pre></div>
+<p>使用R中自带的数据<code>mtcars</code>来拟合车的燃油效率，并计算模型的RMSE。</p>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb128-1" title="1"><span class="op">&gt;</span><span class="st"> </span>mod &lt;-<span class="st"> </span><span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> mtcars)</a>
+<a class="sourceLine" id="cb128-2" title="2"><span class="op">&gt;</span><span class="st"> </span><span class="kw">rcpp_rmse</span>(mod)</a>
+<a class="sourceLine" id="cb128-3" title="3">[<span class="dv">1</span>] <span class="fl">2.146905</span></a></code></pre></div>
 </div>
-<div id="cppmac" class="section level3">
-<h3><span class="header-section-number">2.1.2</span> Mac</h3>
-<p>安装Xcode命令行工具。在终端执行 <code>xcode-select --install</code>命令。</p>
+<div id="S4-class" class="section level2">
+<h2><span class="header-section-number">14.2</span> S4类</h2>
+<div id="Accessing-to-slot" class="section level3">
+<h3><span class="header-section-number">14.2.1</span> 访问槽(slot)</h3>
+<blockquote>
+<p>slot翻译为槽的依据，来源于Rcpp:R与C++的无缝整合一书。在P65，对S4类的讲述中，将slot译为槽。</p>
+</blockquote>
+<p>使用<code>slot()</code>成员函数，可以访问一个S4类对象的槽。此外，使用<code>hasSlot()</code>成员函数，可以检查一个对象是否有指定名称的槽。</p>
+<div class="sourceCode" id="cb129"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb129-1" title="1">x.slot(<span class="st">&quot;slot_name&quot;</span>);</a>
+<a class="sourceLine" id="cb129-2" title="2">x.hasSlot(<span class="st">&quot;slot_name&quot;</span>);</a></code></pre></div>
 </div>
-<div id="cpplinux" class="section level3">
-<h3><span class="header-section-number">2.1.3</span> Linux</h3>
-<p>安装gcc和其他相关的包。
-在Ubuntu Linux中，终端执行<code>sudo apt-get install r-base-dev</code>命令。</p>
+<div id="Creating-a-new-S4-class-object" class="section level3">
+<h3><span class="header-section-number">14.2.2</span> 创建一个新的S4类对象</h3>
+<p>Rcpp不能单独地<strong>定义</strong>一个新的S4类，但是你可以在R中创建一个S4类的对象。下面的代码定义了如何在R中定义一个S4类Person，然后在Rcpp中创建Person类的对象。我们首先定义了S4类“Person”。这个类在<code>name</code>和<code>birth</code>槽中记录了一个人的姓名和生日。</p>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb130-1" title="1"><span class="co"># R代码</span></a>
+<a class="sourceLine" id="cb130-2" title="2"><span class="co"># 在R中定义一个S4类 Person</span></a>
+<a class="sourceLine" id="cb130-3" title="3"><span class="kw">setClass</span> (</a>
+<a class="sourceLine" id="cb130-4" title="4">  <span class="co"># 类名</span></a>
+<a class="sourceLine" id="cb130-5" title="5">  <span class="st">&quot;Person&quot;</span>,</a>
+<a class="sourceLine" id="cb130-6" title="6">  <span class="co"># 定义槽类型</span></a>
+<a class="sourceLine" id="cb130-7" title="7">  <span class="kw">representation</span> (</a>
+<a class="sourceLine" id="cb130-8" title="8">    <span class="dt">name =</span> <span class="st">&quot;character&quot;</span>,</a>
+<a class="sourceLine" id="cb130-9" title="9">    <span class="dt">birth =</span> <span class="st">&quot;Date&quot;</span></a>
+<a class="sourceLine" id="cb130-10" title="10">  ),</a>
+<a class="sourceLine" id="cb130-11" title="11">  <span class="co"># 初始化槽</span></a>
+<a class="sourceLine" id="cb130-12" title="12">  <span class="dt">prototype =</span> <span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb130-13" title="13">    <span class="dt">name =</span> <span class="kw">as.character</span>(<span class="ot">NULL</span>),</a>
+<a class="sourceLine" id="cb130-14" title="14">    <span class="dt">birth =</span> <span class="kw">as.Date</span>(<span class="kw">as.character</span>(<span class="ot">NULL</span>))</a>
+<a class="sourceLine" id="cb130-15" title="15">  )</a>
+<a class="sourceLine" id="cb130-16" title="16">)</a>
+<a class="sourceLine" id="cb130-17" title="17"><span class="co"># 在R中创建一个Person类的对象</span></a>
+<a class="sourceLine" id="cb130-18" title="18">person_<span class="dv">01</span> &lt;-<span class="st"> </span><span class="kw">new</span>(<span class="st">&quot;Person&quot;</span>,</a>
+<a class="sourceLine" id="cb130-19" title="19">                 <span class="dt">name =</span> <span class="st">&quot;Ronald Fisher&quot;</span>,</a>
+<a class="sourceLine" id="cb130-20" title="20">                 <span class="dt">birth =</span> <span class="kw">as.Date</span>(<span class="st">&quot;1890-02-17&quot;</span>))</a></code></pre></div>
+<p>下面的代码案例在Rcpp中创建了一个<code>Person</code>类，然后给该类的槽赋值。</p>
+<div class="sourceCode" id="cb131"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb131-1" title="1"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb131-2" title="2">S4 rcpp_s4(){</a>
+<a class="sourceLine" id="cb131-3" title="3">    <span class="co">// 创建一个Person类的对象</span></a>
+<a class="sourceLine" id="cb131-4" title="4">    S4 x(<span class="st">&quot;Person&quot;</span>);</a>
+<a class="sourceLine" id="cb131-5" title="5">    <span class="co">// 给槽赋值</span></a>
+<a class="sourceLine" id="cb131-6" title="6">    x.slot(<span class="st">&quot;name&quot;</span>)  = <span class="st">&quot;Sewall Wright&quot;</span>;</a>
+<a class="sourceLine" id="cb131-7" title="7">    x.slot(<span class="st">&quot;birth&quot;</span>) = Date(<span class="st">&quot;1889-12-21&quot;</span>);</a>
+<a class="sourceLine" id="cb131-8" title="8">    <span class="cf">return</span>(x);</a>
+<a class="sourceLine" id="cb131-9" title="9">}</a></code></pre></div>
+<p>执行结果</p>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb132-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">rcpp_s4</span>()</a>
+<a class="sourceLine" id="cb132-2" title="2">An object of class <span class="st">&quot;Person&quot;</span></a>
+<a class="sourceLine" id="cb132-3" title="3">Slot <span class="st">&quot;name&quot;</span><span class="op">:</span></a>
+<a class="sourceLine" id="cb132-4" title="4">[<span class="dv">1</span>] <span class="st">&quot;Sewall Wright&quot;</span></a>
+<a class="sourceLine" id="cb132-5" title="5"></a>
+<a class="sourceLine" id="cb132-6" title="6">Slot <span class="st">&quot;birth&quot;</span><span class="op">:</span></a>
+<a class="sourceLine" id="cb132-7" title="7">[<span class="dv">1</span>] <span class="st">&quot;1889-12-21&quot;</span></a></code></pre></div>
+
 </div>
-<div id="section-3" class="section level3">
-<h3><span class="header-section-number">2.1.4</span> 使用其他编译器</h3>
-<p>如果你安装有与上述不同的其他编译器(g++,clang++)，在用户的根目录下创建如下的文件。然后在这个文件中设置环境变量。</p>
-<p><strong>Linux,Mac</strong></p>
-<ul>
-<li>.R/Makevars</li>
-</ul>
-<p><strong>Windows</strong></p>
-<ul>
-<li>.R/Makevars.win</li>
-</ul>
-<p><strong>环境变量设定范例</strong></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode txt"><code class="sourceCode default"><a class="sourceLine" id="cb3-1" title="1">CC=/opt/local/bin/gcc-mp-4.7</a>
-<a class="sourceLine" id="cb3-2" title="2">CXX=/opt/local/bin/g++-mp-4.7</a>
-<a class="sourceLine" id="cb3-3" title="3">CPLUS_INCLUDE_PATH=/opt/local/include:$CPLUS_INCLUDE_PATH</a>
-<a class="sourceLine" id="cb3-4" title="4">LD_LIBRARY_PATH=/opt/local/lib:$LD_LIBRARY_PATH</a>
-<a class="sourceLine" id="cb3-5" title="5">CXXFLAGS= -g0 -O2 -Wall</a>
-<a class="sourceLine" id="cb3-6" title="6">MAKE=make -j4</a></code></pre></div>
-</div>
-</div>
-<div id="Rcppinstallation" class="section level2">
-<h2><span class="header-section-number">2.2</span> 安装Rcpp</h2>
-<p>用户能通过执行下面代码安装Rcpp。</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">install.packages</span>(<span class="st">&quot;Rcpp&quot;</span>)</a></code></pre></div>
 </div>
 </div>
             </section>
@@ -351,8 +395,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="situations.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="basicUsage.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="List.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook/js/app.min.js"></script>
