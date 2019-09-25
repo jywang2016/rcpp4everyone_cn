@@ -1,0 +1,331 @@
+# 字符串 {#String}
+
+`String` 是对应`CharacterVector`元素的标量类型。`String` 能够处理 C语言中字符串`char*`和C++中字符串`srd::string`所不能处理的NA值(`NA_STRING`)。
+
+## 创建字符串对象{#Creating-String-object}
+
+There are roughly　three ways to create a `String` object, as follows. The first method is to create from a C/C++ string, the second is to create it from another `String` object, and the third is to create it from one element of a `CharacterVector`.
+
+创建“ String”对象的方法大致有以下三种。 
+
+- 使用一个C/C ++字符串创建
+- 通过另一个`String`对象创建
+- 使用`CharacterVector`的一个元素创建。
+
+```c++
+// Creating from C string
+String s("X"); // "X"
+// Creating from Rcpp String
+String s(str);
+//Creating from single element of CharacterVector object
+String s(char_vec[0])
+```
+## 运算符{#Operators}
+
+运算符`+=`在`String`类型中定义。该运算符允许用户在一个字符串的尾部，添加另一个字符串对象。需要注意的是，运算符`+`没有为`String`定义。
+
+```C++
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::plugins(cpp11)]]
+
+// [[Rcpp::export]]
+String rcpp_string(){
+  // Creating String object
+  String s("A");
+  // Conbining a string
+  s += "B";
+  return(s);
+}
+```
+
+执行结果
+
+```r
+> sourceCpp('test.cpp')
+
+> rcpp_string()
+[1] "AB"
+```
+
+## 成员函数{#string-Member-functions}
+
+注意：成员函数`replace_first()`, `replace_last()`, `replace_all()`不会返回被替换后的字符串，而是直接修改了原始字符串的值。
+
+
+### replace_first( str, new_str ) {#string-repalce-first}
+
+使用新的字符串`new_str`，替换原始字符串中第一个与`str`匹配的字符串。
+
+```c++
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+String rcpp_string(String str, String new_str){
+  // 创建字符串对象
+  String s("ABCD000ABCD");
+  // 替换
+  s.replace_first(str, new_str);
+  
+  return(s);
+}
+```
+
+在R中运行结果
+
+```r
+> sourceCpp('test.cpp')
+
+> rcpp_string('CD','BA')
+[1] "ABBA000ABCD"
+```
+
+可以看到，原始的字符串是`ABCD000ABCD`，我们希望把里面的`str`为`CD`的部分，替换为`new_str`，即`BA`。从结果看，只有第一处的`CD`被替换为`BA`。
+
+### replace_last( str, new_str ){#string-replace-last}
+
+使用新的字符串`new_str`，替换原始字符串中最后一个与`str`匹配的字符串。
+
+```c++
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+String rcpp_string(String str, String new_str){
+  // 创建字符串对象
+  String s("ABCD000ABCD");
+  // 替换
+  s.replace_last(str, new_str);
+  
+  return(s);
+}
+```
+
+在R中运行结果
+
+```r
+> sourceCpp('test.cpp')
+
+> rcpp_string('CD','BA')
+[1] "ABCD000ABBA"
+```
+只有最后一处`CD`被替换。
+
+### replace_all( str, new_str ){#string-replace-all}
+
+使用新的字符串`new_str`，替换原始字符串中所有与`str`匹配的字符串。
+
+```c++
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+String rcpp_string(String str, String new_str){
+  // 创建字符串对象
+  String s("ABCD000ABCD");
+  // 替换
+  s.replace_all(str, new_str);
+  
+  return(s);
+}
+```
+
+在R中运行结果
+
+```r
+> sourceCpp('test.cpp')
+
+> rcpp_string('CD','BA')
+[1]  "ABBA000ABBA"
+```
+所有的`CD`都被替换为`BA`。
+
+### push_back(str){#string-push-back}
+
+在`String`对象的末端加上`str`字符串。等同于`+=`运算符。
+
+```c++
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+String rcpp_string(String str){
+  // 创建字符串对象
+  String s("A quick brown fox jumps over ");
+  s.push_back(str);
+  
+  return(s);
+}
+```
+
+在R中运行结果
+
+```r
+> sourceCpp('test.cpp')
+
+> rcpp_string('the lazy dog')
+[1] "A quick brown fox jumps over the lazy dog"
+```
+
+### push_front(str){#string-push-front}
+
+在`String`对象的前面加上`str`字符串。
+
+```c++
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+String rcpp_string(String str){
+  // 创建字符串对象
+  String s(" never scored!");
+  s.push_front(str);
+  
+  return(s);
+}
+```
+
+在R中运行结果
+
+```r
+> sourceCpp('test.cpp')
+
+> rcpp_string('Beavis')
+[1] "Beavis never scored!"
+```
+
+### set_na(){#string-set-na}
+
+将`String`对象设为NA值。
+
+```c++
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+String rcpp_string(){
+  // 创建字符串对象
+  String s("ABC");
+  s.set_na();
+  
+  return(s);
+}
+```
+
+在R中运行结果
+
+```r
+> sourceCpp('test.cpp')
+
+> rcpp_string()
+[1] NA
+```
+
+### get_cstring(){string-get-cstring}
+
+将字符串对象转为C语言中的字符串常量，并**返回该字符串常量**。
+
+> 该函数并不是修改字符串，而是返回一个字符串常量，这和此前的push_xxx()是不同的。
+
+```c++
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+String rcpp_string(){
+  // 创建字符串对象
+  String s("ABC");
+  const char* x = s.get_cstring();
+  Rcout << x << '\n';
+  return(s);
+}
+```
+
+在R中运行结果
+
+```r
+> rcpp_string()
+ABC
+[1] "ABC"
+```
+
+### get_encoding(){#string-get-encoding}
+
+返回字符编码。编码由[`cetype_t`](https://github.com/wch/r-source/blob/bf0a0a9d12f2ce5d66673dc32cd253524f3270bf/src/include/Rinternals.h#L928-L935)表示.
+
+```c++
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+String rcpp_string(){
+  // 创建字符串对象
+  String s("ABC");
+  
+  Rcout << s.get_encoding() << '\n';
+  return(s);
+}
+```
+
+在R中运行结果
+
+```r
+> sourceCpp('test.cpp')
+
+> rcpp_string()
+1
+[1] "ABC"
+```
+
+### set_encoding(enc) {#string-set-encoding}
+设定由 [`cetype_t`](https://github.com/wch/r-source/blob/bf0a0a9d12f2ce5d66673dc32cd253524f3270bf/src/include/Rinternals.h#L928-L935)指定的字符编码。
+
+```c++
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+String rcpp_string(){
+  // 创建字符串对象
+  String s("ABC");
+  cetype_t index = s.get_encoding();
+  s.set_encoding(index);
+  return(s);
+}
+```
+
+在R中运行结果
+
+```r
+> sourceCpp('test.cpp')
+
+> rcpp_string()
+[1] "ABC"
+```
+
+### 代码案例{string-code-example}
+
+```
+// [[Rcpp::export]]
+void rcpp_replace(){
+
+    // 替换第一次出现的"ab"
+    String s("abcdabcd");
+    s.replace_first("ab", "AB");
+    // 直接打印String s会报错，
+    // 转为C语言中已有的字符串常量类型，打印则没有问题
+    Rcout << s.get_cstring() << "\n"; // ABcdabcd
+
+    // 替换最后一处"ab"
+    s="abcdabcd";
+    s.replace_last("ab", "AB");
+    Rcout << s.get_cstring() << "\n"; // abcdABcd
+
+    // 替换每一处"ab"
+    s="abcdabcd";
+    s.replace_all("ab", "AB");
+    Rcout << s.get_cstring() << "\n"; // ABcdABcd
+}
+```

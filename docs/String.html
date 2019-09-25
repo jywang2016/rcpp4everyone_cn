@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>本书编译环境 | 老少咸宜Rcpp</title>
+  <title>第 15 章 字符串 | 老少咸宜Rcpp</title>
   <meta name="description" content="R用户入门Rcpp" />
   <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="本书编译环境 | 老少咸宜Rcpp" />
+  <meta property="og:title" content="第 15 章 字符串 | 老少咸宜Rcpp" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="jywang2016/rcpp4everyone_cn" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="本书编译环境 | 老少咸宜Rcpp" />
+  <meta name="twitter:title" content="第 15 章 字符串 | 老少咸宜Rcpp" />
   
   <meta name="twitter:description" content="R用户入门Rcpp" />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html">
-<link rel="next" href="section-2.html">
+<link rel="prev" href="s3-s4-class.html">
+<link rel="next" href="references.html">
 <script src="libs/jquery/jquery.min.js"></script>
 <link href="libs/gitbook/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
@@ -317,41 +317,263 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="section-1" class="section level1 unnumbered">
-<h1>本书编译环境</h1>
-<p>按照惯例，感谢yihui大佬，以及他的 <strong>knitr</strong> <span class="citation">(Xie <a href="#ref-xie2015">2015</a>)</span> 和 <strong>bookdown</strong> <span class="citation">(Xie <a href="#ref-R-bookdown">2019</a>)</span>。以下为本书的 R 进程信息：</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">sessionInfo</span>()</a></code></pre></div>
-<pre><code>## R version 3.6.0 (2019-04-26)
-## Platform: x86_64-w64-mingw32/x64 (64-bit)
-## Running under: Windows 10 x64 (build 10586)
-## 
-## Matrix products: default
-## 
-## locale:
-## [1] LC_COLLATE=Chinese (Simplified)_China.936 
-## [2] LC_CTYPE=Chinese (Simplified)_China.936   
-## [3] LC_MONETARY=Chinese (Simplified)_China.936
-## [4] LC_NUMERIC=C                              
-## [5] LC_TIME=Chinese (Simplified)_China.936    
-## 
-## attached base packages:
-## [1] stats     graphics  grDevices utils     datasets 
-## [6] methods   base     
-## 
-## loaded via a namespace (and not attached):
-##  [1] compiler_3.6.0  magrittr_1.5    bookdown_0.12  
-##  [4] tools_3.6.0     htmltools_0.3.6 rstudioapi_0.10
-##  [7] yaml_2.2.0      Rcpp_1.0.2      stringi_1.4.3  
-## [10] rmarkdown_1.14  knitr_1.24      stringr_1.4.0  
-## [13] xfun_0.8        digest_0.6.20   evaluate_0.14</code></pre>
+<div id="String" class="section level1">
+<h1><span class="header-section-number">第 15 章</span> 字符串</h1>
+<p><code>String</code> 是对应<code>CharacterVector</code>元素的标量类型。<code>String</code> 能够处理 C语言中字符串<code>char*</code>和C++中字符串<code>srd::string</code>所不能处理的NA值(<code>NA_STRING</code>)。</p>
+<div id="Creating-String-object" class="section level2">
+<h2><span class="header-section-number">15.1</span> 创建字符串对象</h2>
+<p>There are roughly　three ways to create a <code>String</code> object, as follows. The first method is to create from a C/C++ string, the second is to create it from another <code>String</code> object, and the third is to create it from one element of a <code>CharacterVector</code>.</p>
+<p>创建“ String”对象的方法大致有以下三种。</p>
+<ul>
+<li>使用一个C/C ++字符串创建</li>
+<li>通过另一个<code>String</code>对象创建</li>
+<li>使用<code>CharacterVector</code>的一个元素创建。</li>
+</ul>
+<div class="sourceCode" id="cb133"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb133-1" title="1"><span class="co">// Creating from C string</span></a>
+<a class="sourceLine" id="cb133-2" title="2">String s(<span class="st">&quot;X&quot;</span>); <span class="co">// &quot;X&quot;</span></a>
+<a class="sourceLine" id="cb133-3" title="3"><span class="co">// Creating from Rcpp String</span></a>
+<a class="sourceLine" id="cb133-4" title="4">String s(str);</a>
+<a class="sourceLine" id="cb133-5" title="5"><span class="co">//Creating from single element of CharacterVector object</span></a>
+<a class="sourceLine" id="cb133-6" title="6">String s(char_vec[<span class="dv">0</span>])</a></code></pre></div>
 </div>
-<h3>参考文献</h3>
-<div id="refs" class="references">
-<div id="ref-xie2015">
-<p>Xie, Yihui. 2015. <em>Dynamic Documents with R and Knitr</em>. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC. <a href="http://yihui.name/knitr/">http://yihui.name/knitr/</a>.</p>
+<div id="Operators" class="section level2">
+<h2><span class="header-section-number">15.2</span> 运算符</h2>
+<p>运算符<code>+=</code>在<code>String</code>类型中定义。该运算符允许用户在一个字符串的尾部，添加另一个字符串对象。需要注意的是，运算符<code>+</code>没有为<code>String</code>定义。</p>
+<div class="sourceCode" id="cb134"><pre class="sourceCode c++"><code class="sourceCode cpp"><a class="sourceLine" id="cb134-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
+<a class="sourceLine" id="cb134-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
+<a class="sourceLine" id="cb134-3" title="3"></a>
+<a class="sourceLine" id="cb134-4" title="4"><span class="co">// [[Rcpp::plugins(cpp11)]]</span></a>
+<a class="sourceLine" id="cb134-5" title="5"></a>
+<a class="sourceLine" id="cb134-6" title="6"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb134-7" title="7">String rcpp_string(){</a>
+<a class="sourceLine" id="cb134-8" title="8">  <span class="co">// Creating String object</span></a>
+<a class="sourceLine" id="cb134-9" title="9">  String s(<span class="st">&quot;A&quot;</span>);</a>
+<a class="sourceLine" id="cb134-10" title="10">  <span class="co">// Conbining a string</span></a>
+<a class="sourceLine" id="cb134-11" title="11">  s += <span class="st">&quot;B&quot;</span>;</a>
+<a class="sourceLine" id="cb134-12" title="12">  <span class="cf">return</span>(s);</a>
+<a class="sourceLine" id="cb134-13" title="13">}</a></code></pre></div>
+<p>执行结果</p>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb135-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)</a>
+<a class="sourceLine" id="cb135-2" title="2"></a>
+<a class="sourceLine" id="cb135-3" title="3"><span class="op">&gt;</span><span class="st"> </span><span class="kw">rcpp_string</span>()</a>
+<a class="sourceLine" id="cb135-4" title="4">[<span class="dv">1</span>] <span class="st">&quot;AB&quot;</span></a></code></pre></div>
 </div>
-<div id="ref-R-bookdown">
-<p>Xie, Yihui. 2019. <em>Bookdown: Authoring Books and Technical Documents with R Markdown</em>. <a href="https://CRAN.R-project.org/package=bookdown">https://CRAN.R-project.org/package=bookdown</a>.</p>
+<div id="string-Member-functions" class="section level2">
+<h2><span class="header-section-number">15.3</span> 成员函数</h2>
+<p>注意：成员函数<code>replace_first()</code>, <code>replace_last()</code>, <code>replace_all()</code>不会返回被替换后的字符串，而是直接修改了原始字符串的值。</p>
+<div id="string-repalce-first" class="section level3">
+<h3><span class="header-section-number">15.3.1</span> replace_first( str, new_str )</h3>
+<p>使用新的字符串<code>new_str</code>，替换原始字符串中第一个与<code>str</code>匹配的字符串。</p>
+<div class="sourceCode" id="cb136"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb136-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
+<a class="sourceLine" id="cb136-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
+<a class="sourceLine" id="cb136-3" title="3"></a>
+<a class="sourceLine" id="cb136-4" title="4"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb136-5" title="5">String rcpp_string(String str, String new_str){</a>
+<a class="sourceLine" id="cb136-6" title="6">  <span class="co">// 创建字符串对象</span></a>
+<a class="sourceLine" id="cb136-7" title="7">  String s(<span class="st">&quot;ABCD000ABCD&quot;</span>);</a>
+<a class="sourceLine" id="cb136-8" title="8">  <span class="co">// 替换</span></a>
+<a class="sourceLine" id="cb136-9" title="9">  s.replace_first(str, new_str);</a>
+<a class="sourceLine" id="cb136-10" title="10">  </a>
+<a class="sourceLine" id="cb136-11" title="11">  <span class="cf">return</span>(s);</a>
+<a class="sourceLine" id="cb136-12" title="12">}</a></code></pre></div>
+<p>在R中运行结果</p>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb137-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)</a>
+<a class="sourceLine" id="cb137-2" title="2"></a>
+<a class="sourceLine" id="cb137-3" title="3"><span class="op">&gt;</span><span class="st"> </span><span class="kw">rcpp_string</span>(<span class="st">&#39;CD&#39;</span>,<span class="st">&#39;BA&#39;</span>)</a>
+<a class="sourceLine" id="cb137-4" title="4">[<span class="dv">1</span>] <span class="st">&quot;ABBA000ABCD&quot;</span></a></code></pre></div>
+<p>可以看到，原始的字符串是<code>ABCD000ABCD</code>，我们希望把里面的<code>str</code>为<code>CD</code>的部分，替换为<code>new_str</code>，即<code>BA</code>。从结果看，只有第一处的<code>CD</code>被替换为<code>BA</code>。</p>
+</div>
+<div id="string-replace-last" class="section level3">
+<h3><span class="header-section-number">15.3.2</span> replace_last( str, new_str )</h3>
+<p>使用新的字符串<code>new_str</code>，替换原始字符串中最后一个与<code>str</code>匹配的字符串。</p>
+<div class="sourceCode" id="cb138"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb138-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
+<a class="sourceLine" id="cb138-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
+<a class="sourceLine" id="cb138-3" title="3"></a>
+<a class="sourceLine" id="cb138-4" title="4"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb138-5" title="5">String rcpp_string(String str, String new_str){</a>
+<a class="sourceLine" id="cb138-6" title="6">  <span class="co">// 创建字符串对象</span></a>
+<a class="sourceLine" id="cb138-7" title="7">  String s(<span class="st">&quot;ABCD000ABCD&quot;</span>);</a>
+<a class="sourceLine" id="cb138-8" title="8">  <span class="co">// 替换</span></a>
+<a class="sourceLine" id="cb138-9" title="9">  s.replace_last(str, new_str);</a>
+<a class="sourceLine" id="cb138-10" title="10">  </a>
+<a class="sourceLine" id="cb138-11" title="11">  <span class="cf">return</span>(s);</a>
+<a class="sourceLine" id="cb138-12" title="12">}</a></code></pre></div>
+<p>在R中运行结果</p>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb139-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)</a>
+<a class="sourceLine" id="cb139-2" title="2"></a>
+<a class="sourceLine" id="cb139-3" title="3"><span class="op">&gt;</span><span class="st"> </span><span class="kw">rcpp_string</span>(<span class="st">&#39;CD&#39;</span>,<span class="st">&#39;BA&#39;</span>)</a>
+<a class="sourceLine" id="cb139-4" title="4">[<span class="dv">1</span>] <span class="st">&quot;ABCD000ABBA&quot;</span></a></code></pre></div>
+<p>只有最后一处<code>CD</code>被替换。</p>
+</div>
+<div id="string-replace-all" class="section level3">
+<h3><span class="header-section-number">15.3.3</span> replace_all( str, new_str )</h3>
+<p>使用新的字符串<code>new_str</code>，替换原始字符串中所有与<code>str</code>匹配的字符串。</p>
+<div class="sourceCode" id="cb140"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb140-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
+<a class="sourceLine" id="cb140-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
+<a class="sourceLine" id="cb140-3" title="3"></a>
+<a class="sourceLine" id="cb140-4" title="4"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb140-5" title="5">String rcpp_string(String str, String new_str){</a>
+<a class="sourceLine" id="cb140-6" title="6">  <span class="co">// 创建字符串对象</span></a>
+<a class="sourceLine" id="cb140-7" title="7">  String s(<span class="st">&quot;ABCD000ABCD&quot;</span>);</a>
+<a class="sourceLine" id="cb140-8" title="8">  <span class="co">// 替换</span></a>
+<a class="sourceLine" id="cb140-9" title="9">  s.replace_all(str, new_str);</a>
+<a class="sourceLine" id="cb140-10" title="10">  </a>
+<a class="sourceLine" id="cb140-11" title="11">  <span class="cf">return</span>(s);</a>
+<a class="sourceLine" id="cb140-12" title="12">}</a></code></pre></div>
+<p>在R中运行结果</p>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb141-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)</a>
+<a class="sourceLine" id="cb141-2" title="2"></a>
+<a class="sourceLine" id="cb141-3" title="3"><span class="op">&gt;</span><span class="st"> </span><span class="kw">rcpp_string</span>(<span class="st">&#39;CD&#39;</span>,<span class="st">&#39;BA&#39;</span>)</a>
+<a class="sourceLine" id="cb141-4" title="4">[<span class="dv">1</span>]  <span class="st">&quot;ABBA000ABBA&quot;</span></a></code></pre></div>
+<p>所有的<code>CD</code>都被替换为<code>BA</code>。</p>
+</div>
+<div id="string-push-back" class="section level3">
+<h3><span class="header-section-number">15.3.4</span> push_back(str)</h3>
+<p>在<code>String</code>对象的末端加上<code>str</code>字符串。等同于<code>+=</code>运算符。</p>
+<div class="sourceCode" id="cb142"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb142-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
+<a class="sourceLine" id="cb142-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
+<a class="sourceLine" id="cb142-3" title="3"></a>
+<a class="sourceLine" id="cb142-4" title="4"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb142-5" title="5">String rcpp_string(String str){</a>
+<a class="sourceLine" id="cb142-6" title="6">  <span class="co">// 创建字符串对象</span></a>
+<a class="sourceLine" id="cb142-7" title="7">  String s(<span class="st">&quot;A quick brown fox jumps over &quot;</span>);</a>
+<a class="sourceLine" id="cb142-8" title="8">  s.push_back(str);</a>
+<a class="sourceLine" id="cb142-9" title="9">  </a>
+<a class="sourceLine" id="cb142-10" title="10">  <span class="cf">return</span>(s);</a>
+<a class="sourceLine" id="cb142-11" title="11">}</a></code></pre></div>
+<p>在R中运行结果</p>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb143-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)</a>
+<a class="sourceLine" id="cb143-2" title="2"></a>
+<a class="sourceLine" id="cb143-3" title="3"><span class="op">&gt;</span><span class="st"> </span><span class="kw">rcpp_string</span>(<span class="st">&#39;the lazy dog&#39;</span>)</a>
+<a class="sourceLine" id="cb143-4" title="4">[<span class="dv">1</span>] <span class="st">&quot;A quick brown fox jumps over the lazy dog&quot;</span></a></code></pre></div>
+</div>
+<div id="string-push-front" class="section level3">
+<h3><span class="header-section-number">15.3.5</span> push_front(str)</h3>
+<p>在<code>String</code>对象的前面加上<code>str</code>字符串。</p>
+<div class="sourceCode" id="cb144"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb144-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
+<a class="sourceLine" id="cb144-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
+<a class="sourceLine" id="cb144-3" title="3"></a>
+<a class="sourceLine" id="cb144-4" title="4"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb144-5" title="5">String rcpp_string(String str){</a>
+<a class="sourceLine" id="cb144-6" title="6">  <span class="co">// 创建字符串对象</span></a>
+<a class="sourceLine" id="cb144-7" title="7">  String s(<span class="st">&quot; never scored!&quot;</span>);</a>
+<a class="sourceLine" id="cb144-8" title="8">  s.push_front(str);</a>
+<a class="sourceLine" id="cb144-9" title="9">  </a>
+<a class="sourceLine" id="cb144-10" title="10">  <span class="cf">return</span>(s);</a>
+<a class="sourceLine" id="cb144-11" title="11">}</a></code></pre></div>
+<p>在R中运行结果</p>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb145-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)</a>
+<a class="sourceLine" id="cb145-2" title="2"></a>
+<a class="sourceLine" id="cb145-3" title="3"><span class="op">&gt;</span><span class="st"> </span><span class="kw">rcpp_string</span>(<span class="st">&#39;Beavis&#39;</span>)</a>
+<a class="sourceLine" id="cb145-4" title="4">[<span class="dv">1</span>] <span class="st">&quot;Beavis never scored!&quot;</span></a></code></pre></div>
+</div>
+<div id="string-set-na" class="section level3">
+<h3><span class="header-section-number">15.3.6</span> set_na()</h3>
+<p>将<code>String</code>对象设为NA值。</p>
+<div class="sourceCode" id="cb146"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb146-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
+<a class="sourceLine" id="cb146-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
+<a class="sourceLine" id="cb146-3" title="3"></a>
+<a class="sourceLine" id="cb146-4" title="4"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb146-5" title="5">String rcpp_string(){</a>
+<a class="sourceLine" id="cb146-6" title="6">  <span class="co">// 创建字符串对象</span></a>
+<a class="sourceLine" id="cb146-7" title="7">  String s(<span class="st">&quot;ABC&quot;</span>);</a>
+<a class="sourceLine" id="cb146-8" title="8">  s.set_na();</a>
+<a class="sourceLine" id="cb146-9" title="9">  </a>
+<a class="sourceLine" id="cb146-10" title="10">  <span class="cf">return</span>(s);</a>
+<a class="sourceLine" id="cb146-11" title="11">}</a></code></pre></div>
+<p>在R中运行结果</p>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb147-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)</a>
+<a class="sourceLine" id="cb147-2" title="2"></a>
+<a class="sourceLine" id="cb147-3" title="3"><span class="op">&gt;</span><span class="st"> </span><span class="kw">rcpp_string</span>()</a>
+<a class="sourceLine" id="cb147-4" title="4">[<span class="dv">1</span>] <span class="ot">NA</span></a></code></pre></div>
+</div>
+<div id="get_cstringstring-get-cstring" class="section level3">
+<h3><span class="header-section-number">15.3.7</span> get_cstring(){string-get-cstring}</h3>
+<p>将字符串对象转为C语言中的字符串常量，并<strong>返回该字符串常量</strong>。</p>
+<blockquote>
+<p>该函数并不是修改字符串，而是返回一个字符串常量，这和此前的push_xxx()是不同的。</p>
+</blockquote>
+<div class="sourceCode" id="cb148"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb148-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
+<a class="sourceLine" id="cb148-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
+<a class="sourceLine" id="cb148-3" title="3"></a>
+<a class="sourceLine" id="cb148-4" title="4"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb148-5" title="5">String rcpp_string(){</a>
+<a class="sourceLine" id="cb148-6" title="6">  <span class="co">// 创建字符串对象</span></a>
+<a class="sourceLine" id="cb148-7" title="7">  String s(<span class="st">&quot;ABC&quot;</span>);</a>
+<a class="sourceLine" id="cb148-8" title="8">  <span class="at">const</span> <span class="dt">char</span>* x = s.get_cstring();</a>
+<a class="sourceLine" id="cb148-9" title="9">  Rcout &lt;&lt; x &lt;&lt; <span class="ch">&#39;</span><span class="sc">\n</span><span class="ch">&#39;</span>;</a>
+<a class="sourceLine" id="cb148-10" title="10">  <span class="cf">return</span>(s);</a>
+<a class="sourceLine" id="cb148-11" title="11">}</a></code></pre></div>
+<p>在R中运行结果</p>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb149-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">rcpp_string</span>()</a>
+<a class="sourceLine" id="cb149-2" title="2">ABC</a>
+<a class="sourceLine" id="cb149-3" title="3">[<span class="dv">1</span>] <span class="st">&quot;ABC&quot;</span></a></code></pre></div>
+</div>
+<div id="string-get-encoding" class="section level3">
+<h3><span class="header-section-number">15.3.8</span> get_encoding()</h3>
+<p>返回字符编码。编码由<a href="https://github.com/wch/r-source/blob/bf0a0a9d12f2ce5d66673dc32cd253524f3270bf/src/include/Rinternals.h#L928-L935"><code>cetype_t</code></a>表示.</p>
+<div class="sourceCode" id="cb150"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb150-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
+<a class="sourceLine" id="cb150-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
+<a class="sourceLine" id="cb150-3" title="3"></a>
+<a class="sourceLine" id="cb150-4" title="4"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb150-5" title="5">String rcpp_string(){</a>
+<a class="sourceLine" id="cb150-6" title="6">  <span class="co">// 创建字符串对象</span></a>
+<a class="sourceLine" id="cb150-7" title="7">  String s(<span class="st">&quot;ABC&quot;</span>);</a>
+<a class="sourceLine" id="cb150-8" title="8">  </a>
+<a class="sourceLine" id="cb150-9" title="9">  Rcout &lt;&lt; s.get_encoding() &lt;&lt; <span class="ch">&#39;</span><span class="sc">\n</span><span class="ch">&#39;</span>;</a>
+<a class="sourceLine" id="cb150-10" title="10">  <span class="cf">return</span>(s);</a>
+<a class="sourceLine" id="cb150-11" title="11">}</a></code></pre></div>
+<p>在R中运行结果</p>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb151-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)</a>
+<a class="sourceLine" id="cb151-2" title="2"></a>
+<a class="sourceLine" id="cb151-3" title="3"><span class="op">&gt;</span><span class="st"> </span><span class="kw">rcpp_string</span>()</a>
+<a class="sourceLine" id="cb151-4" title="4"><span class="dv">1</span></a>
+<a class="sourceLine" id="cb151-5" title="5">[<span class="dv">1</span>] <span class="st">&quot;ABC&quot;</span></a></code></pre></div>
+</div>
+<div id="string-set-encoding" class="section level3">
+<h3><span class="header-section-number">15.3.9</span> set_encoding(enc)</h3>
+<p>设定由 <a href="https://github.com/wch/r-source/blob/bf0a0a9d12f2ce5d66673dc32cd253524f3270bf/src/include/Rinternals.h#L928-L935"><code>cetype_t</code></a>指定的字符编码。</p>
+<div class="sourceCode" id="cb152"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb152-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
+<a class="sourceLine" id="cb152-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
+<a class="sourceLine" id="cb152-3" title="3"></a>
+<a class="sourceLine" id="cb152-4" title="4"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb152-5" title="5">String rcpp_string(){</a>
+<a class="sourceLine" id="cb152-6" title="6">  <span class="co">// 创建字符串对象</span></a>
+<a class="sourceLine" id="cb152-7" title="7">  String s(<span class="st">&quot;ABC&quot;</span>);</a>
+<a class="sourceLine" id="cb152-8" title="8">  <span class="dt">cetype_t</span> index = s.get_encoding();</a>
+<a class="sourceLine" id="cb152-9" title="9">  s.set_encoding(index);</a>
+<a class="sourceLine" id="cb152-10" title="10">  <span class="cf">return</span>(s);</a>
+<a class="sourceLine" id="cb152-11" title="11">}</a></code></pre></div>
+<p>在R中运行结果</p>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb153-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">sourceCpp</span>(<span class="st">&#39;test.cpp&#39;</span>)</a>
+<a class="sourceLine" id="cb153-2" title="2"></a>
+<a class="sourceLine" id="cb153-3" title="3"><span class="op">&gt;</span><span class="st"> </span><span class="kw">rcpp_string</span>()</a>
+<a class="sourceLine" id="cb153-4" title="4">[<span class="dv">1</span>] <span class="st">&quot;ABC&quot;</span></a></code></pre></div>
+</div>
+<div id="string-code-example" class="section level3">
+<h3><span class="header-section-number">15.3.10</span> 代码案例{string-code-example}</h3>
+<pre><code>// [[Rcpp::export]]
+void rcpp_replace(){
+
+    // 替换第一次出现的&quot;ab&quot;
+    String s(&quot;abcdabcd&quot;);
+    s.replace_first(&quot;ab&quot;, &quot;AB&quot;);
+    // 直接打印String s会报错，
+    // 转为C语言中已有的字符串常量类型，打印则没有问题
+    Rcout &lt;&lt; s.get_cstring() &lt;&lt; &quot;\n&quot;; // ABcdabcd
+
+    // 替换最后一处&quot;ab&quot;
+    s=&quot;abcdabcd&quot;;
+    s.replace_last(&quot;ab&quot;, &quot;AB&quot;);
+    Rcout &lt;&lt; s.get_cstring() &lt;&lt; &quot;\n&quot;; // abcdABcd
+
+    // 替换每一处&quot;ab&quot;
+    s=&quot;abcdabcd&quot;;
+    s.replace_all(&quot;ab&quot;, &quot;AB&quot;);
+    Rcout &lt;&lt; s.get_cstring() &lt;&lt; &quot;\n&quot;; // ABcdABcd
+}</code></pre>
+
+</div>
 </div>
 </div>
             </section>
@@ -359,8 +581,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="section-2.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="s3-s4-class.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook/js/app.min.js"></script>

@@ -34,7 +34,7 @@ Rcpp for everyone => Advanced R => Seamless R and C++ intergration with Rcpp
 - [x] DataFrame 数据框
 - [x] List
 - [x] S3·S4 class
-- [ ] String
+- [x] String
 - [ ] Date
 - [ ] Datetime
 - [ ] RObject
