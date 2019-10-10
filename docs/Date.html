@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>老少咸宜Rcpp</title>
+  <title>第 16 章 Date | 老少咸宜Rcpp</title>
   <meta name="description" content="R用户入门Rcpp" />
   <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="老少咸宜Rcpp" />
+  <meta property="og:title" content="第 16 章 Date | 老少咸宜Rcpp" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="jywang2016/rcpp4everyone_cn" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="老少咸宜Rcpp" />
+  <meta name="twitter:title" content="第 16 章 Date | 老少咸宜Rcpp" />
   
   <meta name="twitter:description" content="R用户入门Rcpp" />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="section-1.html">
+<link rel="prev" href="String.html">
+<link rel="next" href="references.html">
 <script src="libs/jquery/jquery.min.js"></script>
 <link href="libs/gitbook/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
@@ -330,25 +330,147 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">老少咸宜Rcpp</h1>
-<p class="author"><em>Masaki E. Tsuda 著 jywang 译</em></p>
-<p class="date"><em>2019-10-10</em></p>
+<div id="Date" class="section level1">
+<h1><span class="header-section-number">第 16 章</span> Date</h1>
+<p><code>Date</code>是对应<code>DateVector</code>中元素的标量类型。</p>
+<div id="Creating-Date-object" class="section level2">
+<h2><span class="header-section-number">16.1</span> 创建一个Date对象</h2>
+<div class="sourceCode" id="cb155"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb155-1" title="1">Date d;       <span class="co">//&quot;1970-01-01&quot;</span></a>
+<a class="sourceLine" id="cb155-2" title="2">Date d(<span class="dv">1</span>);    <span class="co">//&quot;1970-01-01&quot; + 1day</span></a>
+<a class="sourceLine" id="cb155-3" title="3">Date d(<span class="fl">1.1</span>);  <span class="co">//&quot;1970-01-01&quot; + ceil(1.1)day</span></a>
+<a class="sourceLine" id="cb155-4" title="4">Date( <span class="st">&quot;2000-01-01&quot;</span>, <span class="st">&quot;%Y-%m-</span><span class="sc">%d</span><span class="st">&quot;</span>); <span class="co">//default format is &quot;%Y-%m-%d&quot;</span></a>
+<a class="sourceLine" id="cb155-5" title="5">Date( <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2000</span>); <span class="co">// 2000-01-02 Date(mon, day, year)</span></a>
+<a class="sourceLine" id="cb155-6" title="6">Date( <span class="dv">2000</span>, <span class="dv">1</span>, <span class="dv">2</span>); <span class="co">// 2000-01-02 Date(year, mon, day)</span></a></code></pre></div>
+<div class="sourceCode" id="cb156"><pre class="sourceCode c++"><code class="sourceCode cpp"><a class="sourceLine" id="cb156-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
+<a class="sourceLine" id="cb156-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
+<a class="sourceLine" id="cb156-3" title="3"></a>
+<a class="sourceLine" id="cb156-4" title="4"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb156-5" title="5"><span class="dt">void</span> rcpp_Date(){</a>
+<a class="sourceLine" id="cb156-6" title="6">  <span class="co">// 创建Date对象</span></a>
+<a class="sourceLine" id="cb156-7" title="7">  Date d;</a>
+<a class="sourceLine" id="cb156-8" title="8">  Rcout &lt;&lt; d &lt;&lt; <span class="ch">&#39;</span><span class="sc">\n</span><span class="ch">&#39;</span>;</a>
+<a class="sourceLine" id="cb156-9" title="9">  </a>
+<a class="sourceLine" id="cb156-10" title="10">  Date d1(<span class="dv">1</span>);</a>
+<a class="sourceLine" id="cb156-11" title="11">  Rcout &lt;&lt; d1 &lt;&lt; <span class="ch">&#39;</span><span class="sc">\n</span><span class="ch">&#39;</span>;</a>
+<a class="sourceLine" id="cb156-12" title="12">  </a>
+<a class="sourceLine" id="cb156-13" title="13">  Date d2(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2000</span>);</a>
+<a class="sourceLine" id="cb156-14" title="14">  Rcout &lt;&lt; d2 &lt;&lt; <span class="ch">&#39;</span><span class="sc">\n</span><span class="ch">&#39;</span>;</a>
+<a class="sourceLine" id="cb156-15" title="15">}</a></code></pre></div>
+<p>执行结果</p>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb157-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">rcpp_Date</span>()</a>
+<a class="sourceLine" id="cb157-2" title="2"><span class="dv">1970-01-01</span></a>
+<a class="sourceLine" id="cb157-3" title="3"><span class="dv">1970-01-02</span></a>
+<a class="sourceLine" id="cb157-4" title="4"><span class="dv">2000-01-02</span></a></code></pre></div>
 </div>
-<div id="section" class="section level1 unnumbered">
-<h1>欢迎</h1>
-<p>Rcpp能够让你在R中使用C++。即便你对C++没有很深刻的了解，也可以轻松用R的风格来写C++。此外，Rcpp在易用的同时并不会牺牲执行速度，任何人都可以以此获得高性能的结果。</p>
-<p>本文档旨在给那些不熟悉C++的用户提供（使用Rcpp）必要的信息。因此，在某些情况，作者会从Rcpp的角度来解释其用法，让读者容易理解，而不是从C++的视角来力求描述准确。</p>
-<p>如果你能为本文档来提供反馈，我会十分感激。</p>
-<p><a href="https://github.com/teuder/rcpp4everyone_en">项目原地址</a></p>
+<div id="Date-Operators" class="section level2">
+<h2><span class="header-section-number">16.2</span> 运算符</h2>
+<p><code>Date</code>类型 有 <code>+, -, &lt;, &gt;, &gt;=, &lt;=, ==, !=</code>运算符。通过使用这些运算符，你可以对日期做加法(<code>+</code>)，减法(<code>-</code>)，还有日期比较(<code>&lt;, &lt;=, &gt;, &gt;=, ==, !=</code>).</p>
+<div class="sourceCode" id="cb158"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb158-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
+<a class="sourceLine" id="cb158-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
+<a class="sourceLine" id="cb158-3" title="3"></a>
+<a class="sourceLine" id="cb158-4" title="4"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb158-5" title="5">DateVector rcpp_Date(){</a>
+<a class="sourceLine" id="cb158-6" title="6">  <span class="co">// Creating Date objects</span></a>
+<a class="sourceLine" id="cb158-7" title="7">  Date d1(<span class="st">&quot;2000-01-01&quot;</span>);</a>
+<a class="sourceLine" id="cb158-8" title="8">  Date d2(<span class="st">&quot;2000-02-01&quot;</span>);</a>
+<a class="sourceLine" id="cb158-9" title="9">  <span class="dt">int</span>  i  = d2 - d1; <span class="co">// difference of dates</span></a>
+<a class="sourceLine" id="cb158-10" title="10">  <span class="dt">bool</span> b  = d2 &gt; d1; <span class="co">// comparison of dates</span></a>
+<a class="sourceLine" id="cb158-11" title="11">  Rcout &lt;&lt; i &lt;&lt; <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>; <span class="co">// 31</span></a>
+<a class="sourceLine" id="cb158-12" title="12">  Rcout &lt;&lt; b &lt;&lt; <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>; <span class="co">// 1</span></a>
+<a class="sourceLine" id="cb158-13" title="13">  DateVector date(<span class="dv">1</span>);</a>
+<a class="sourceLine" id="cb158-14" title="14">  date[<span class="dv">0</span>] = d1 + <span class="dv">1</span>;  <span class="co">// adding 1 day to d1</span></a>
+<a class="sourceLine" id="cb158-15" title="15">  <span class="cf">return</span> date; <span class="co">// 2000-01-02</span></a>
+<a class="sourceLine" id="cb158-16" title="16">}</a></code></pre></div>
+<p>执行结果</p>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb159-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">rcpp_Date</span>()</a>
+<a class="sourceLine" id="cb159-2" title="2"><span class="dv">31</span></a>
+<a class="sourceLine" id="cb159-3" title="3"><span class="dv">1</span></a>
+<a class="sourceLine" id="cb159-4" title="4">[<span class="dv">1</span>] <span class="st">&quot;2000-01-02&quot;</span></a></code></pre></div>
+</div>
+<div id="Date-Member-functions" class="section level2">
+<h2><span class="header-section-number">16.3</span> 成员函数</h2>
+<div id="getday" class="section level3">
+<h3><span class="header-section-number">16.3.1</span> getDay()</h3>
+<p>返回日期中的天数。</p>
+</div>
+<div id="getmonth" class="section level3">
+<h3><span class="header-section-number">16.3.2</span> getMonth()</h3>
+<p>返回日期中的月份。</p>
+</div>
+<div id="getYear" class="section level3">
+<h3><span class="header-section-number">16.3.3</span> getYear()</h3>
+<p>返回日期中的年份。</p>
+<div class="sourceCode" id="cb160"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb160-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
+<a class="sourceLine" id="cb160-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
+<a class="sourceLine" id="cb160-3" title="3"></a>
+<a class="sourceLine" id="cb160-4" title="4"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb160-5" title="5"><span class="dt">int</span> rcpp_Date(){</a>
+<a class="sourceLine" id="cb160-6" title="6">  </a>
+<a class="sourceLine" id="cb160-7" title="7">  Date d1(<span class="st">&quot;2000-01-01&quot;</span>);</a>
+<a class="sourceLine" id="cb160-8" title="8">  Rcout &lt;&lt; d1.getDay() &lt;&lt; <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>; </a>
+<a class="sourceLine" id="cb160-9" title="9">  Rcout &lt;&lt; d1.getMonth() &lt;&lt; <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>; </a>
+<a class="sourceLine" id="cb160-10" title="10">  Rcout &lt;&lt; d1.getYear() &lt;&lt; <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>; </a>
+<a class="sourceLine" id="cb160-11" title="11">  </a>
+<a class="sourceLine" id="cb160-12" title="12">  <span class="cf">return</span> <span class="dv">0</span>;</a>
+<a class="sourceLine" id="cb160-13" title="13">}</a></code></pre></div>
+<p>执行结果</p>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb161-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">rcpp_Date</span>()</a>
+<a class="sourceLine" id="cb161-2" title="2"><span class="dv">1</span></a>
+<a class="sourceLine" id="cb161-3" title="3"><span class="dv">1</span></a>
+<a class="sourceLine" id="cb161-4" title="4"><span class="dv">2000</span></a>
+<a class="sourceLine" id="cb161-5" title="5">[<span class="dv">1</span>] <span class="dv">0</span></a></code></pre></div>
+</div>
+<div id="getWeekday" class="section level3">
+<h3><span class="header-section-number">16.3.4</span> getWeekday()</h3>
+<p>以整型返回该日为一周中的第几天（day of week），其中，周日对应1，周一对应2，直到周六对应7 (1:Sun 2:Mon 3:Tue 4:Wed 5:Thu 6: Fri 7:Sat)。</p>
+</div>
+<div id="getYearday" class="section level3">
+<h3><span class="header-section-number">16.3.5</span> getYearday()</h3>
+<p>返回日期在一年中的第几天，1月1号为1,12月31号为365，闰年为366.</p>
+<div class="sourceCode" id="cb162"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb162-1" title="1"><span class="pp">#include </span><span class="im">&lt;Rcpp.h&gt;</span></a>
+<a class="sourceLine" id="cb162-2" title="2"><span class="kw">using</span> <span class="kw">namespace</span> Rcpp;</a>
+<a class="sourceLine" id="cb162-3" title="3"></a>
+<a class="sourceLine" id="cb162-4" title="4"><span class="co">// [[Rcpp::export]]</span></a>
+<a class="sourceLine" id="cb162-5" title="5"><span class="dt">int</span> rcpp_Date(){</a>
+<a class="sourceLine" id="cb162-6" title="6">  </a>
+<a class="sourceLine" id="cb162-7" title="7">  Date d1(<span class="dv">2019</span>,<span class="dv">10</span>,<span class="dv">11</span>);</a>
+<a class="sourceLine" id="cb162-8" title="8">  Date d2(<span class="dv">2016</span>,<span class="dv">12</span>,<span class="dv">31</span>);</a>
+<a class="sourceLine" id="cb162-9" title="9">  Rcout &lt;&lt; d1.getWeekday() &lt;&lt; <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>; </a>
+<a class="sourceLine" id="cb162-10" title="10">  Rcout &lt;&lt; d1.getYearday() &lt;&lt; <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>; </a>
+<a class="sourceLine" id="cb162-11" title="11">  Rcout &lt;&lt; d2.getYearday() &lt;&lt; <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>; </a>
+<a class="sourceLine" id="cb162-12" title="12">  </a>
+<a class="sourceLine" id="cb162-13" title="13">  <span class="cf">return</span> <span class="dv">0</span>;</a>
+<a class="sourceLine" id="cb162-14" title="14">}</a></code></pre></div>
+<p>执行结果</p>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb163-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">rcpp_Date</span>()</a>
+<a class="sourceLine" id="cb163-2" title="2"><span class="dv">6</span></a>
+<a class="sourceLine" id="cb163-3" title="3"><span class="dv">284</span></a>
+<a class="sourceLine" id="cb163-4" title="4"><span class="dv">366</span></a>
+<a class="sourceLine" id="cb163-5" title="5">[<span class="dv">1</span>] <span class="dv">0</span></a></code></pre></div>
+</div>
+<div id="date-is-na" class="section level3">
+<h3><span class="header-section-number">16.3.6</span> is_na()</h3>
+<p>如果对象是NA，返回<code>true</code>。</p>
+</div>
+</div>
+<div id="Execution-result" class="section level2">
+<h2><span class="header-section-number">16.4</span> 执行结果</h2>
+<pre><code>Date d(&quot;2016-1-1&quot;);
+Rcout &lt;&lt; d.getDay() &lt;&lt; endl;     //1
+Rcout &lt;&lt; d.getMonth() &lt;&lt; endl;   //1
+Rcout &lt;&lt; d.getYear() &lt;&lt; endl;    //2016
+Rcout &lt;&lt; d.getWeekday() &lt;&lt; endl; //6
+Rcout &lt;&lt; d.getYearday() &lt;&lt; endl; //1</code></pre>
+
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="section-1.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="String.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook/js/app.min.js"></script>

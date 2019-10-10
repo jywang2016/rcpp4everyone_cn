@@ -35,7 +35,7 @@ Rcpp for everyone => Advanced R => Seamless R and C++ intergration with Rcpp
 - [x] List
 - [x] S3·S4 class
 - [x] String
-- [ ] Date
+- [x] Date
 - [ ] Datetime
 - [ ] RObject
 - [ ] Cautions in handling Rcpp objects

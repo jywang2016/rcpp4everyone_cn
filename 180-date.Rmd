@@ -1,0 +1,161 @@
+# Date {#Date}
+
+`Date`是对应`DateVector`中元素的标量类型。
+
+## 创建一个Date对象{#Creating-Date-object}
+
+```c++
+Date d;       //"1970-01-01"
+Date d(1);    //"1970-01-01" + 1day
+Date d(1.1);  //"1970-01-01" + ceil(1.1)day
+Date( "2000-01-01", "%Y-%m-%d"); //default format is "%Y-%m-%d"
+Date( 1, 2, 2000); // 2000-01-02 Date(mon, day, year)
+Date( 2000, 1, 2); // 2000-01-02 Date(year, mon, day)
+```
+```C++
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+void rcpp_Date(){
+  // 创建Date对象
+  Date d;
+  Rcout << d << '\n';
+  
+  Date d1(1);
+  Rcout << d1 << '\n';
+  
+  Date d2(1,2,2000);
+  Rcout << d2 << '\n';
+}
+
+```
+
+执行结果
+
+```r
+> rcpp_Date()
+1970-01-01
+1970-01-02
+2000-01-02
+```
+
+## 运算符{#Date-Operators}
+
+`Date`类型 有 `+, -, <, >, >=, <=, ==, !=`运算符。通过使用这些运算符，你可以对日期做加法(`+`)，减法(`-`)，还有日期比较(`<, <=, >, >=, ==, !=`).
+
+``` c++
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+DateVector rcpp_Date(){
+  // Creating Date objects
+  Date d1("2000-01-01");
+  Date d2("2000-02-01");
+  int  i  = d2 - d1; // difference of dates
+  bool b  = d2 > d1; // comparison of dates
+  Rcout << i << "\n"; // 31
+  Rcout << b << "\n"; // 1
+  DateVector date(1);
+  date[0] = d1 + 1;  // adding 1 day to d1
+  return date; // 2000-01-02
+}
+```
+执行结果
+
+```r
+> rcpp_Date()
+31
+1
+[1] "2000-01-02"
+```
+
+## 成员函数 {#Date-Member-functions}
+
+
+### getDay(){#getday}
+
+返回日期中的天数。
+
+### getMonth() {#getmonth}
+
+返回日期中的月份。
+
+### getYear() {#getYear}
+
+返回日期中的年份。
+
+``` c++
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+int rcpp_Date(){
+  
+  Date d1("2000-01-01");
+  Rcout << d1.getDay() << "\n"; 
+  Rcout << d1.getMonth() << "\n"; 
+  Rcout << d1.getYear() << "\n"; 
+  
+  return 0;
+}
+```
+执行结果
+
+```r
+> rcpp_Date()
+1
+1
+2000
+[1] 0
+```
+
+### getWeekday(){#getWeekday}
+
+以整型返回该日为一周中的第几天（day of week），其中，周日对应1，周一对应2，直到周六对应7 (1:Sun 2:Mon 3:Tue 4:Wed 5:Thu 6: Fri 7:Sat)。
+
+### getYearday(){#getYearday}
+
+返回日期在一年中的第几天，1月1号为1,12月31号为365，闰年为366.
+
+``` c++
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+int rcpp_Date(){
+  
+  Date d1(2019,10,11);
+  Date d2(2016,12,31);
+  Rcout << d1.getWeekday() << "\n"; 
+  Rcout << d1.getYearday() << "\n"; 
+  Rcout << d2.getYearday() << "\n"; 
+  
+  return 0;
+}
+```
+执行结果
+
+```r
+> rcpp_Date()
+6
+284
+366
+[1] 0
+```
+
+### is_na(){#date-is-na}
+
+如果对象是NA，返回`true`。
+
+## 执行结果{#Execution-result}
+
+```
+Date d("2016-1-1");
+Rcout << d.getDay() << endl;     //1
+Rcout << d.getMonth() << endl;   //1
+Rcout << d.getYear() << endl;    //2016
+Rcout << d.getWeekday() << endl; //6
+Rcout << d.getYearday() << endl; //1
+```
